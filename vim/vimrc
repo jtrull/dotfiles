@@ -1,0 +1,189 @@
+" No vi compatibility
+if &compatible
+  set nocompatible
+endif
+
+call plug#begin()
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'janko-m/vim-test'
+Plug 'wincent/command-t',
+            \ {
+            \   'do': 'zsh -c \"rbenv shell system; cd ruby/command-t && { make clean; ruby extconf.rb && make }\"'
+            \ }
+"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-rake'
+Plug 'tpope/vim-rbenv'
+Plug 'tpope/vim-eunuch'
+Plug 'w0rp/ale'
+Plug 'jreybert/vimagit'
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'chriskempson/base16-vim'
+Plug 'vim-scripts/kwbdi.vim'  " delete buffer without deleting window
+Plug 'elzr/vim-json'
+Plug 'sandeepcr529/Buffet.vim'
+call plug#end()
+
+" vim-test configuration
+let test#strategy = "asyncrun"
+nmap <silent> <leader>Tt :TestNearest<CR>
+nmap <silent> <leader>Tf :TestFile<CR>
+nmap <silent> <leader>Ta :TestSuite<CR>
+nmap <silent> <leader>Tl :TestLast<CR>
+nmap <silent> <leader>Tg :TestVisit<CR>
+
+" Command-T
+nmap <silent> <leader>tt <Plug>(CommandT)
+nmap <silent> <leader>tb <Plug>(CommandTBuffer)
+nmap <silent> <leader>tj <Plug>(CommandTJump)
+nmap <silent> <leader>tc <Plug>(CommandTCommand)
+nmap <silent> <leader>th <Plug>(CommandTHelp)
+nmap <silent> <leader>tl <Plug>(CommandTLine)
+nmap <silent> <leader>tm <Plug>(CommandTMRU)
+nmap <silent> <leader>ts <Plug>(CommandTSearch)
+nmap <silent> <leader>ta <Plug>(CommandTTag)
+
+" NERDtree
+nmap <silent> <leader>e :NERDTreeToggle<CR>
+
+" pretty colors
+set background=dark
+let base16colorspace=256
+colorscheme base16-railscasts
+if !has("gui_running")
+  let g:airline_theme='base16_shell'
+endif
+
+" Breaking bad habits
+inoremap <Up>    <NOP>
+inoremap <Down>  <NOP>
+inoremap <Left>  <NOP>
+inoremap <Right> <NOP>
+noremap  <Up>    <NOP>
+noremap  <Down>  <NOP>
+noremap  <Left>  <NOP>
+noremap  <Right> <NOP>
+
+set hidden
+
+" Backspace config
+set backspace=indent,eol,start
+
+" Automatically read externally changed files
+set autoread
+
+" Save when changing buffers
+set autowrite
+
+" Set term window title automatically
+set title
+
+" Always keep some context
+set scrolloff=3
+
+" Faster tty
+set ttyfast
+
+" Always show current position
+set ruler
+
+" Don't make backup files
+set nobackup
+
+" Don't move to the start of the line all the time
+set nostartofline
+
+" Search options
+set hlsearch                            " highlight while searching
+set incsearch                           " incremental search
+set ignorecase
+set smartcase
+
+" Tab configuration
+set expandtab                           " spaces instead of tabs
+set shiftwidth=4                        " use 4 spaces for cindent/autoindent
+set softtabstop=4
+
+" Ignores for wildmenu
+set wildignore+=.git,node_modules,*.jpg,*.jpeg,*.gif,*.png,*.psd
+
+" Other stuff
+set laststatus=2                        " always show status line
+set showtabline=0                       " never show tab controls
+set showcmd                             " show partial commands
+set showmatch                           " show matching parentheses
+set noerrorbells                        " No beeps
+set nowrap
+set splitbelow
+set splitright
+
+" GUI-specific stuff
+if has("gui_running")
+    set guioptions-=T                   " No toolbar
+    set guioptions-=r                   " No scrollbars
+    set guioptions-=L
+    set guicursor=n:blinkon0            " No blinking cursor in normal mode
+    " set lines=60 columns=100
+    set guifont=Menlo:h14
+    set cursorline
+
+    set relativenumber                  " Show line numbers
+    set number
+    set numberwidth=6                   " Minimum width of line numbers
+    set colorcolumn=80                  " Highlight 80th column
+endif
+
+let g:ackprg = 'ag --vimgrep'
+
+" Auto-commands
+au FocusLost * silent! wall
+au FocusGained * if !has('win32') | silent! call fugitive#reload_status() | endif
+
+au FileType eruby,yaml,ruby setlocal sw=2 sts=2
+
+" Autoindent for markdown
+au FileType markdown setlocal ai tw=76 wrap lbr
+
+" Syntax folding for XML files
+let g:xml_syntax_folding=1
+au FileType xml,xsd setlocal foldmethod=syntax | normal zR
+
+au FileType javascript setlocal sw=2 sts=2
+
+" Goyo/Limelight
+au! User GoyoEnter Limelight
+au! User GoyoLeave Limelight!
+
+" Select pasted text
+nnoremap <expr> <Leader>p '`[' . getregtype()[0] . '`]'
+
+" My dinky function to remove Java-stringness.
+function! JavaStringToSQL(seltype, ...)
+    if a:0   " Invoked from visual mode
+        '<,'>s/\v^\s*"(.{-})\s*"[+;,) ]*$/\1/
+    else
+        '[,']s/\v^\s*"(.{-})\s*"[+;,) ]*$/\1/
+    endif
+endfunction
+
+nmap <silent> <Leader>j :set opfunc=JavaStringToSQL<CR>g@
+vmap <silent> <Leader>j :<C-U>call JavaStringToSQL(visualmode(), 1)<CR>
+
+" Clear search highlight
+nmap <silent> <Leader>\ :nohlsearch<CR>
+
