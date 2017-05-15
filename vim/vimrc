@@ -8,11 +8,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'janko-m/vim-test'
-Plug 'wincent/command-t',
-            \ {
-            \   'do': 'zsh -c \"rbenv shell system; cd ruby/command-t && { make clean; ruby extconf.rb && make }\"'
-            \ }
-"Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -46,17 +42,6 @@ nmap <silent> <leader>Tf :TestFile<CR>
 nmap <silent> <leader>Ta :TestSuite<CR>
 nmap <silent> <leader>Tl :TestLast<CR>
 nmap <silent> <leader>Tg :TestVisit<CR>
-
-" Command-T
-nmap <silent> <leader>tt <Plug>(CommandT)
-nmap <silent> <leader>tb <Plug>(CommandTBuffer)
-nmap <silent> <leader>tj <Plug>(CommandTJump)
-nmap <silent> <leader>tc <Plug>(CommandTCommand)
-nmap <silent> <leader>th <Plug>(CommandTHelp)
-nmap <silent> <leader>tl <Plug>(CommandTLine)
-nmap <silent> <leader>tm <Plug>(CommandTMRU)
-nmap <silent> <leader>ts <Plug>(CommandTSearch)
-nmap <silent> <leader>ta <Plug>(CommandTTag)
 
 " NERDtree
 nmap <silent> <leader>e :NERDTreeToggle<CR>
