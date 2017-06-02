@@ -123,9 +123,14 @@ if has("gui_running")
     set guioptions-=T                   " No toolbar
     set guioptions-=r                   " No scrollbars
     set guioptions-=L
+    if !has("gui_macvim")
+        set guioptions-=m               " No menu except on mac
+    endif
     set guicursor=n:blinkon0            " No blinking cursor in normal mode
     " set lines=60 columns=100
-    set guifont=Menlo:h14
+    if has("gui_macvim")
+        set guifont=Menlo:h14
+    endif
     set cursorline
 
     set relativenumber                  " Show line numbers
