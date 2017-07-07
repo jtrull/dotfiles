@@ -53,10 +53,10 @@ nmap <silent> <leader>e :NERDTreeToggle<CR>
 " pretty colors
 set background=dark
 let base16colorspace=256
-colorscheme base16-railscasts
 if !has("gui_running")
   let g:airline_theme='base16_shell'
 endif
+colorscheme base16-railscasts
 
 " Breaking bad habits
 inoremap <Up>    <NOP>
