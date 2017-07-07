@@ -57,6 +57,9 @@ if !has("gui_running")
 endif
 colorscheme base16-railscasts
 
+filetype plugin indent on
+syntax on
+
 " Breaking bad habits
 inoremap <Up>    <NOP>
 inoremap <Down>  <NOP>
