@@ -3,38 +3,41 @@ if &compatible
   set nocompatible
 endif
 
-call plug#begin()
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'janko-m/vim-test'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'mileszs/ack.vim'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-characterize'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-bundler'
-Plug 'tpope/vim-rake'
-Plug 'tpope/vim-rbenv'
-Plug 'tpope/vim-eunuch'
-Plug 'w0rp/ale'
-Plug 'jreybert/vimagit'
-Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/goyo.vim'
-Plug 'junegunn/limelight.vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/base16-vim'
-Plug 'vim-scripts/kwbdi.vim'  " delete buffer without deleting window
-Plug 'elzr/vim-json'
-Plug 'sandeepcr529/Buffet.vim'
-call plug#end()
+packadd minpac
+
+call minpac#init()
+call minpac#add('k-takata/minpac', {'type': 'opt'})
+call minpac#add('scrooloose/nerdtree')
+call minpac#add('Xuyuanp/nerdtree-git-plugin')
+call minpac#add('skywind3000/asyncrun.vim')
+call minpac#add('janko-m/vim-test')
+call minpac#add('ctrlpvim/ctrlp.vim')
+call minpac#add('mileszs/ack.vim')
+call minpac#add('tpope/vim-abolish')
+call minpac#add('tpope/vim-characterize')
+call minpac#add('tpope/vim-commentary')
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-rails')
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-unimpaired')
+call minpac#add('tpope/vim-endwise')
+call minpac#add('tpope/vim-bundler')
+call minpac#add('tpope/vim-rake')
+call minpac#add('tpope/vim-rbenv')
+call minpac#add('tpope/vim-eunuch')
+call minpac#add('w0rp/ale')
+call minpac#add('airblade/vim-gitgutter')
+call minpac#add('junegunn/goyo.vim')
+call minpac#add('junegunn/limelight.vim')
+call minpac#add('vim-airline/vim-airline')
+call minpac#add('vim-airline/vim-airline-themes')
+call minpac#add('chriskempson/base16-vim')
+call minpac#add('vim-scripts/kwbdi.vim')  " delete buffer without deleting window
+call minpac#add('elzr/vim-json')
+call minpac#add('sandeepcr529/Buffet.vim')
+
+packloadall
 
 " vim-test configuration
 let test#strategy = "asyncrun"
