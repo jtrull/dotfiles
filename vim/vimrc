@@ -42,11 +42,11 @@ let g:ale_set_balloons=0
 
 " vim-test configuration
 let test#strategy = "asyncrun"
-nmap <silent> <leader>Tt :TestNearest<CR>
-nmap <silent> <leader>Tf :TestFile<CR>
-nmap <silent> <leader>Ta :TestSuite<CR>
-nmap <silent> <leader>Tl :TestLast<CR>
-nmap <silent> <leader>Tg :TestVisit<CR>
+nmap <silent> <leader>Tt :silent! wa <bar> TestNearest<CR>
+nmap <silent> <leader>Tf :silent! wa <bar> TestFile<CR>
+nmap <silent> <leader>Ta :silent! wa <bar> TestSuite<CR>
+nmap <silent> <leader>Tl :silent! wa <bar> TestLast<CR>
+nmap <silent> <leader>Tg :silent! wa <bar> TestVisit<CR>
 
 " NERDtree
 nmap <silent> <leader>e :NERDTreeToggle<CR>
