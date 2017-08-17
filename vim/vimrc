@@ -37,6 +37,9 @@ call minpac#add('chriskempson/base16-vim')
 call minpac#add('vim-scripts/kwbdi.vim')  " delete buffer without deleting window
 call minpac#add('sandeepcr529/Buffet.vim')
 
+" ALE
+let g:ale_set_balloons=0
+
 " vim-test configuration
 let test#strategy = "asyncrun"
 nmap <silent> <leader>Tt :TestNearest<CR>
@@ -117,6 +120,7 @@ set laststatus=2                        " always show status line
 set showtabline=0                       " never show tab controls
 set showcmd                             " show partial commands
 set showmatch                           " show matching parentheses
+set noballooneval
 set noerrorbells                        " No beeps
 set nowrap
 set splitbelow
@@ -181,4 +185,3 @@ vmap <silent> <Leader>j :<C-U>call JavaStringToSQL(visualmode(), 1)<CR>
 
 " Clear search highlight
 nmap <silent> <Leader>\ :nohlsearch<CR>
-
