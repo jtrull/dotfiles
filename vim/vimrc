@@ -32,10 +32,10 @@ call minpac#add('airblade/vim-gitgutter')
 call minpac#add('junegunn/goyo.vim')
 call minpac#add('junegunn/limelight.vim')
 call minpac#add('vim-airline/vim-airline')
-call minpac#add('vim-airline/vim-airline-themes')
-call minpac#add('chriskempson/base16-vim')
+call minpac#add('joshdick/onedark.vim')
 call minpac#add('vim-scripts/kwbdi.vim')  " delete buffer without deleting window
 call minpac#add('sandeepcr529/Buffet.vim')
+packloadall
 
 " ALE
 let g:ale_set_balloons=0
@@ -52,15 +52,12 @@ nmap <silent> <leader>Tg :silent! wa <bar> TestVisit<CR>
 nmap <silent> <leader>e :NERDTreeToggle<CR>
 
 " pretty colors
-set background=dark
-let base16colorspace=256
-if !has("gui_running")
-  let g:airline_theme='base16_shell'
+if (has("termguicolors"))
+    set termguicolors
 endif
-colorscheme base16-railscasts
-
 filetype plugin indent on
 syntax on
+colorscheme onedark
 
 " Breaking bad habits
 inoremap <Up>    <NOP>
