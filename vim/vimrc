@@ -34,7 +34,6 @@ call minpac#add('junegunn/limelight.vim')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('joshdick/onedark.vim')
 call minpac#add('vim-scripts/kwbdi.vim')  " delete buffer without deleting window
-call minpac#add('sandeepcr529/Buffet.vim')
 packloadall
 
 " ALE
