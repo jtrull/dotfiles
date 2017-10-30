@@ -3,6 +3,12 @@ if &compatible
   set nocompatible
 endif
 
+if !empty(glob('/usr/local/opt/fzf'))
+    set rtp+=/usr/local/opt/fzf
+elseif !empty(glob('~/.linuxbrew/opt/fzf'))
+    set rtp+=~/.linuxbrew/opt/fzf
+endif
+
 packadd minpac
 
 call minpac#init()
@@ -11,7 +17,6 @@ call minpac#add('scrooloose/nerdtree')
 call minpac#add('Xuyuanp/nerdtree-git-plugin')
 call minpac#add('skywind3000/asyncrun.vim')
 call minpac#add('janko-m/vim-test')
-call minpac#add('ctrlpvim/ctrlp.vim')
 call minpac#add('mileszs/ack.vim')
 call minpac#add('vim-ruby/vim-ruby')
 call minpac#add('tpope/vim-abolish')
@@ -32,6 +37,7 @@ call minpac#add('airblade/vim-gitgutter')
 call minpac#add('gregsexton/gitv')
 call minpac#add('junegunn/goyo.vim')
 call minpac#add('junegunn/limelight.vim')
+call minpac#add('junegunn/fzf.vim')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('joshdick/onedark.vim')
 call minpac#add('vim-scripts/kwbdi.vim')  " delete buffer without deleting window
@@ -39,6 +45,10 @@ packloadall
 
 " ALE
 let g:ale_set_balloons=0
+
+" FZF
+nmap <leader>\ :<C-u>Buffers<CR>
+nmap <C-p> :<C-u>Files<CR>
 
 " vim-test configuration
 let test#strategy = "asyncrun"
@@ -181,4 +191,4 @@ nmap <silent> <Leader>j :set opfunc=JavaStringToSQL<CR>g@
 vmap <silent> <Leader>j :<C-U>call JavaStringToSQL(visualmode(), 1)<CR>
 
 " Clear search highlight
-nmap <silent> <Leader>\ :nohlsearch<CR>
+nmap <silent> <Leader>] :nohlsearch<CR>
