@@ -49,6 +49,7 @@ let g:ale_set_balloons=0
 " FZF
 nmap <leader>\ :<C-u>Buffers<CR>
 nmap <C-p> :<C-u>Files<CR>
+let $FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
 
 " vim-test configuration
 let test#strategy = "asyncrun"
