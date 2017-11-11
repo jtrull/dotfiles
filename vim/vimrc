@@ -121,7 +121,7 @@ set shiftwidth=4                        " use 4 spaces for cindent/autoindent
 set softtabstop=4
 
 " Ignores for wildmenu
-set wildignore+=.git,node_modules,*.jpg,*.jpeg,*.gif,*.png,*.psd
+set wildignore+=.git,node_modules,*.jpg,*.jpeg,*.gif,*.png,*.psd,*/tmp/*
 
 " Other stuff
 set laststatus=2                        " always show status line
