@@ -43,6 +43,7 @@ call minpac#add('junegunn/fzf.vim')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('joshdick/onedark.vim')
 call minpac#add('qpkorr/vim-bufkill')
+call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('mbbill/undotree')
 packloadall
 
