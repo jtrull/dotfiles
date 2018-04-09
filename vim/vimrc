@@ -220,3 +220,6 @@ vmap <silent> <Leader>j :<C-U>call JavaStringToSQL(visualmode(), 1)<CR>
 
 " Clear search highlight
 nmap <silent> <Leader>] :nohlsearch<CR>
+
+nnoremap <D-[> :tabprev<CR>
+nnoremap <D-]> :tabnext<CR>
