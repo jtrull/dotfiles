@@ -86,6 +86,7 @@ filetype plugin indent on
 syntax on
 colorscheme onedark
 hi SpecialComment gui=underline ctermfg=59 guifg=#5C6380
+let g:airline_theme='onedark'
 
 " Breaking bad habits
 inoremap <Up>    <NOP>
