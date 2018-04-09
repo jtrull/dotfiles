@@ -71,6 +71,11 @@ nmap <silent> <leader>e :NERDTreeToggle<CR>
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
+" Matchit - enabled by default in neovim
+if !has("nvim")
+    packadd! matchit
+end
+
 " Undotree
 nnoremap <silent> <leader>u :UndotreeToggle<CR>
 if has("persistent_undo")
@@ -143,12 +148,16 @@ set laststatus=2                        " always show status line
 set showtabline=0                       " never show tab controls
 set showcmd                             " show partial commands
 set showmatch                           " show matching parentheses
-set noballooneval
 set noerrorbells                        " No beeps
 set nowrap
 set splitbelow
 set splitright
 set history=1000
+
+" Removed from neovim
+if !has("nvim")
+    set noballooneval
+endif
 
 " GUI-specific stuff
 if has("gui_running")
