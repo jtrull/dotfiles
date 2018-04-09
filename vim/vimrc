@@ -148,6 +148,7 @@ set noerrorbells                        " No beeps
 set nowrap
 set splitbelow
 set splitright
+set history=1000
 
 " GUI-specific stuff
 if has("gui_running")
