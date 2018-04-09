@@ -118,9 +118,6 @@ set scrolloff=3
 " Faster tty
 set ttyfast
 
-" Always show current position
-set ruler
-
 " Don't make backup files
 set nobackup
 
