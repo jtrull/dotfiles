@@ -43,6 +43,7 @@ call minpac#add('junegunn/fzf.vim')
 call minpac#add('vim-airline/vim-airline')
 call minpac#add('joshdick/onedark.vim')
 call minpac#add('qpkorr/vim-bufkill')
+call minpac#add('mbbill/undotree')
 packloadall
 
 " ALE
@@ -67,6 +68,13 @@ nmap <silent> <leader>e :NERDTreeToggle<CR>
 " EMMET
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
+
+" Undotree
+nnoremap <silent> <leader>u :UndotreeToggle<CR>
+if has("persistent_undo")
+    set undodir=$HOME/.vim/undo
+    set undofile
+endif
 
 " pretty colors
 if (has("termguicolors"))
