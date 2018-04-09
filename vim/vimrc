@@ -20,6 +20,7 @@ call minpac#add('janko-m/vim-test')
 call minpac#add('mattn/emmet-vim')
 call minpac#add('mileszs/ack.vim')
 call minpac#add('vim-ruby/vim-ruby')
+call minpac#add('noprompt/vim-yardoc')
 call minpac#add('tpope/vim-abolish')
 call minpac#add('tpope/vim-characterize')
 call minpac#add('tpope/vim-commentary')
@@ -74,6 +75,7 @@ endif
 filetype plugin indent on
 syntax on
 colorscheme onedark
+hi SpecialComment gui=underline ctermfg=59 guifg=#5C6380
 
 " Breaking bad habits
 inoremap <Up>    <NOP>

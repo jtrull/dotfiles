@@ -1,0 +1,3 @@
+hi link rubySpecialComment SpecialComment
+hi link yardGenericTag rubySpecialComment
+hi link yardGenericDirective rubySpecialComment
