@@ -157,7 +157,7 @@ set splitright
 set history=1000
 
 " Removed from neovim
-if !has("nvim")
+if has("balloon_eval")
     set noballooneval
 endif
 
