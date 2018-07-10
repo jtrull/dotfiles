@@ -204,6 +204,13 @@ au FileType javascript setlocal sw=2 sts=2
 au! User GoyoEnter Limelight
 au! User GoyoLeave Limelight!
 
+" Splitjoin
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
+nmap s <NOP>
+nmap sj :SplitjoinSplit<CR>
+nmap sk :SplitjoinJoin<CR>
+
 " Select pasted text
 nnoremap <expr> <Leader>p '`[' . getregtype()[0] . '`]'
 
