@@ -150,6 +150,8 @@ set laststatus=2                        " always show status line
 set showtabline=0                       " never show tab controls
 set showcmd                             " show partial commands
 set showmatch                           " show matching parentheses
+set noeol
+set nofixeol
 set noerrorbells                        " No beeps
 set nowrap
 set splitbelow
