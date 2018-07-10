@@ -194,9 +194,6 @@ au FocusGained * if !has('win32') | silent! call fugitive#reload_status() | endi
 
 au FileType eruby,yaml,ruby setlocal sw=2 sts=2
 
-" Autoindent for markdown
-au FileType markdown setlocal ai tw=76 wrap lbr
-
 " Syntax folding for XML files
 let g:xml_syntax_folding=1
 au FileType xml,xsd setlocal foldmethod=syntax | normal zR
