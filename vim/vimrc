@@ -48,6 +48,7 @@ call minpac#add('qpkorr/vim-bufkill')
 call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('mbbill/undotree')
 call minpac#add('ludovicchabant/vim-gutentags')
+call minpac#add('christoomey/vim-tmux-navigator')
 packloadall
 
 " ALE
@@ -157,6 +158,8 @@ set nowrap
 set splitbelow
 set splitright
 set history=1000
+set cursorline
+set colorcolumn=80
 
 " Removed from neovim
 if has("balloon_eval")
@@ -178,12 +181,12 @@ if has("gui_running")
     else
         set guifont=Deja\ Vu\ Sans\ Mono\ 11
     endif
-    set cursorline
 
     set relativenumber                  " Show line numbers
     set number
     set numberwidth=6                   " Minimum width of line numbers
-    set colorcolumn=80                  " Highlight 80th column
+else
+    set mouse=a
 endif
 
 let g:ackprg = 'ag --vimgrep'
@@ -211,6 +214,12 @@ nmap s <NOP>
 nmap sj :SplitjoinSplit<CR>
 nmap sk :SplitjoinJoin<CR>
 
+" tmux
+" Write all buffers before navigating from Vim to tmux pane
+let g:tmux_navigator_save_on_switch = 2
+" Disable tmux navigator when zooming the Vim pane
+let g:tmux_navigator_disable_when_zoomed = 1
+
 " Select pasted text
 nnoremap <expr> <Leader>p '`[' . getregtype()[0] . '`]'
 
@@ -231,8 +240,3 @@ nmap <silent> <Leader>] :nohlsearch<CR>
 
 nnoremap <D-[> :tabprev<CR>
 nnoremap <D-]> :tabnext<CR>
-
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
