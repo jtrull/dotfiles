@@ -1,0 +1,102 @@
+# My .zshenv disables global rc files in order to skip OS X's default
+# /etc/zprofile.  But I still want /etc/zshrc.
+if [[ ! -o globalrcs && -f /etc/zshrc ]]; then
+    source /etc/zshrc
+fi
+
+alias vim='nvim'
+export EDITOR='nvim'
+export VISUAL=$EDITOR
+export PAGER='less'
+
+setopt \
+    auto_pushd \
+    append_history \
+    auto_name_dirs \
+    magic_equal_subst
+
+# History
+HISTFILE=~/.zshhistory
+HISTSIZE=3000
+SAVEHIST=3000
+
+# zplug
+source ~/.zplug/init.zsh
+
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "plugins/docker", from:oh-my-zsh
+zplug "plugins/docker-compose", from:oh-my-zsh
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "plugins/vi-mode", from:oh-my-zsh
+
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+zplug load
+
+# Load additional functions for vi mode line editing
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
+
+# Custom functions
+fpath=($HOME/.zsh.d/functions $fpath)
+autoload javaenv
+autoload pman
+
+# FZF
+if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
+    source /usr/local/opt/fzf/shell/key-bindings.zsh
+    source /usr/local/opt/fzf/shell/completion.zsh
+fi
+
+if _has fzf && _has ag; then
+  export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
+
+# ls colors
+export CLICOLOR=1
+
+# Aliases
+alias d='docker'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias de='docker exec'
+alias dr='docker run'
+alias dc='docker-compose'
+alias dce='docker-compose exec'
+alias dcr='docker-compose run'
+function drsh() { docker run -it --rm $* /bin/bash }
+function desh() { docker exec -it $* /bin/bash }
+function dcrsh() { docker-compose run --rm $* /bin/bash }
+function dcesh() { docker-compose exec $* /bin/bash }
+
+alias flushdns='sudo dscacheutil -flushdns; sudo killall -HUP mDNSResponder'
