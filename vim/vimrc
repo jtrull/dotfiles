@@ -43,12 +43,12 @@ call minpac#add('junegunn/goyo.vim')
 call minpac#add('junegunn/limelight.vim')
 call minpac#add('junegunn/fzf.vim')
 call minpac#add('vim-airline/vim-airline')
-call minpac#add('joshdick/onedark.vim')
 call minpac#add('qpkorr/vim-bufkill')
 call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('mbbill/undotree')
 call minpac#add('ludovicchabant/vim-gutentags')
 call minpac#add('christoomey/vim-tmux-navigator')
+call minpac#add('dracula/vim', {'name': 'dracula'})
 packloadall
 
 " ALE
@@ -92,9 +92,9 @@ if (has("termguicolors"))
 endif
 filetype plugin indent on
 syntax on
-colorscheme onedark
+colorscheme dracula
 hi SpecialComment gui=underline ctermfg=59 guifg=#5C6380
-let g:airline_theme='onedark'
+let g:airline_theme='dracula'
 
 " Breaking bad habits
 inoremap <Up>    <NOP>
