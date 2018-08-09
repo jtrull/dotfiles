@@ -68,7 +68,8 @@ nmap <silent> <leader>Tl :silent! wa <bar> TestLast<CR>
 nmap <silent> <leader>Tg :silent! wa <bar> TestVisit<CR>
 
 " NERDtree
-nmap <silent> <leader>e :NERDTreeToggle<CR>
+nmap <silent> <leader>e :NERDTreeFocus<CR>
+nmap <silent> <leader>E :NERDTreeFind<CR>
 
 " EMMET
 let g:user_emmet_install_global = 0
