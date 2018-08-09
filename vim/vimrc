@@ -151,6 +151,7 @@ set wildignore+=.git,node_modules,*.jpg,*.jpeg,*.gif,*.png,*.psd,*/tmp/*
 set laststatus=2                        " always show status line
 set showtabline=0                       " never show tab controls
 set showcmd                             " show partial commands
+set noshowmode
 set showmatch                           " show matching parentheses
 set noeol
 set nofixeol
