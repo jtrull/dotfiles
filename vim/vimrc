@@ -47,7 +47,6 @@ call minpac#add('vim-airline/vim-airline')
 call minpac#add('qpkorr/vim-bufkill')
 call minpac#add('AndrewRadev/splitjoin.vim')
 call minpac#add('mbbill/undotree')
-call minpac#add('ludovicchabant/vim-gutentags')
 call minpac#add('christoomey/vim-tmux-navigator')
 call minpac#add('dracula/vim', {'name': 'dracula'})
 packloadall
