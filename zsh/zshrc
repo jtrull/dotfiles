@@ -4,6 +4,10 @@ if [[ ! -o globalrcs && -f /etc/zshrc ]]; then
     source /etc/zshrc
 fi
 
+_has() {
+    return $(whence $1 > /dev/null)
+}
+
 alias vim='nvim'
 export EDITOR='nvim'
 export VISUAL=$EDITOR
