@@ -120,4 +120,3 @@ function desh() { docker exec -it $* /bin/bash }
 function dcrsh() { docker-compose run --rm $* /bin/bash }
 function dcesh() { docker-compose exec $* /bin/bash }
 
-alias flushdns='sudo dscacheutil -flushdns; sudo killall -HUP mDNSResponder'
