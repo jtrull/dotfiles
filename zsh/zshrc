@@ -66,15 +66,20 @@ bindkey -a ds delete-surround
 bindkey -a ys add-surround
 bindkey -M visual S add-surround
 
+# Use space in normal mode to edit command line in vim
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd ' ' edit-command-line
+
 # Custom functions
 fpath=($HOME/.zsh.d/functions $fpath)
 autoload javaenv
 autoload pman
 
 # FZF
-if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
-    source /usr/local/opt/fzf/shell/key-bindings.zsh
-    source /usr/local/opt/fzf/shell/completion.zsh
+if [ -e /usr/share/fzf/completion.zsh ]; then
+    source /usr/share/fzf/key-bindings.zsh
+    source /usr/share/fzf/completion.zsh
 else
     [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fi
