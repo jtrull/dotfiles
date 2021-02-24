@@ -132,6 +132,11 @@
   (add-hook 'org-shiftleft-final-hook #'windmove-left)
   (add-hook 'org-shiftright-final-hook #'windmove-right))
 
+(use-package term
+  :defer t
+  :config
+  (add-hook 'term-mode-hook (lambda () (visual-line-mode nil))))
+
 (use-package projectile
   :ensure t
   :config
