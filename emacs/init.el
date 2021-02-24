@@ -122,6 +122,16 @@
   :delight
   :config (global-undo-tree-mode 1))
 
+(use-package org
+  :mode (("\\.org\\'" . org-mode))
+  :config
+  (add-hook 'org-mode-hook #'org-indent-mode)
+  (add-hook 'org-mode-hook #'visual-line-mode)
+  (add-hook 'org-shiftup-final-hook #'windmove-up)
+  (add-hook 'org-shiftdown-final-hook #'windmove-down)
+  (add-hook 'org-shiftleft-final-hook #'windmove-left)
+  (add-hook 'org-shiftright-final-hook #'windmove-right))
+
 (use-package projectile
   :ensure t
   :config
