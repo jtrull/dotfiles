@@ -142,7 +142,10 @@
 (use-package term
   :defer t
   :config
-  (add-hook 'term-mode-hook (lambda () (visual-line-mode nil))))
+  (add-hook 'term-mode-hook
+            (lambda ()
+              (setq-local global-hl-line-mode nil
+                          scroll-margin 0))))
 
 (use-package projectile
   :ensure t
