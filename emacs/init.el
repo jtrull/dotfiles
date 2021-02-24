@@ -85,6 +85,12 @@
   :ensure t
   :config (load-theme 'dracula t))
 
+(use-package super-save
+  :ensure t
+  :delight
+  :config
+  (super-save-mode 1))
+
 (use-package hydra
   :ensure t
   :pin gnu)
