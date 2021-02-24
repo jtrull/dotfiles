@@ -172,7 +172,17 @@
   (smartparens-global-mode 1))
 
 (use-package magit
-  :ensure t)
+  :ensure t
+  :defer t
+  :config
+  (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
+
+(use-package diff-hl
+  :ensure t
+  :config
+  (global-diff-hl-mode)
+  (diff-hl-flydiff-mode))
 
 (use-package treemacs
   :ensure t
