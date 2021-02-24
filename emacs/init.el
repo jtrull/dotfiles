@@ -20,13 +20,16 @@
 
 ;; Window configuration
 (setq default-frame-alist
-      '((width . 120)
+      `((width . 120)
 	(height . 65)
 	(menu-bar-lines . 0)
 	(tool-bar-lines . 0)
         (vertical-scroll-bars . nil)
         (horizontal-scroll-bars . nil)
-	(font . "JetBrains Mono-14")))
+	(font . ,(cond
+                  ((member "JetBrains Mono" (font-family-list)) "JetBrains Mono-14")
+                  ((member "Consolas" (font-family-list)) "Consolas-14")
+                  ((member "DejaVu Sans Mono" (font-family-list)) "DejaVu Sans Mono-14")))))
 (setq frame-title-format
       '((:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
