@@ -130,7 +130,7 @@
   :config (global-undo-tree-mode 1))
 
 (use-package org
-  :mode (("\\.org\\'" . org-mode))
+  :defer t
   :config
   (add-hook 'org-mode-hook #'org-indent-mode)
   (add-hook 'org-mode-hook #'visual-line-mode)
