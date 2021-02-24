@@ -211,6 +211,14 @@
   :config
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java"))
 
+(use-package terraform-mode
+  :ensure t
+  :defer t)
+
+(use-package company-terraform
+  :ensure t
+  :after terraform-mode)
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
