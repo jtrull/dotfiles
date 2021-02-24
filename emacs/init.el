@@ -156,6 +156,14 @@
   :delight
   :config (global-company-mode 1))
 
+(use-package smartparens
+  :ensure t
+  :delight
+  :config
+  (require 'smartparens-config)
+  (add-to-list 'sp-ignore-modes-list 'term-mode)
+  (smartparens-global-mode 1))
+
 (use-package magit
   :ensure t)
 
