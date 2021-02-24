@@ -68,7 +68,7 @@
 ;; General keybinds
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line t)))
 (global-set-key (kbd "C-x C-b") #'ibuffer)
-(windmove-default-keybindings 'meta)
+(windmove-default-keybindings)
 
 ;; Built-in global modes
 (global-auto-revert-mode 1)
