@@ -69,6 +69,8 @@
 ;; General keybinds
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line t)))
 (global-set-key (kbd "C-x C-b") #'ibuffer)
+(global-set-key (kbd "M-[") #'previous-buffer)
+(global-set-key (kbd "M-]") #'next-buffer)
 (windmove-default-keybindings)
 
 ;; Built-in global modes
