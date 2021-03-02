@@ -243,6 +243,11 @@
   :config
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java"))
 
+(use-package sql-indent
+  :ensure t
+  :pin gnu
+  :hook (sql . sqlind-minor-mode))
+
 (use-package terraform-mode
   :ensure t
   :defer t)
