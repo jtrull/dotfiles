@@ -143,7 +143,11 @@
   (add-hook 'org-shiftright-final-hook #'windmove-right))
 
 (use-package term
-  :defer t
+  :bind ("C-c t" . (lambda ()
+                     (interactive)
+                     (ansi-term (or explicit-shell-file-name
+                                    (getenv "ESHELL")
+                                    shell-file-name))))
   :config
   (add-hook 'term-mode-hook
             (lambda ()
