@@ -19,21 +19,25 @@
   (require 'use-package))
 
 ;; Window configuration
-(setq default-frame-alist
-      `((width . 120)
-	(height . 65)
-	(menu-bar-lines . 0)
-	(tool-bar-lines . 0)
-        (vertical-scroll-bars . nil)
-        (horizontal-scroll-bars . nil)
-	(font . ,(cond
-                  ((member "JetBrains Mono" (font-family-list)) "JetBrains Mono-14")
-                  ((member "Consolas" (font-family-list)) "Consolas-14")
-                  ((member "DejaVu Sans Mono" (font-family-list)) "DejaVu Sans Mono-14")))))
-(setq frame-title-format
-      '((:eval (if (buffer-file-name)
-                   (abbreviate-file-name (buffer-file-name))
-                 "%b"))))
+(let ((available-fonts
+       (or (font-family-list)
+           (if (executable-find "fc-list")
+               (delete-dups (process-lines "fc-list" ":mono" "-f" "%{family[0]}\\n"))))))
+  (setq default-frame-alist
+        `((width . 120)
+	  (height . 65)
+	  (menu-bar-lines . 0)
+	  (tool-bar-lines . 0)
+          (vertical-scroll-bars . nil)
+          (horizontal-scroll-bars . nil)
+	  (font . ,(cond
+                    ((member "JetBrains Mono" available-fonts) "JetBrains Mono-14")
+                    ((member "Consolas" available-fonts) "Consolas-14")
+                    ((member "DejaVu Sans Mono" available-fonts) "DejaVu Sans Mono-14")))))
+  (setq frame-title-format
+        '((:eval (if (buffer-file-name)
+                     (abbreviate-file-name (buffer-file-name))
+                   "%b")))))
 
 ;; General settings
 (setq inhibit-startup-screen t
