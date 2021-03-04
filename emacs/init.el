@@ -102,9 +102,6 @@
   :ensure t
   :pin gnu)
 
-(use-package flx
-  :ensure t)
-
 (use-package counsel
   :ensure t
   :pin gnu
@@ -114,10 +111,13 @@
   (counsel-mode)
   :bind ("C-s" . swiper)
   :config
-  (setq ivy-re-builders-alist
-        '((t . ivy--regex-fuzzy)))
   (ivy-mode 1)
   (counsel-mode 1))
+
+(use-package ivy-prescient
+  :ensure t
+  :after counsel
+  :config (ivy-prescient-mode 1))
 
 (use-package which-key
   :ensure t
@@ -177,6 +177,11 @@
   :ensure t
   :delight
   :config (global-company-mode 1))
+
+(use-package company-prescient
+  :ensure t
+  :after company
+  :config (company-prescient-mode 1))
 
 (use-package smartparens
   :ensure t
