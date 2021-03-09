@@ -72,7 +72,6 @@
 
 ;; General keybinds
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line t)))
-(global-set-key (kbd "C-x C-b") #'ibuffer)
 (global-set-key (kbd "M-[") #'previous-buffer)
 (global-set-key (kbd "M-]") #'next-buffer)
 (windmove-default-keybindings)
@@ -135,6 +134,19 @@
   :pin gnu
   :delight
   :config (global-undo-tree-mode 1))
+
+(use-package ibuffer-projectile
+  :ensure t
+  :commands ibuffer-projectile-set-filter-groups)
+
+(use-package ibuffer
+  :bind ("C-x C-b" . ibuffer)
+  :config
+  (add-hook 'ibuffer-hook
+            (lambda ()
+              (ibuffer-projectile-set-filter-groups)
+              (unless (eq ibuffer-sorting-mode 'alphabetic)
+                (ibuffer-do-sort-by-alphabetic)))))
 
 (use-package org
   :defer t
