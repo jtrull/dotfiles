@@ -188,7 +188,11 @@
 (use-package company
   :ensure t
   :delight
-  :config (global-company-mode 1))
+  :config
+  (global-company-mode 1)
+  (bind-key "TAB" 'company-complete-selection company-active-map)
+  (bind-key "ESC" 'company-abort company-active-map)
+  (unbind-key "RET" company-active-map))
 
 (use-package company-prescient
   :ensure t
