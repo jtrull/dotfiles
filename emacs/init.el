@@ -158,6 +158,13 @@
   (add-hook 'org-shiftleft-final-hook #'windmove-left)
   (add-hook 'org-shiftright-final-hook #'windmove-right))
 
+(use-package comint
+  :defer t
+  :config
+  (add-hook 'comint-mode-hook
+            (lambda ()
+              (setq-local scroll-margin 0))))
+
 (use-package term
   :bind ("C-c t" . (lambda ()
                      (interactive)
