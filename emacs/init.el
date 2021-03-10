@@ -267,6 +267,7 @@
 (use-package sql-indent
   :ensure t
   :pin gnu
+  :delight sqlind-minor-mode
   :hook (sql . sqlind-minor-mode))
 
 (use-package terraform-mode
