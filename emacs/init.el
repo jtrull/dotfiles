@@ -289,6 +289,11 @@
   :ensure t
   :defer t)
 
+(use-package yaml-mode
+  :ensure t
+  :bind (:map yaml-mode-map
+              ("C-m" . newline-and-indent)))
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
