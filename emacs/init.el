@@ -193,6 +193,13 @@
   :ensure t
   :config (counsel-projectile-mode 1))
 
+(use-package projectile-rails
+  :ensure t
+  :after projectile
+  :config
+  (projectile-rails-global-mode 1)
+  (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
+
 (use-package flycheck
   :ensure t
   :config (global-flycheck-mode 1))
