@@ -64,6 +64,8 @@
 
 ;; General buffer defaults
 (setq-default indent-tabs-mode nil
+              indicate-empty-lines t
+              show-trailing-whitespace t
               truncate-lines t)
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -163,7 +165,8 @@
   :config
   (add-hook 'comint-mode-hook
             (lambda ()
-              (setq-local scroll-margin 0))))
+              (setq-local scroll-margin 0
+                          show-trailing-whitespace nil))))
 
 (use-package term
   :bind ("C-c t" . (lambda ()
@@ -175,7 +178,8 @@
   (add-hook 'term-mode-hook
             (lambda ()
               (setq-local global-hl-line-mode nil
-                          scroll-margin 0))))
+                          scroll-margin 0
+                          show-trailing-whitespace nil))))
 
 (use-package projectile
   :ensure t
