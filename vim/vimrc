@@ -9,6 +9,8 @@ elseif !empty(glob('/home/linuxbrew/.linuxbrew/opt/fzf'))
     set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 elseif !empty(glob('~/.linuxbrew/opt/fzf'))
     set rtp+=~/.linuxbrew/opt/fzf
+elseif !empty(glob('/usr/share/doc/fzf/examples/plugin'))
+    set rtp+=/usr/share/doc/fzf/examples/plugin
 endif
 
 packadd minpac
