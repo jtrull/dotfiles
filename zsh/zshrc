@@ -75,11 +75,6 @@ autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd ' ' edit-command-line
 
-# Custom functions
-fpath=($HOME/.zsh.d/functions $fpath)
-autoload javaenv
-autoload pman
-
 # FZF
 if [ -e /usr/share/fzf/completion.zsh ]; then
     source /usr/share/fzf/key-bindings.zsh
