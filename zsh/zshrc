@@ -17,6 +17,7 @@ setopt \
     auto_pushd \
     append_history \
     auto_name_dirs \
+    hist_ignore_space \
     magic_equal_subst
 
 # History
