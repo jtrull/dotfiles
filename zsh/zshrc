@@ -91,9 +91,13 @@ if _has fzf && _has ag; then
 fi
 
 # ASDF
-if [ -f $HOME/.asdf/completions/asdf.bash ]; then
-  source $HOME/.asdf/completions/asdf.bash
+if [ -f $HOME/.asdf/asdf.sh ]; then
+  source $HOME/.asdf/asdf.sh
+  fpath=($HOME/.asdf/completions $fpath)
 fi
+
+autoload -Uz compinit
+compinit
 
 # ls colors
 export CLICOLOR=1
