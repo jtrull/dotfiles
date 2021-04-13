@@ -298,7 +298,9 @@
 
 (use-package terraform-mode
   :ensure t
-  :defer t)
+  :defer t
+  :config
+  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 
 (use-package company-terraform
   :ensure t
