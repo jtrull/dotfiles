@@ -123,3 +123,5 @@ function dcesh() { docker-compose exec $* /bin/bash }
 alias on_production='DISABLE_SPRING=1 DB_HOST=10.128.2.5 DB_PORT=1521 DB_NAME=jade.prod.db.mcisemi.cloud'
 alias on_staging='DISABLE_SPRING=1 DB_HOST=10.128.2.5 DB_PORT=1521 DB_NAME=jadestg.stage.db.mcisemi.cloud'
 
+alias x410='DISPLAY=`grep nameserver /etc/resolv.conf | cut -c 12-`:0.0'
+
