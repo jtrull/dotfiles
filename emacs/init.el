@@ -247,11 +247,11 @@
 
 (use-package treemacs-magit
   :ensure t
-  :after treemacs)
+  :after treemacs magit)
 
 (use-package treemacs-projectile
   :ensure t
-  :after treemacs)
+  :after treemacs projectile)
 
 (use-package lsp-mode
   :ensure t
