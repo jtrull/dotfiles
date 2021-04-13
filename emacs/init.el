@@ -285,6 +285,11 @@
   :config
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java"))
 
+(use-package restclient
+  :ensure t
+  :pin melpa
+  :defer t)
+
 (use-package sql-indent
   :ensure t
   :pin gnu
