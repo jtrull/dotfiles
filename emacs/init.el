@@ -285,6 +285,18 @@
   :config
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java"))
 
+(use-package docker
+  :ensure t
+  :defer t)
+
+(use-package dockerfile-mode
+  :ensure t
+  :defer t)
+
+(use-package docker-compose-mode
+  :ensure t
+  :defer t)
+
 (use-package restclient
   :ensure t
   :pin melpa
