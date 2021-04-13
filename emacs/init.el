@@ -85,6 +85,8 @@
 (xterm-mouse-mode 1)
 
 ;; Packages
+(setq use-package-always-pin "melpa-stable")
+
 (use-package delight
   :ensure t
   :pin gnu)
