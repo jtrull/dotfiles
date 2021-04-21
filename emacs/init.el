@@ -214,6 +214,8 @@
                                     shell-file-name))))
   :config
   (unbind-key "M-x" term-raw-map)
+  (unbind-key "M-[" term-raw-map)
+  (unbind-key "M-]" term-raw-map)
   (add-hook 'term-mode-hook
             (lambda ()
               (setq-local global-hl-line-mode nil
