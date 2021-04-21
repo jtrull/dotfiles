@@ -72,6 +72,12 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
+;; Common overrides
+(defun jt/disable-scroll-margin ()
+  "Remove scroll margin and trailing whitespace highlighting in the current buffer."
+  (setq-local scroll-margin 0
+              show-trailing-whitespace nil))
+
 ;; General keybinds
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line t)))
 (global-set-key (kbd "M-[") #'previous-buffer)
@@ -185,10 +191,7 @@
 (use-package comint
   :defer t
   :config
-  (add-hook 'comint-mode-hook
-            (lambda ()
-              (setq-local scroll-margin 0
-                          show-trailing-whitespace nil))))
+  (add-hook 'comint-mode-hook #'jt/disable-scroll-margin))
 
 (use-package compile
   :defer t
@@ -200,10 +203,7 @@
     (let ((inhibit-read-only t))
       (ansi-color-apply-on-region compilation-filter-start (point))))
   (add-hook 'compilation-filter-hook #'jt/colorize-compilation)
-  (add-hook 'compilation-mode-hook
-            (lambda ()
-              (setq-local scroll-margin 0
-                          show-trailing-whitespace nil)))
+  (add-hook 'compilation-mode-hook #'jt/disable-scroll-margin)
   (setq compilation-scroll-output 'first-error))
 
 (use-package term
@@ -218,9 +218,8 @@
   (unbind-key "M-]" term-raw-map)
   (add-hook 'term-mode-hook
             (lambda ()
-              (setq-local global-hl-line-mode nil
-                          scroll-margin 0
-                          show-trailing-whitespace nil))))
+              (setq-local global-hl-line-mode nil)
+              (jt/disable-scroll-margin)))
 
 (use-package projectile
   :ensure t
