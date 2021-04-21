@@ -334,6 +334,12 @@
   :ensure t
   :defer t)
 
+(use-package kubernetes
+  :ensure t
+  :commands (kubernetes-overview)
+  :config
+  (add-hook 'kubernetes-logs-mode-hook #'jt/disable-scroll-margin))
+
 (use-package restclient
   :ensure t
   :pin melpa
