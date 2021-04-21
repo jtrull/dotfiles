@@ -139,6 +139,11 @@
   :delight
   :config (global-undo-tree-mode 1))
 
+(use-package volatile-highlights
+  :ensure t
+  :delight
+  :config (volatile-highlights-mode 1))
+
 (use-package ibuffer-projectile
   :ensure t
   :commands ibuffer-projectile-set-filter-groups)
