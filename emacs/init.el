@@ -185,6 +185,22 @@
               (setq-local scroll-margin 0
                           show-trailing-whitespace nil))))
 
+(use-package compile
+  :defer t
+  :config
+  (require 'ansi-color)
+  ;; From https://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html
+  (defun jt/colorize-compilation ()
+    "Colorize from `compilation-filter-start' to `point'."
+    (let ((inhibit-read-only t))
+      (ansi-color-apply-on-region compilation-filter-start (point))))
+  (add-hook 'compilation-filter-hook #'jt/colorize-compilation)
+  (add-hook 'compilation-mode-hook
+            (lambda ()
+              (setq-local scroll-margin 0
+                          show-trailing-whitespace nil)))
+  (setq compilation-scroll-output 'first-error))
+
 (use-package term
   :bind ("C-c t" . (lambda ()
                      (interactive)
