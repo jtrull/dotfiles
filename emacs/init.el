@@ -162,6 +162,21 @@
   (add-hook 'org-shiftleft-final-hook #'windmove-left)
   (add-hook 'org-shiftright-final-hook #'windmove-right))
 
+(use-package ansi-color
+  :defer t
+  :config
+  ;; Set ansi colors from current theme.
+  (setq ansi-color-names-vector
+        (vector (face-attribute 'term-color-black :foreground)
+                (face-attribute 'term-color-red :foreground)
+                (face-attribute 'term-color-green :foreground)
+                (face-attribute 'term-color-yellow :foreground)
+                (face-attribute 'term-color-blue :foreground)
+                (face-attribute 'term-color-magenta :foreground)
+                (face-attribute 'term-color-cyan :foreground)
+                (face-attribute 'term-color-white :foreground)))
+  (setq ansi-color-map (ansi-color-make-color-map)))
+
 (use-package comint
   :defer t
   :config
