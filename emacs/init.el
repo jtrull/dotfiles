@@ -242,6 +242,7 @@
 
 (use-package flycheck
   :ensure t
+  :pin melpa
   :config (global-flycheck-mode 1))
 
 (use-package company
@@ -325,6 +326,7 @@
 
 (use-package docker
   :ensure t
+  :pin melpa
   :defer t)
 
 (use-package dockerfile-mode
