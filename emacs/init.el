@@ -125,7 +125,7 @@
 
 (use-package ivy-prescient
   :ensure t
-  :after counsel
+  :after (counsel)
   :config (ivy-prescient-mode 1))
 
 (use-package which-key
@@ -235,7 +235,7 @@
 
 (use-package projectile-rails
   :ensure t
-  :after projectile
+  :after (projectile)
   :config
   (projectile-rails-global-mode 1)
   (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
@@ -256,7 +256,7 @@
 
 (use-package company-prescient
   :ensure t
-  :after company
+  :after (company)
   :config (company-prescient-mode 1))
 
 (use-package smartparens
@@ -286,11 +286,11 @@
 
 (use-package treemacs-magit
   :ensure t
-  :after treemacs magit)
+  :after (treemacs magit))
 
 (use-package treemacs-projectile
   :ensure t
-  :after treemacs projectile)
+  :after (treemacs projectile))
 
 (use-package lsp-mode
   :ensure t
@@ -303,7 +303,7 @@
 
 (use-package dap-mode
   :ensure t
-  :after lsp-mode
+  :after (lsp-mode)
   :config (dap-auto-configure-mode))
 
 (use-package lsp-ui
@@ -362,7 +362,7 @@
 
 (use-package company-terraform
   :ensure t
-  :after terraform-mode)
+  :after (terraform-mode))
 
 (use-package wgrep
   :ensure t
