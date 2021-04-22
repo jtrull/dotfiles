@@ -175,9 +175,9 @@
 
 (use-package ansi-color
   :defer t
-  :after (term)
   :config
   ;; Set ansi colors from current theme.
+  (require 'term)
   (setq ansi-color-names-vector
         (vector (face-attribute 'term-color-black :foreground)
                 (face-attribute 'term-color-red :foreground)
