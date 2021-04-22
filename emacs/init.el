@@ -219,7 +219,7 @@
   (add-hook 'term-mode-hook
             (lambda ()
               (setq-local global-hl-line-mode nil)
-              (jt/disable-scroll-margin)))
+              (jt/disable-scroll-margin))))
 
 (use-package projectile
   :ensure t
