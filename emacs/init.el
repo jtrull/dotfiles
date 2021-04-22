@@ -175,6 +175,7 @@
 
 (use-package ansi-color
   :defer t
+  :after (term)
   :config
   ;; Set ansi colors from current theme.
   (setq ansi-color-names-vector
