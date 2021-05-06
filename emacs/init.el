@@ -370,6 +370,11 @@
   :ensure t
   :defer t)
 
+(use-package ws-butler
+  :ensure t
+  :delight
+  :config (ws-butler-global-mode 1))
+
 (use-package yaml-mode
   :ensure t
   :bind (:map yaml-mode-map
