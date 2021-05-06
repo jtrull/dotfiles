@@ -92,6 +92,9 @@
 (pixel-scroll-mode 0)
 (xterm-mouse-mode 1)
 
+;; prog-mode hooks
+(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+
 ;; Packages
 (setq use-package-always-pin "melpa-stable")
 
