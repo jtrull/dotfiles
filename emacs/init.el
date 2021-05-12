@@ -92,6 +92,7 @@
 (global-auto-revert-mode 1)
 (global-hl-line-mode 1)
 (pixel-scroll-mode 0)
+(show-paren-mode 1)
 (xterm-mouse-mode 1)
 
 ;; prog-mode hooks
