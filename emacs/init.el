@@ -82,6 +82,8 @@
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line t)))
 (global-set-key (kbd "C-x 2") (lambda () (interactive) (select-window (split-window-below))))
 (global-set-key (kbd "C-x 3") (lambda () (interactive) (select-window (split-window-right))))
+;; FIXME: Binding "M-[" is problematic when running Emacs in a terminal.
+;; It conflicts with key translactions for PgUp, PgDn, Insert, Delete, and more
 (global-set-key (kbd "M-[") #'previous-buffer)
 (global-set-key (kbd "M-]") #'next-buffer)
 (windmove-default-keybindings)
