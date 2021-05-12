@@ -6,17 +6,19 @@
 
 ;;; Code:
 
-(when (eval-when-compile (version< emacs-version "27"))
-  (load "~/.config/emacs/early-init.el")
-  (package-initialize))
-
-;; Bootstrap use-package
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile
-  (require 'use-package))
+;; Bootstrap straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
 
 ;; Window configuration
 (let ((available-fonts
@@ -99,72 +101,77 @@
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; Packages
-(setq use-package-always-pin "melpa-stable")
-
-(use-package delight
-  :ensure t
-  :pin gnu)
+(straight-use-package 'use-package)
+(straight-use-package 'blackout)
+(eval-when-compile (require 'use-package))
+(require 'blackout)
+(require 'bind-key)
 
 (use-package dracula-theme
-  :ensure t
+  :straight t
   :config (load-theme 'dracula t))
 
-(use-package super-save
-  :ensure t
-  :delight
+(use-package selectrum
+  :straight t
   :config
-  (super-save-mode 1))
+  (selectrum-mode 1)
+  ;; Make current selection more obvious.
+  (set-face-attribute 'selectrum-current-candidate nil :inherit 'highlight)
+  (use-package selectrum-prescient
+    :straight t
+    :config
+    (selectrum-prescient-mode 1)
+    (prescient-persist-mode 1)))
 
-(use-package hydra
-  :ensure t
-  :pin gnu)
+(use-package ctrlf
+  :straight t
+  :config (ctrlf-mode 1))
 
-(use-package counsel
-  :ensure t
-  :pin gnu
-  :demand
-  :delight
-  (ivy-mode)
-  (counsel-mode)
-  :bind ("C-s" . swiper)
+(use-package diff-hl
+  :straight t
   :config
-  (ivy-mode 1)
-  (counsel-mode 1))
-
-(use-package ivy-prescient
-  :ensure t
-  :after (counsel)
-  :config (ivy-prescient-mode 1))
-
-(use-package which-key
-  :ensure t
-  :pin gnu
-  :delight
-  :config (which-key-mode 1))
+  (global-diff-hl-mode 1)
+  (diff-hl-flydiff-mode 1))
 
 (use-package expand-region
-  :ensure t
-  :pin gnu
-  :bind ("C-=" . er/expand-region))
+  :straight t
+  :bind ("C-=" . #'er/expand-region))
+
+(use-package marginalia
+  :straight t
+  :config
+  (marginalia-mode 1)
+  (bind-key "M-A" #'marginalia-cycle minibuffer-local-map))
+
+(use-package super-save
+  :straight t
+  :blackout t
+  :config (super-save-mode 1))
 
 (use-package undo-tree
-  :ensure t
-  :pin gnu
-  :delight
+  :straight t
+  :blackout t
   :config (global-undo-tree-mode 1))
 
 (use-package volatile-highlights
-  :ensure t
-  :delight
+  :straight t
+  :blackout t
   :config (volatile-highlights-mode 1))
 
-(use-package ibuffer-projectile
-  :ensure t
-  :commands ibuffer-projectile-set-filter-groups)
+(use-package which-key
+  :straight t
+  :blackout t
+  :config (which-key-mode 1))
+
+(use-package ws-butler
+  :straight t
+  :blackout t
+  :config (ws-butler-mode 1))
 
 (use-package ibuffer
-  :bind ("C-x C-b" . ibuffer)
+  :bind ("C-x C-b" . #'ibuffer)
   :config
+  (use-package ibuffer-projectile :straight t)
   (add-hook 'ibuffer-hook
             (lambda ()
               (ibuffer-projectile-set-filter-groups)
@@ -231,158 +238,109 @@
               (jt/disable-scroll-margin))))
 
 (use-package projectile
-  :ensure t
-  :delight
-  :config
-  (projectile-mode 1)
-  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map))
-
-(use-package counsel-projectile
-  :ensure t
-  :config (counsel-projectile-mode 1))
+  :straight t
+  :blackout t
+  :demand t
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :config (projectile-mode 1))
 
 (use-package projectile-rails
-  :ensure t
-  :after (projectile)
-  :config
-  (projectile-rails-global-mode 1)
-  (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map))
+  :straight t
+  :demand t
+  :bind-keymap ("C-c r" . projectile-rails-command-map)
+  :config (projectile-rails-global-mode 1))
 
 (use-package flycheck
-  :ensure t
-  :pin melpa
+  :straight t
   :config (global-flycheck-mode 1))
 
 (use-package company
-  :ensure t
-  :delight
+  :straight t
+  :blackout t
+  :demand t
+  :bind (:map company-active-map
+              ("TAB" . company-complete-selection)
+              ("ESC" . company-abort))
   :config
+  (unbind-key "RET" company-active-map)
   (global-company-mode 1)
-  (bind-key "TAB" 'company-complete-selection company-active-map)
-  (bind-key "ESC" 'company-abort company-active-map)
-  (unbind-key "RET" company-active-map))
-
-(use-package company-prescient
-  :ensure t
-  :after (company)
-  :config (company-prescient-mode 1))
+  (use-package company-prescient
+    :straight t
+    :config (company-prescient-mode 1)))
 
 (use-package smartparens
-  :ensure t
-  :delight
+  :straight t
+  :blackout t
   :config
   (require 'smartparens-config)
   (add-to-list 'sp-ignore-modes-list 'term-mode)
   (smartparens-global-mode 1))
 
 (use-package magit
-  :ensure t
-  :defer t
+  :straight t
+  :bind ("C-x g" . magit-status)
   :config
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
-(use-package diff-hl
-  :ensure t
-  :config
-  (global-diff-hl-mode 1)
-  (diff-hl-flydiff-mode 1))
-
 (use-package treemacs
-  :ensure t
-  :commands treemacs)
-
-(use-package treemacs-magit
-  :ensure t
-  :after (treemacs magit))
-
-(use-package treemacs-projectile
-  :ensure t
-  :after (treemacs projectile))
+  :straight t
+  :commands treemacs
+  :config
+  (use-package treemacs-magit :straight t :demand t)
+  (use-package treemacs-projectile :straight t :demand t))
 
 (use-package lsp-mode
-  :ensure t
+  :straight t
+  :commands lsp
   :init
   (setq lsp-keymap-prefix "C-c l")
   :config
   (setq lsp-enable-snippet nil)
-  :hook (lsp-mode . lsp-enable-which-key-integration)
-  :commands lsp)
-
-(use-package dap-mode
-  :ensure t
-  :after (lsp-mode)
-  :config (dap-auto-configure-mode))
-
-(use-package lsp-ui
-  :ensure t
-  :commands lsp-ui-mode)
-
-(use-package lsp-ivy
-  :ensure t
-  :commands lsp-ivy-workspace-symbol)
-
-(use-package lsp-treemacs
-  :ensure t
-  :commands lsp-treemacs-errors-list)
+  (use-package dap-mode :straight t)
+  (use-package lsp-ui :straight t)
+  (use-package lsp-treemacs :straight t :after treemacs)
+  (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
+  (add-hook 'lsp-mode-hook #'lsp-ui-mode)
+  (dap-auto-configure-mode))
 
 (use-package lsp-java
-  :ensure t
-  :hook (java-mode . lsp)
+  :straight t
+  :defer t
+  :init
+  (add-hook 'java-mode-hook
+            (lambda ()
+              (require 'lsp-java)
+              (lsp)))
   :config
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java"))
 
-(use-package docker
-  :ensure t
-  :pin melpa
-  :defer t)
-
-(use-package dockerfile-mode
-  :ensure t
-  :defer t)
-
-(use-package docker-compose-mode
-  :ensure t
-  :defer t)
+(use-package docker :straight t :defer t)
+(use-package dockerfile-mode :straight t :defer t)
+(use-package docker-compose-mode :straight t :defer t)
 
 (use-package kubernetes
-  :ensure t
-  :commands (kubernetes-overview)
-  :config
-  (add-hook 'kubernetes-logs-mode-hook #'jt/disable-scroll-margin))
+  :straight t
+  :defer t
+  :hook (kubernetes-logs-mode . jt/disable-scroll-margin))
 
-(use-package restclient
-  :ensure t
-  :pin melpa
-  :defer t)
+(use-package restclient :straight t :commands restclient)
 
 (use-package sql-indent
-  :ensure t
-  :pin gnu
-  :delight sqlind-minor-mode
-  :hook (sql . sqlind-minor-mode))
+  :straight t
+  :blackout t
+  :hook (sql-mode . sqlind-minor-mode))
 
 (use-package terraform-mode
-  :ensure t
+  :straight t
   :defer t
+  :hook (terraform-mode . terraform-format-on-save-mode)
   :config
-  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
-
-(use-package company-terraform
-  :ensure t
-  :after (terraform-mode))
-
-(use-package wgrep
-  :ensure t
-  :defer t)
-
-(use-package ws-butler
-  :ensure t
-  :delight
-  :config (ws-butler-global-mode 1))
+  (use-package company-terraform :straight t))
 
 (use-package yaml-mode
-  :ensure t
+  :straight t
+  :defer t
   :bind (:map yaml-mode-map
               ("C-m" . newline-and-indent)))
 
