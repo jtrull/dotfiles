@@ -314,6 +314,7 @@
   :config
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java"))
 
+(use-package deadgrep :straight t :defer t)
 (use-package docker :straight t :defer t)
 (use-package dockerfile-mode :straight t :defer t)
 (use-package docker-compose-mode :straight t :defer t)
@@ -324,6 +325,7 @@
   :hook (kubernetes-logs-mode . jt/disable-scroll-margin))
 
 (use-package restclient :straight t :commands restclient)
+(use-package ripgrep :straight t :defer t)
 
 (use-package sql-indent
   :straight t
