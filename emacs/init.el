@@ -245,9 +245,11 @@
               (setq-local global-hl-line-mode nil)
               (jt/disable-scroll-margin))))
 
+;; Flycheck
 (straight-use-package 'flycheck)
 (add-hook 'prog-mode-hook #'flycheck-mode)
 
+;; Company
 (straight-use-package 'company)
 (straight-use-package 'company-prescient)
 (add-hook 'prog-mode-hook #'company-mode)
@@ -258,21 +260,25 @@
   (define-key company-active-map (kbd "ESC") #'company-abort)
   (define-key company-active-map (kbd "RET") nil))
 
+;; Expand-region
 (straight-use-package 'expand-region)
 (global-set-key (kbd "C-=") #'er/expand-region)
 
+;; Smartparens
 (straight-use-package 'smartparens)
 (add-hook 'prog-mode-hook #'smartparens-mode)
 (with-eval-after-load 'smartparens
   (require 'smartparens-config)
   (blackout 'smartparens-mode))
 
+;; Magit
 (straight-use-package 'magit)
 (global-set-key (kbd "C-x g") #'magit-status)
 (with-eval-after-load 'magit
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
+;; Treemacs
 (straight-use-package 'treemacs)
 (straight-use-package 'treemacs-magit)
 (straight-use-package 'treemacs-projectile)
@@ -280,6 +286,7 @@
   (require 'treemacs-magit)
   (require 'treemacs-projectile))
 
+;; LSP
 (straight-use-package 'lsp-mode)
 (straight-use-package 'lsp-ui)
 (straight-use-package 'lsp-treemacs)
@@ -301,32 +308,41 @@
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java")
   (add-hook 'java-mode-hook #'lsp))
 
+;; Ripgrep front-ends
 (straight-use-package 'deadgrep)
+(straight-use-package 'ripgrep)
+
+;; Docker
 (straight-use-package 'docker)
 (straight-use-package 'dockerfile-mode)
 (straight-use-package 'docker-compose-mode)
 
+;; Kubernetes
 (straight-use-package 'kubernetes)
 (add-hook 'kubernetes-logs-mode #'jt/disable-scroll-margin)
 
+;; Restclient
 (straight-use-package 'restclient)
-(straight-use-package 'ripgrep)
 
+;; SQL indentation
 (straight-use-package 'sql-indent)
 (with-eval-after-load 'sql-indent
   (blackout 'sqlind-minor-mode))
 (add-hook 'sql-mode-hook #'sqlind-minor-mode)
 
+;; Terraform
 (straight-use-package 'terraform-mode)
 (straight-use-package 'company-terraform)
 (with-eval-after-load 'terraform-mode
   (require 'company-terraform)
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 
+;; YAML mode
 (straight-use-package 'yaml-mode)
 (with-eval-after-load 'yaml-mode
   (define-key yaml-mode-map (kbd "C-m") #'newline-and-indent))
 
+;; Get that custom crap out of here :-)
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
