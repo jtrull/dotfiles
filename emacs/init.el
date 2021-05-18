@@ -274,6 +274,9 @@
 ;; Magit
 (straight-use-package 'magit)
 (global-set-key (kbd "C-x g") #'magit-status)
+(add-to-list 'display-buffer-alist
+             '("^magit: "
+               (display-buffer-reuse-window display-buffer-same-window)))
 (with-eval-after-load 'magit
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
