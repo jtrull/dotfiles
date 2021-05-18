@@ -283,12 +283,14 @@
 (straight-use-package 'lsp-java)
 (setq lsp-keymap-prefix "C-c l"
       lsp-enable-snippet nil)
+(add-hook 'ruby-mode-hook #'lsp)
 (with-eval-after-load 'lsp-mode
   (require 'lsp-ui)
   (require 'dap-mode)
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
   (add-hook 'lsp-mode-hook #'lsp-ui-mode)
   (dap-auto-configure-mode)
+  (setq lsp-solargraph-use-bundler t)
   (with-eval-after-load 'treemacs
     (require 'lsp-treemacs)))
 (with-eval-after-load 'cc-mode
