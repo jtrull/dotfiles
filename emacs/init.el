@@ -80,6 +80,14 @@
   (setq-local scroll-margin 0
               show-trailing-whitespace nil))
 
+(defun jt/term ()
+  "Start a new `ansi-term' with the default shell."
+  (interactive)
+  (require 'term)
+  (ansi-term (or explicit-shell-file-name
+                 (getenv "ESHELL")
+                 shell-file-name)))
+
 ;; General keybinds
 (global-set-key (kbd "C-j") (lambda () (interactive) (join-line t)))
 (global-set-key (kbd "C-x 2") (lambda () (interactive) (select-window (split-window-below))))
@@ -100,86 +108,91 @@
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
 ;; Packages
-(straight-use-package 'use-package)
 (straight-use-package 'blackout)
-(eval-when-compile (require 'use-package))
 (require 'blackout)
-(require 'bind-key)
 
-(use-package dracula-theme
-  :straight t
-  :config (load-theme 'dracula t))
+;;
+;; Eagerly loaded packages
+;;
 
-(use-package selectrum
-  :straight t
-  :config
-  (selectrum-mode 1)
-  ;; Make current selection more obvious.
-  (set-face-attribute 'selectrum-current-candidate nil :inherit 'highlight)
-  (use-package selectrum-prescient
-    :straight t
-    :config
-    (selectrum-prescient-mode 1)
-    (prescient-persist-mode 1)))
+;; Dracula theme
+(straight-use-package 'dracula-theme)
+(load-theme 'dracula t)
 
-(use-package ctrlf
-  :straight t
-  :config (ctrlf-mode 1))
+;; Selectrum
+(straight-use-package 'selectrum)
+(straight-use-package 'selectrum-prescient)
+(selectrum-mode 1)
+(selectrum-prescient-mode 1)
+(prescient-persist-mode 1)
+;; Make current selection more obvious.
+(set-face-attribute 'selectrum-current-candidate nil :inherit 'highlight)
 
-(use-package diff-hl
-  :straight t
-  :config
-  (global-diff-hl-mode 1)
-  (diff-hl-flydiff-mode 1))
+;; Ctrlf
+(straight-use-package 'ctrlf)
+(ctrlf-mode 1)
 
-(use-package expand-region
-  :straight t
-  :bind ("C-=" . #'er/expand-region))
+;; diff-hl
+(straight-use-package 'diff-hl)
+(global-diff-hl-mode 1)
+(diff-hl-flydiff-mode 1)
 
-(use-package marginalia
-  :straight t
-  :config
-  (marginalia-mode 1)
-  (bind-key "M-A" #'marginalia-cycle minibuffer-local-map))
+;; Marginalia
+(straight-use-package 'marginalia)
+(marginalia-mode 1)
+(define-key minibuffer-local-map (kbd "M-A") #'marginalia-cycle)
 
-(use-package super-save
-  :straight t
-  :blackout t
-  :config (super-save-mode 1))
+;; Projectile
+(straight-use-package 'projectile)
+(straight-use-package 'projectile-rails)
+(projectile-mode 1)
+(projectile-rails-global-mode 1)
+(blackout 'projectile-mode)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map)
 
-(use-package undo-tree
-  :straight t
-  :blackout t
-  :config (global-undo-tree-mode 1))
+;; Super-save
+(straight-use-package 'super-save)
+(super-save-mode 1)
+(blackout 'super-save-mode)
 
-(use-package volatile-highlights
-  :straight t
-  :blackout t
-  :config (volatile-highlights-mode 1))
+;; Undo Tree
+(straight-use-package 'undo-tree)
+(global-undo-tree-mode 1)
+(blackout 'undo-tree-mode)
 
-(use-package which-key
-  :straight t
-  :blackout t
-  :config (which-key-mode 1))
+;; Volatile highlights
+(straight-use-package 'volatile-highlights)
+(volatile-highlights-mode 1)
+(blackout 'volatile-highlights-mode)
 
-(use-package ws-butler
-  :straight t
-  :blackout t
-  :config (ws-butler-mode 1))
+;; Which-key
+(straight-use-package 'which-key)
+(which-key-mode 1)
+(blackout 'which-key-mode)
 
-(use-package ibuffer
-  :bind ("C-x C-b" . #'ibuffer)
-  :config
-  (use-package ibuffer-projectile :straight t)
+;; ws-butler
+(straight-use-package 'ws-butler)
+(ws-butler-mode 1)
+(blackout 'ws-butler-mode)
+
+;;
+;; Demand-loaded packages
+;;
+
+;; ibuffer
+(straight-use-package 'ibuffer-projectile)
+(global-set-key (kbd "C-x C-b") #'ibuffer)
+(with-eval-after-load 'ibuffer
+  (require 'ibuffer-projectile)
   (add-hook 'ibuffer-hook
             (lambda ()
               (ibuffer-projectile-set-filter-groups)
               (unless (eq ibuffer-sorting-mode 'alphabetic)
                 (ibuffer-do-sort-by-alphabetic)))))
 
-(use-package org
-  :defer t
-  :config
+;; Org
+(with-eval-after-load 'org
   (add-hook 'org-mode-hook #'org-indent-mode)
   (add-hook 'org-mode-hook #'visual-line-mode)
   (add-hook 'org-shiftup-final-hook #'windmove-up)
@@ -187,9 +200,8 @@
   (add-hook 'org-shiftleft-final-hook #'windmove-left)
   (add-hook 'org-shiftright-final-hook #'windmove-right))
 
-(use-package ansi-color
-  :defer t
-  :config
+;; ANSI color
+(with-eval-after-load 'ansi-color
   ;; Set ansi colors from current theme.
   (require 'term)
   (setq ansi-color-names-vector
@@ -203,14 +215,12 @@
                 (face-attribute 'term-color-white :foreground)))
   (setq ansi-color-map (ansi-color-make-color-map)))
 
-(use-package comint
-  :defer t
-  :config
+;; Comint
+(with-eval-after-load 'comint
   (add-hook 'comint-mode-hook #'jt/disable-scroll-margin))
 
-(use-package compile
-  :defer t
-  :config
+;; Compile
+(with-eval-after-load 'compile
   (require 'ansi-color)
   ;; From https://endlessparentheses.com/ansi-colors-in-the-compilation-buffer-output.html
   (defun jt/colorize-compilation ()
@@ -221,129 +231,95 @@
   (add-hook 'compilation-mode-hook #'jt/disable-scroll-margin)
   (setq compilation-scroll-output 'first-error))
 
-(use-package term
-  :bind ("C-c t" . (lambda ()
-                     (interactive)
-                     (ansi-term (or explicit-shell-file-name
-                                    (getenv "ESHELL")
-                                    shell-file-name))))
-  :config
-  (unbind-key "M-x" term-raw-map)
-  (unbind-key "M-[" term-raw-map)
-  (unbind-key "M-]" term-raw-map)
+;; term
+(global-set-key (kbd "C-c t") #'jt/term)
+(with-eval-after-load 'term
+  (define-key term-raw-map (kbd "M-x") nil)
+  (define-key term-raw-map (kbd "M-[") nil)
+  (define-key term-raw-map (kbd "M-]") nil)
   (add-hook 'term-mode-hook
             (lambda ()
               (setq-local global-hl-line-mode nil)
               (jt/disable-scroll-margin))))
 
-(use-package projectile
-  :straight t
-  :blackout t
-  :demand t
-  :bind-keymap ("C-c p" . projectile-command-map)
-  :config (projectile-mode 1))
+(straight-use-package 'flycheck)
+(add-hook 'prog-mode-hook #'flycheck-mode)
 
-(use-package projectile-rails
-  :straight t
-  :demand t
-  :bind-keymap ("C-c r" . projectile-rails-command-map)
-  :config (projectile-rails-global-mode 1))
+(straight-use-package 'company)
+(straight-use-package 'company-prescient)
+(add-hook 'prog-mode-hook #'company-mode)
+(add-hook 'prog-mode-hook #'company-prescient-mode)
+(with-eval-after-load 'company
+  (blackout 'company-mode)
+  (define-key company-active-map (kbd "TAB") #'company-complete-selection)
+  (define-key company-active-map (kbd "ESC") #'company-abort)
+  (define-key company-active-map (kbd "RET") nil))
 
-(use-package flycheck
-  :straight t
-  :config (global-flycheck-mode 1))
+(straight-use-package 'expand-region)
+(global-set-key (kbd "C-=") #'er/expand-region)
 
-(use-package company
-  :straight t
-  :blackout t
-  :demand t
-  :bind (:map company-active-map
-              ("TAB" . company-complete-selection)
-              ("ESC" . company-abort))
-  :config
-  (unbind-key "RET" company-active-map)
-  (global-company-mode 1)
-  (use-package company-prescient
-    :straight t
-    :config (company-prescient-mode 1)))
-
-(use-package smartparens
-  :straight t
-  :blackout t
-  :config
+(straight-use-package 'smartparens)
+(add-hook 'prog-mode-hook #'smartparens-mode)
+(with-eval-after-load 'smartparens
   (require 'smartparens-config)
-  (add-to-list 'sp-ignore-modes-list 'term-mode)
-  (smartparens-global-mode 1))
+  (blackout 'smartparens-mode))
 
-(use-package magit
-  :straight t
-  :bind ("C-x g" . magit-status)
-  :config
+(straight-use-package 'magit)
+(global-set-key (kbd "C-x g") #'magit-status)
+(with-eval-after-load 'magit
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
 
-(use-package treemacs
-  :straight t
-  :commands treemacs
-  :config
-  (use-package treemacs-magit :straight t :demand t)
-  (use-package treemacs-projectile :straight t :demand t))
+(straight-use-package 'treemacs)
+(straight-use-package 'treemacs-magit)
+(straight-use-package 'treemacs-projectile)
+(with-eval-after-load 'treemacs
+  (require 'treemacs-magit)
+  (require 'treemacs-projectile))
 
-(use-package lsp-mode
-  :straight t
-  :commands lsp
-  :init
-  (setq lsp-keymap-prefix "C-c l")
-  :config
-  (setq lsp-enable-snippet nil)
-  (use-package dap-mode :straight t)
-  (use-package lsp-ui :straight t)
-  (use-package lsp-treemacs :straight t :after treemacs)
+(straight-use-package 'lsp-mode)
+(straight-use-package 'lsp-ui)
+(straight-use-package 'lsp-treemacs)
+(straight-use-package 'lsp-java)
+(setq lsp-keymap-prefix "C-c l"
+      lsp-enable-snippet nil)
+(with-eval-after-load 'lsp-mode
+  (require 'lsp-ui)
+  (require 'dap-mode)
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
   (add-hook 'lsp-mode-hook #'lsp-ui-mode)
-  (dap-auto-configure-mode))
-
-(use-package lsp-java
-  :straight t
-  :defer t
-  :init
-  (add-hook 'java-mode-hook
-            (lambda ()
-              (require 'lsp-java)
-              (lsp)))
-  :config
+  (dap-auto-configure-mode)
+  (with-eval-after-load 'treemacs
+    (require 'lsp-treemacs)))
+(with-eval-after-load 'lsp-java
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java"))
+(add-hook 'java-mode-hook (lambda () (require 'lsp-java) (lsp)))
 
-(use-package deadgrep :straight t :defer t)
-(use-package docker :straight t :defer t)
-(use-package dockerfile-mode :straight t :defer t)
-(use-package docker-compose-mode :straight t :defer t)
+(straight-use-package 'deadgrep)
+(straight-use-package 'docker)
+(straight-use-package 'dockerfile-mode)
+(straight-use-package 'docker-compose-mode)
 
-(use-package kubernetes
-  :straight t
-  :defer t
-  :hook (kubernetes-logs-mode . jt/disable-scroll-margin))
+(straight-use-package 'kubernetes)
+(add-hook 'kubernetes-logs-mode #'jt/disable-scroll-margin)
 
-(use-package restclient :straight t :commands restclient)
-(use-package ripgrep :straight t :defer t)
+(straight-use-package 'restclient)
+(straight-use-package 'ripgrep)
 
-(use-package sql-indent
-  :straight t
-  :blackout t
-  :hook (sql-mode . sqlind-minor-mode))
+(straight-use-package 'sql-indent)
+(with-eval-after-load 'sql-indent
+  (blackout 'sqlind-minor-mode))
+(add-hook 'sql-mode-hook #'sqlind-minor-mode)
 
-(use-package terraform-mode
-  :straight t
-  :defer t
-  :hook (terraform-mode . terraform-format-on-save-mode)
-  :config
-  (use-package company-terraform :straight t))
+(straight-use-package 'terraform-mode)
+(straight-use-package 'company-terraform)
+(with-eval-after-load 'terraform-mode
+  (require 'company-terraform)
+  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 
-(use-package yaml-mode
-  :straight t
-  :defer t
-  :bind (:map yaml-mode-map
-              ("C-m" . newline-and-indent)))
+(straight-use-package 'yaml-mode)
+(with-eval-after-load 'yaml-mode
+  (define-key yaml-mode-map (kbd "C-m") #'newline-and-indent))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
