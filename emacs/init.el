@@ -291,9 +291,10 @@
   (dap-auto-configure-mode)
   (with-eval-after-load 'treemacs
     (require 'lsp-treemacs)))
-(with-eval-after-load 'lsp-java
-  (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java"))
-(add-hook 'java-mode-hook (lambda () (require 'lsp-java) (lsp)))
+(with-eval-after-load 'cc-mode
+  (require 'lsp-java)
+  (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java")
+  (add-hook 'java-mode-hook #'lsp))
 
 (straight-use-package 'deadgrep)
 (straight-use-package 'docker)
