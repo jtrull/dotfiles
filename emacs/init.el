@@ -119,6 +119,9 @@
 (straight-use-package 'dracula-theme)
 (load-theme 'dracula t)
 
+;; Hydra
+(straight-use-package 'hydra)
+
 ;; Selectrum
 (straight-use-package 'selectrum)
 (straight-use-package 'selectrum-prescient)
