@@ -176,7 +176,10 @@
 
 ;; ws-butler
 (straight-use-package 'ws-butler)
-(ws-butler-mode 1)
+(ws-butler-global-mode 1)
+(setq ws-butler-global-exempt-modes
+      (append ws-butler-global-exempt-modes
+              '(term-mode comint-mode)))
 (blackout 'ws-butler-mode)
 
 ;;
