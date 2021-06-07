@@ -151,6 +151,7 @@
 (projectile-mode 1)
 (projectile-rails-global-mode 1)
 (blackout 'projectile-mode)
+(blackout 'projectile-rails-mode)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map)
 
