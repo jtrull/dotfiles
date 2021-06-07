@@ -293,10 +293,25 @@
   (require 'treemacs-magit)
   (require 'treemacs-projectile))
 
+;; Origami
+(straight-use-package 'origami)
+(with-eval-after-load 'origami
+  (define-key origami-mode-map (kbd "C-c f f") #'origami-toggle-node)
+  (define-key origami-mode-map (kbd "C-c f C-f") #'origami-toggle-all-nodes)
+  (define-key origami-mode-map (kbd "C-c C-f C-f") #'origami-toggle-all-nodes)
+  (define-key origami-mode-map (kbd "C-c f F") #'origami-recursively-toggle-node)
+  (define-key origami-mode-map (kbd "C-c f o") #'origami-open-node)
+  (define-key origami-mode-map (kbd "C-c f C-o") #'origami-open-all-nodes)
+  (define-key origami-mode-map (kbd "C-c f O") #'origami-open-node-recursively)
+  (define-key origami-mode-map (kbd "C-c f c") #'origami-close-node)
+  (define-key origami-mode-map (kbd "C-c f C-c") #'origami-close-all-nodes)
+  (define-key origami-mode-map (kbd "C-c f C") #'origami-close-node-recursively))
+
 ;; LSP
 (straight-use-package 'lsp-mode)
 (straight-use-package 'lsp-ui)
 (straight-use-package 'lsp-treemacs)
+(straight-use-package 'lsp-origami)
 (straight-use-package 'lsp-java)
 (setq lsp-keymap-prefix "C-c l"
       lsp-enable-snippet nil)
@@ -306,6 +321,7 @@
   (require 'dap-mode)
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
   (add-hook 'lsp-mode-hook #'lsp-ui-mode)
+  (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
   (dap-auto-configure-mode)
   (setq lsp-solargraph-use-bundler t)
   (with-eval-after-load 'treemacs
