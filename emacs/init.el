@@ -198,6 +198,10 @@
               (unless (eq ibuffer-sorting-mode 'alphabetic)
                 (ibuffer-do-sort-by-alphabetic)))))
 
+;; Markdown
+(with-eval-after-load 'markdown-mode
+  (add-hook 'markdown-mode-hook #'visual-line-mode))
+
 ;; Org
 (with-eval-after-load 'org
   (add-hook 'org-mode-hook #'org-indent-mode)
