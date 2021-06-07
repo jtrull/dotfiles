@@ -363,6 +363,7 @@
 ;; YAML mode
 (straight-use-package 'yaml-mode)
 (with-eval-after-load 'yaml-mode
+  (add-hook 'yaml-mode-hook #'display-line-numbers-mode)
   (define-key yaml-mode-map (kbd "C-m") #'newline-and-indent))
 
 ;; Get that custom crap out of here :-)
