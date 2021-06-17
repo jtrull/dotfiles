@@ -268,9 +268,19 @@
   (define-key company-active-map (kbd "ESC") #'company-abort)
   (define-key company-active-map (kbd "RET") nil))
 
+;; Darkroom
+(straight-use-package 'darkroom)
+
 ;; Expand-region
 (straight-use-package 'expand-region)
 (global-set-key (kbd "C-=") #'er/expand-region)
+
+;; Focus
+(straight-use-package 'focus)
+(with-eval-after-load 'focus
+  (setq focus-mode-to-thing
+        '((prog-mode . defun)
+          (text-mode . paragraph))))
 
 ;; Smartparens
 (straight-use-package 'smartparens)
