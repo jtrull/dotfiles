@@ -265,8 +265,10 @@
 (add-hook 'company-mode-hook #'company-prescient-mode)
 (with-eval-after-load 'company
   (blackout 'company-mode)
+  (define-key company-active-map [tab] #'company-complete-selection)
   (define-key company-active-map (kbd "TAB") #'company-complete-selection)
   (define-key company-active-map (kbd "ESC") #'company-abort)
+  (define-key company-active-map [return] nil)
   (define-key company-active-map (kbd "RET") nil))
 
 ;; Darkroom
