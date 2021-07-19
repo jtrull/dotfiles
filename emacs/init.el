@@ -245,6 +245,7 @@
 ;; term
 (global-set-key (kbd "C-c t") #'jt/term)
 (with-eval-after-load 'term
+  (define-key term-raw-map (kbd "M-w") nil)
   (define-key term-raw-map (kbd "M-x") nil)
   (define-key term-raw-map (kbd "M-[") nil)
   (define-key term-raw-map (kbd "M-]") nil)
