@@ -242,6 +242,11 @@
   (add-hook 'compilation-mode-hook #'jt/disable-scroll-margin)
   (setq compilation-scroll-output 'first-error))
 
+;; Ediff
+(with-eval-after-load 'ediff
+  (setq ediff-window-setup-function 'ediff-setup-windows-plain
+        ediff-split-window-function 'split-window-horizontally))
+
 ;; term
 (global-set-key (kbd "C-c t") #'jt/term)
 (with-eval-after-load 'term
