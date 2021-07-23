@@ -388,6 +388,12 @@
   (add-hook 'yaml-mode-hook #'display-line-numbers-mode)
   (define-key yaml-mode-map (kbd "C-m") #'newline-and-indent))
 
+;; YARD mode
+(straight-use-package 'yard-mode)
+(add-hook 'ruby-mode-hook #'yard-mode)
+(with-eval-after-load 'yard-mode
+  (blackout 'yard-mode))
+
 ;; Get that custom crap out of here :-)
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
