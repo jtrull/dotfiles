@@ -5,6 +5,7 @@
  ("bui.el" . "f3a137628e112a91910fd33c0cff0948fa58d470")
  ("cfrs" . "7c42f2c82c7ae689f3ef291b066688c58ab96298")
  ("company-mode" . "e7552ee379c346670e843af98d495ab03fd357e3")
+ ("crux" . "20c07848049716a0e1aa2560e23b5f4149f2a74f")
  ("ctrlf" . "dbe83710d06bc39315f1455f6f21479f3747c0aa")
  ("dap-mode" . "49af1b8cbd261a5f97e1b2886418dae5e51b452d")
  ("darkroom" . "27b928a6e91c3207742180f7e209bae754c9c1fe")

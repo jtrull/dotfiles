@@ -89,7 +89,6 @@
                  shell-file-name)))
 
 ;; General keybinds
-(global-set-key (kbd "C-j") (lambda () (interactive) (join-line t)))
 (global-set-key (kbd "C-x 2") (lambda () (interactive) (select-window (split-window-below))))
 (global-set-key (kbd "C-x 3") (lambda () (interactive) (select-window (split-window-right))))
 ;; FIXME: Binding "M-[" is problematic when running Emacs in a terminal.
@@ -241,6 +240,12 @@
   (add-hook 'compilation-filter-hook #'jt/colorize-compilation)
   (add-hook 'compilation-mode-hook #'jt/disable-scroll-margin)
   (setq compilation-scroll-output 'first-error))
+
+;; crux
+(straight-use-package 'crux)
+(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
+(global-set-key (kbd "C-j") #'crux-top-join-line)
+(global-set-key (kbd "C-k") #'crux-kill-and-join-forward)
 
 ;; Ediff
 (with-eval-after-load 'ediff
