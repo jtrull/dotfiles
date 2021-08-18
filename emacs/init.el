@@ -379,6 +379,11 @@
 ;; Restclient
 (straight-use-package 'restclient)
 
+;; SGML
+(setq sgml-quick-keys t) ;; must be set before loading for full effect
+(with-eval-after-load 'sgml-mode
+  (add-hook 'sgml-mode-hook #'display-line-numbers-mode))
+
 ;; SQL indentation
 (straight-use-package 'sql-indent)
 (with-eval-after-load 'sql-indent
