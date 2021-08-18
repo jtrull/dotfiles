@@ -401,6 +401,7 @@
 (straight-use-package 'yaml-mode)
 (with-eval-after-load 'yaml-mode
   (add-hook 'yaml-mode-hook #'display-line-numbers-mode)
+  (add-hook 'yaml-mode-hook #'lsp)
   (define-key yaml-mode-map (kbd "C-m") #'newline-and-indent))
 
 ;; YARD mode
