@@ -347,14 +347,13 @@
 (add-hook 'ruby-mode-hook #'lsp)
 (with-eval-after-load 'lsp-mode
   (require 'lsp-ui)
+  (require 'lsp-treemacs)
   (require 'dap-mode)
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
   (add-hook 'lsp-mode-hook #'lsp-ui-mode)
   (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
   (dap-auto-configure-mode)
-  (setq lsp-solargraph-use-bundler t)
-  (with-eval-after-load 'treemacs
-    (require 'lsp-treemacs)))
+  (setq lsp-solargraph-use-bundler t))
 (with-eval-after-load 'cc-mode
   (require 'lsp-java)
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java")
