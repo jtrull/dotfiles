@@ -252,6 +252,10 @@
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
         ediff-split-window-function 'split-window-horizontally))
 
+;; Eshell
+(with-eval-after-load 'eshell
+  (add-hook 'eshell-mode-hook #'jt/disable-scroll-margin))
+
 ;; term
 (global-set-key (kbd "C-c t") #'jt/term)
 (with-eval-after-load 'term
