@@ -323,7 +323,8 @@
                (display-buffer-reuse-window display-buffer-same-window)))
 (with-eval-after-load 'magit
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
-  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)
+  (setq git-commit-summary-max-length 50))
 
 ;; Treemacs
 (straight-use-package 'treemacs)
