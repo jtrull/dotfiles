@@ -290,6 +290,12 @@
 ;; Darkroom
 (straight-use-package 'darkroom)
 
+;; eww
+(with-eval-after-load 'eww
+  (add-hook 'eww-mode-hook
+            (lambda ()
+              (setq show-trailing-whitespace nil))))
+
 ;; Expand-region
 (straight-use-package 'expand-region)
 (global-set-key (kbd "C-=") #'er/expand-region)
