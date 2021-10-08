@@ -45,6 +45,7 @@
 (setq inhibit-startup-screen t
       make-backup-files nil
       ring-bell-function 'ignore
+      disabled-command-function nil
       uniquify-buffer-name-style 'forward
       uniquify-separator "/"
       uniquify-after-kill-buffer-p t
