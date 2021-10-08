@@ -392,6 +392,11 @@
 (with-eval-after-load 'sgml-mode
   (add-hook 'sgml-mode-hook #'display-line-numbers-mode))
 
+;; SQL
+(with-eval-after-load 'sql
+  (if (executable-find "sqlcl")
+      (setq sql-oracle-program "sqlcl")))
+
 ;; SQL indentation
 (straight-use-package 'sql-indent)
 (with-eval-after-load 'sql-indent
