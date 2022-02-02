@@ -322,6 +322,7 @@
 
 ;; Magit
 (straight-use-package 'magit)
+(global-set-key (kbd "C-x g b") #'magit-blame)
 (global-set-key (kbd "C-x g g") #'magit-status)
 (global-set-key (kbd "C-x g l") #'magit-log-buffer-file)
 (add-to-list 'display-buffer-alist
