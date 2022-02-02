@@ -96,7 +96,6 @@
 ;; It conflicts with key translactions for PgUp, PgDn, Insert, Delete, and more
 (global-set-key (kbd "M-[") #'previous-buffer)
 (global-set-key (kbd "M-]") #'next-buffer)
-(windmove-default-keybindings)
 
 ;; Built-in global modes
 (global-auto-revert-mode 1)
@@ -187,6 +186,16 @@
 ;; Demand-loaded packages
 ;;
 
+;; Ace Window
+(straight-use-package 'ace-window)
+(global-set-key (kbd "M-o") #'ace-window)
+(with-eval-after-load 'ace-window
+  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)
+        aw-ignore-current nil
+        aw-scope 'frame)
+  (set-face-attribute 'aw-leading-char-face nil
+                      :height 4.0 :weight 'bold))
+
 ;; ibuffer
 (straight-use-package 'ibuffer-projectile)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
@@ -205,11 +214,7 @@
 ;; Org
 (with-eval-after-load 'org
   (add-hook 'org-mode-hook #'org-indent-mode)
-  (add-hook 'org-mode-hook #'visual-line-mode)
-  (add-hook 'org-shiftup-final-hook #'windmove-up)
-  (add-hook 'org-shiftdown-final-hook #'windmove-down)
-  (add-hook 'org-shiftleft-final-hook #'windmove-left)
-  (add-hook 'org-shiftright-final-hook #'windmove-right))
+  (add-hook 'org-mode-hook #'visual-line-mode))
 
 ;; ANSI color
 (with-eval-after-load 'ansi-color
@@ -260,6 +265,7 @@
 ;; term
 (global-set-key (kbd "C-c t") #'jt/term)
 (with-eval-after-load 'term
+  (define-key term-raw-map (kbd "M-o") nil)
   (define-key term-raw-map (kbd "M-w") nil)
   (define-key term-raw-map (kbd "C-y") #'term-paste)
   (define-key term-raw-map (kbd "M-x") nil)
