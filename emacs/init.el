@@ -337,6 +337,7 @@
 (straight-use-package 'treemacs)
 (straight-use-package 'treemacs-magit)
 (straight-use-package 'treemacs-projectile)
+(global-set-key (kbd "M-0") #'treemacs-select-window)
 (with-eval-after-load 'treemacs
   (require 'treemacs-magit)
   (require 'treemacs-projectile))
