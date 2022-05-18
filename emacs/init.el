@@ -165,6 +165,10 @@
 
 ;; Super-save
 (straight-use-package 'super-save)
+(require 'super-save)
+(add-to-list 'super-save-hook-triggers 'find-file-hook)
+(add-to-list 'super-save-triggers 'ace-window)
+(setq super-save-remote-files nil)
 (super-save-mode 1)
 (blackout 'super-save-mode)
 
