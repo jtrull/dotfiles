@@ -347,7 +347,7 @@
 (global-set-key (kbd "C-x g g") #'magit-status)
 (global-set-key (kbd "C-x g l") #'magit-log-buffer-file)
 (add-to-list 'display-buffer-alist
-             '("^magit: "
+             '("^magit: " .
                (display-buffer-reuse-window display-buffer-same-window)))
 (with-eval-after-load 'magit
   (add-hook 'magit-pre-refresh-hook #'diff-hl-magit-pre-refresh)
