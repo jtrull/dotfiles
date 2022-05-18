@@ -293,6 +293,10 @@
 (straight-use-package 'flycheck)
 (add-hook 'prog-mode-hook #'flycheck-mode)
 
+;; CFML
+(straight-use-package 'cfml-mode)
+(add-to-list 'auto-mode-alist '("\\.cfml\\'" . cfml-mode))
+
 ;; Company
 (straight-use-package 'company)
 (straight-use-package 'company-prescient)
