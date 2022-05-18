@@ -175,6 +175,11 @@
 ;; Undo Tree
 (straight-use-package 'undo-tree)
 (global-undo-tree-mode 1)
+(let ((jt/undo-save-directory (expand-file-name "emacs/undo-tree" (xdg-data-home))))
+  (unless (file-exists-p jt/undo-save-directory)
+    (make-directory jt/undo-save-directory))
+  (setq undo-tree-auto-save-history t
+        undo-tree-history-directory-alist `(("." . ,jt/undo-save-directory))))
 (blackout 'undo-tree-mode)
 
 ;; Volatile highlights
