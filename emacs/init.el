@@ -46,6 +46,7 @@
       make-backup-files nil
       ring-bell-function 'ignore
       disabled-command-function nil
+      native-comp-async-report-warnings-errors 'silent
       uniquify-buffer-name-style 'forward
       uniquify-separator "/"
       uniquify-after-kill-buffer-p t
