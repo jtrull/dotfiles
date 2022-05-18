@@ -104,6 +104,14 @@
 (show-paren-mode 1)
 (xterm-mouse-mode 1)
 
+;; Auto-saves
+(require 'xdg)
+(let ((jt/auto-save-directory (expand-file-name "emacs/autosaves" (xdg-data-home))))
+  (unless (file-exists-p jt/auto-save-directory)
+    (make-directory jt/auto-save-directory))
+  (setq auto-save-file-name-transforms
+        `((".*" ,jt/auto-save-directory t))))
+
 ;; prog-mode hooks
 (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
