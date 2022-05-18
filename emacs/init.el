@@ -412,6 +412,11 @@
 ;; Restclient
 (straight-use-package 'restclient)
 
+;; Ruby
+(with-eval-after-load 'ruby-mode
+  (add-hook 'ruby-mode-hook #'abbrev-mode)
+  (setq ruby-align-chained-calls t))
+
 ;; SGML
 (setq sgml-quick-keys t) ;; must be set before loading for full effect
 (with-eval-after-load 'sgml-mode
