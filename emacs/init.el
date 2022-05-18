@@ -276,7 +276,6 @@
   (add-hook 'eshell-mode-hook #'jt/disable-scroll-margin))
 
 ;; term
-(global-set-key (kbd "C-c t") #'jt/term)
 (with-eval-after-load 'term
   (define-key term-raw-map (kbd "M-o") nil)
   (define-key term-raw-map (kbd "M-w") nil)
@@ -439,6 +438,16 @@
 (with-eval-after-load 'terraform-mode
   (require 'company-terraform)
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+
+;; vterm
+(straight-use-package 'vterm)
+(global-set-key (kbd "C-c t") #'vterm)
+(with-eval-after-load 'vterm
+  (setq vterm-max-scrollback 8192)
+  (add-hook 'vterm-mode-hook
+            (lambda ()
+              (setq-local global-hl-line-mode nil)
+              (jt/disable-scroll-margin))))
 
 ;; YAML mode
 (straight-use-package 'yaml-mode)
