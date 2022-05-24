@@ -172,6 +172,12 @@
 (super-save-mode 1)
 (blackout 'super-save-mode)
 
+;; Tree sitter
+(straight-use-package 'tree-sitter)
+(straight-use-package 'tree-sitter-langs)
+(global-tree-sitter-mode 1)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+
 ;; Undo Tree
 (straight-use-package 'undo-tree)
 (global-undo-tree-mode 1)
