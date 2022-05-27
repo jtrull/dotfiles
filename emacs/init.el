@@ -266,6 +266,25 @@
   (setq ediff-window-setup-function 'ediff-setup-windows-plain
         ediff-split-window-function 'split-window-horizontally))
 
+;; ejc-sql
+(when (executable-find "lein")
+  (straight-use-package 'ejc-sql)
+  (add-hook 'sql-mode-hook #'ejc-sql-mode)
+  (with-eval-after-load 'ejc-sql
+    (setq ejc-completion-system 'standard)
+    (setq ejc-jdbc-drivers
+          '("oracle" [com\.oracle\.database\.jdbc/ojdbc11 "21.5.0.0"]))
+    (add-hook 'ejc-sql-minor-mode-hook
+              (lambda ()
+                (ejc-eldoc-setup)))
+    (add-hook 'ejc-sql-connected-hook
+              (lambda ()
+                (ejc-set-fetch-size 100)
+                (ejc-set-max-rows 1000)
+                (ejc-set-show-too-many-rows-message t)
+                (ejc-set-column-width-limit 40)
+                (ejc-set-use-unicode t)))))
+
 ;; Eshell
 (with-eval-after-load 'eshell
   (add-hook 'eshell-mode-hook #'jt/disable-scroll-margin))
