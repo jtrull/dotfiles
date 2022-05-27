@@ -157,16 +157,6 @@
 (global-diff-hl-mode 1)
 (diff-hl-flydiff-mode 1)
 
-;; Projectile
-(straight-use-package 'projectile)
-(straight-use-package 'projectile-rails)
-(projectile-mode 1)
-(projectile-rails-global-mode 1)
-(blackout 'projectile-mode)
-(blackout 'projectile-rails-mode)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(define-key projectile-rails-mode-map (kbd "C-c r") 'projectile-rails-command-map)
-
 ;; Super-save
 (straight-use-package 'super-save)
 (require 'super-save)
@@ -224,17 +214,6 @@
         aw-scope 'frame)
   (set-face-attribute 'aw-leading-char-face nil
                       :height 4.0 :weight 'bold))
-
-;; ibuffer
-(straight-use-package 'ibuffer-projectile)
-(global-set-key (kbd "C-x C-b") #'ibuffer)
-(with-eval-after-load 'ibuffer
-  (require 'ibuffer-projectile)
-  (add-hook 'ibuffer-hook
-            (lambda ()
-              (ibuffer-projectile-set-filter-groups)
-              (unless (eq ibuffer-sorting-mode 'alphabetic)
-                (ibuffer-do-sort-by-alphabetic)))))
 
 ;; Markdown
 (with-eval-after-load 'markdown-mode
@@ -368,11 +347,9 @@
 ;; Treemacs
 (straight-use-package 'treemacs)
 (straight-use-package 'treemacs-magit)
-(straight-use-package 'treemacs-projectile)
 (global-set-key (kbd "M-0") #'treemacs-select-window)
 (with-eval-after-load 'treemacs
-  (require 'treemacs-magit)
-  (require 'treemacs-projectile))
+  (require 'treemacs-magit))
 
 ;; Origami
 (straight-use-package 'origami)
