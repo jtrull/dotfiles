@@ -130,14 +130,23 @@
 ;; Hydra
 (straight-use-package 'hydra)
 
-;; Selectrum
-(straight-use-package 'selectrum)
-(straight-use-package 'selectrum-prescient)
-(selectrum-mode 1)
-(selectrum-prescient-mode 1)
-(prescient-persist-mode 1)
-;; Make current selection more obvious.
-(set-face-attribute 'selectrum-current-candidate nil :inherit 'highlight)
+;; Completion framework
+(straight-use-package 'vertico)
+(straight-use-package 'orderless)
+(straight-use-package 'marginalia)
+(vertico-mode 1)
+(marginalia-mode 1)
+(require 'orderless)
+(setq completion-styles '(orderless basic)
+      completion-category-overrides '((file (styles basic partial-completion))))
+(define-key minibuffer-local-map (kbd "M-A") #'marginalia-cycle)
+
+;; Actions
+(straight-use-package 'embark)
+(straight-use-package 'consult)
+(straight-use-package 'embark-consult)
+(global-set-key (kbd "C-.") #'embark-dwim)
+(global-set-key (kbd "M-.") #'embark-act)
 
 ;; Ctrlf
 (straight-use-package 'ctrlf)
@@ -147,11 +156,6 @@
 (straight-use-package 'diff-hl)
 (global-diff-hl-mode 1)
 (diff-hl-flydiff-mode 1)
-
-;; Marginalia
-(straight-use-package 'marginalia)
-(marginalia-mode 1)
-(define-key minibuffer-local-map (kbd "M-A") #'marginalia-cycle)
 
 ;; Projectile
 (straight-use-package 'projectile)
