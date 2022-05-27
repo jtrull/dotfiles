@@ -177,6 +177,7 @@
 (straight-use-package 'tree-sitter-langs)
 (global-tree-sitter-mode 1)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+(blackout 'tree-sitter-mode " 🌲")
 
 ;; Undo Tree
 (straight-use-package 'undo-tree)
@@ -479,3 +480,7 @@
   (load custom-file))
 
 ;;; init.el ends here
+
+;; Local Variables:
+;; coding: utf-8
+;; End:
