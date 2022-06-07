@@ -146,6 +146,9 @@
 (setq completion-styles '(orderless basic)
       completion-category-overrides '((file (styles basic partial-completion))))
 (define-key minibuffer-local-map (kbd "M-A") #'marginalia-cycle)
+(require 'savehist)
+(setq savehist-file (expand-file-name "history" jt/emacs-local-directory))
+(savehist-mode 1)
 
 ;; Actions
 (straight-use-package 'embark)
