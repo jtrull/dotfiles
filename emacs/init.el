@@ -20,6 +20,13 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;; Local files
+(require 'xdg)
+(defconst jt/emacs-local-directory (expand-file-name "emacs" (xdg-data-home))
+  "XDG directory for Emacs local data.")
+(unless (file-exists-p jt/emacs-local-directory)
+  (make-directory jt/emacs-local-directory))
+
 ;; Window configuration
 (let ((available-fonts
        (or (font-family-list)
@@ -105,8 +112,7 @@
 (xterm-mouse-mode 1)
 
 ;; Auto-saves
-(require 'xdg)
-(let ((jt/auto-save-directory (expand-file-name "emacs/autosaves" (xdg-data-home))))
+(let ((jt/auto-save-directory (expand-file-name "autosaves" jt/emacs-local-directory)))
   (unless (file-exists-p jt/auto-save-directory)
     (make-directory jt/auto-save-directory))
   (setq auto-save-file-name-transforms
