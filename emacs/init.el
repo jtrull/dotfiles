@@ -312,9 +312,7 @@
 
 ;; Company
 (straight-use-package 'company)
-(straight-use-package 'company-prescient)
 (add-hook 'prog-mode-hook #'company-mode)
-(add-hook 'company-mode-hook #'company-prescient-mode)
 (with-eval-after-load 'company
   (blackout 'company-mode)
   (define-key company-active-map [tab] #'company-complete-selection)
