@@ -421,7 +421,6 @@
 ;; Docker
 (straight-use-package 'docker)
 (straight-use-package 'dockerfile-mode)
-(straight-use-package 'docker-compose-mode)
 
 ;; Kubernetes
 (straight-use-package 'kubernetes)
