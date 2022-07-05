@@ -28,25 +28,30 @@
   (make-directory jt/emacs-local-directory))
 
 ;; Window configuration
-(let ((available-fonts
-       (or (font-family-list)
-           (if (executable-find "fc-list")
-               (delete-dups (process-lines "fc-list" ":mono" "-f" "%{family[0]}\\n"))))))
-  (setq default-frame-alist
-        `((width . 120)
-	  (height . 65)
-	  (menu-bar-lines . 0)
-	  (tool-bar-lines . 0)
-          (vertical-scroll-bars . nil)
-          (horizontal-scroll-bars . nil)
-	  (font . ,(cond
-                    ((member "JetBrains Mono" available-fonts) "JetBrains Mono-14")
-                    ((member "Consolas" available-fonts) "Consolas-14")
-                    ((member "DejaVu Sans Mono" available-fonts) "DejaVu Sans Mono-14")))))
-  (setq frame-title-format
-        '((:eval (if (buffer-file-name)
-                     (abbreviate-file-name (buffer-file-name))
-                   "%b")))))
+(defvar jt/acceptable-font-families
+  '("JetBrains Mono" "Consolas" "DejaVu Sans Mono")
+  "List of acceptable font families in priority order.")
+
+(defvar jt/default-font-family
+  (let ((available-fonts
+         (or (font-family-list)
+             (if (executable-find "fc-list")
+                 (delete-dups (process-lines "fc-list" ":mono" "-f" "%{family[0]}\\n"))))))
+    (seq-find (lambda (font) (member font available-fonts)) jt/acceptable-font-families))
+  "Font family used for new frames.")
+
+(setq default-frame-alist
+      `((width . 120)
+	(height . 65)
+	(menu-bar-lines . 0)
+	(tool-bar-lines . 0)
+        (vertical-scroll-bars . nil)
+        (horizontal-scroll-bars . nil)
+	(font . ,(concat jt/default-font-family "-14"))))
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
 
 ;; General settings
 (setq inhibit-startup-screen t
@@ -408,7 +413,7 @@
   (add-hook 'lsp-mode-hook #'lsp-ui-mode)
   (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
   (dap-auto-configure-mode)
-  (setq lsp-solargraph-use-bundler t))
+  (setq lsp-solargraph-use-bundler nil))
 (with-eval-after-load 'cc-mode
   (require 'lsp-java)
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java")
@@ -425,6 +430,8 @@
 ;; Kubernetes
 (straight-use-package 'kubernetes)
 (add-hook 'kubernetes-logs-mode #'jt/disable-scroll-margin)
+
+(straight-use-package 'kubel) ;; alternative to kubernetes-el
 
 ;; Restclient
 (straight-use-package 'restclient)
