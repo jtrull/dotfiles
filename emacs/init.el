@@ -94,32 +94,16 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
       scroll-bar-adjust-thumb-portion nil
       scroll-conservatively 1000
       scroll-error-top-bottom t
-      scroll-margin 3
       scroll-preserve-screen-position t)
 
 ;; General buffer defaults
 (setq-default indent-tabs-mode nil
               indicate-empty-lines t
-              show-trailing-whitespace t
               truncate-lines t)
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
-
-;; Common overrides
-(defun jt/disable-scroll-margin ()
-  "Remove scroll margin and trailing whitespace highlighting in the current buffer."
-  (setq-local scroll-margin 0
-              show-trailing-whitespace nil))
-
-(defun jt/term ()
-  "Start a new `ansi-term' with the default shell."
-  (interactive)
-  (require 'term)
-  (ansi-term (or explicit-shell-file-name
-                 (getenv "ESHELL")
-                 shell-file-name)))
 
 ;; General keybinds
 (global-set-key (kbd "C-x 2") (lambda () (interactive) (select-window (split-window-below))))
@@ -132,7 +116,6 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 ;; Built-in global modes
 (global-auto-revert-mode 1)
 (global-hl-line-mode 1)
-(show-paren-mode 1)
 (xterm-mouse-mode 1)
 
 ;; Auto-saves
@@ -142,8 +125,31 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
   (setq auto-save-file-name-transforms
         `((".*" ,jt/auto-save-directory t))))
 
+;; common editing settings
+(defun jt/apply-common-editing-configuration ()
+  "Common configuration for program and text editing modes."
+  (show-paren-local-mode 1)
+  (setq-local scroll-margin 3
+              show-trailing-whitespace t))
+
 ;; prog-mode hooks
-(add-hook 'prog-mode-hook #'display-line-numbers-mode)
+(defun jt/prog-mode-hook ()
+  "Set up a `prog-mode' buffer."
+  (jt/apply-common-editing-configuration)
+  (display-line-numbers-mode 1))
+(add-hook 'prog-mode-hook #'jt/prog-mode-hook)
+
+;; text-mode hooks
+(defun jt/text-mode-hook ()
+  "Set up a `text-mode' buffer."
+  (jt/apply-common-editing-configuration)
+  (visual-line-mode 1))
+(add-hook 'text-mode-hook #'jt/text-mode-hook)
+
+;; term-mode hooks
+(defun jt/term-mode-hook ()
+  "Set up a `term-mode' (or moral equivalent) buffer."
+  (setq-local global-hl-line-mode nil))
 
 ;; Packages
 (straight-use-package 'blackout)
@@ -248,14 +254,9 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
   (set-face-attribute 'aw-leading-char-face nil
                       :height 4.0 :weight 'bold))
 
-;; Markdown
-(with-eval-after-load 'markdown-mode
-  (add-hook 'markdown-mode-hook #'visual-line-mode))
-
 ;; Org
 (with-eval-after-load 'org
-  (add-hook 'org-mode-hook #'org-indent-mode)
-  (add-hook 'org-mode-hook #'visual-line-mode))
+  (add-hook 'org-mode-hook #'org-indent-mode))
 
 ;; ANSI color
 (with-eval-after-load 'ansi-color
@@ -272,10 +273,6 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
                 (face-attribute 'term-color-white :foreground)))
   (setq ansi-color-map (ansi-color-make-color-map)))
 
-;; Comint
-(with-eval-after-load 'comint
-  (add-hook 'comint-mode-hook #'jt/disable-scroll-margin))
-
 ;; Compile
 (with-eval-after-load 'compile
   (require 'ansi-color)
@@ -285,7 +282,6 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
     (let ((inhibit-read-only t))
       (ansi-color-apply-on-region compilation-filter-start (point))))
   (add-hook 'compilation-filter-hook #'jt/colorize-compilation)
-  (add-hook 'compilation-mode-hook #'jt/disable-scroll-margin)
   (setq compilation-scroll-output 'first-error))
 
 ;; crux
@@ -318,11 +314,15 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
                 (ejc-set-column-width-limit 40)
                 (ejc-set-use-unicode t)))))
 
-;; Eshell
-(with-eval-after-load 'eshell
-  (add-hook 'eshell-mode-hook #'jt/disable-scroll-margin))
-
 ;; term
+(defun jt/term ()
+  "Start a new `ansi-term' with the default shell."
+  (interactive)
+  (require 'term)
+  (ansi-term (or explicit-shell-file-name
+                 (getenv "ESHELL")
+                 shell-file-name)))
+
 (with-eval-after-load 'term
   (define-key term-raw-map (kbd "M-o") nil)
   (define-key term-raw-map (kbd "M-w") nil)
@@ -330,10 +330,7 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
   (define-key term-raw-map (kbd "M-x") nil)
   (define-key term-raw-map (kbd "M-[") nil)
   (define-key term-raw-map (kbd "M-]") nil)
-  (add-hook 'term-mode-hook
-            (lambda ()
-              (setq-local global-hl-line-mode nil)
-              (jt/disable-scroll-margin))))
+  (add-hook 'term-mode-hook #'jt/term-mode-hook))
 
 ;; Flycheck
 (straight-use-package 'flycheck)
@@ -448,7 +445,6 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 
 ;; Kubernetes
 (straight-use-package 'kubernetes)
-(add-hook 'kubernetes-logs-mode #'jt/disable-scroll-margin)
 
 (straight-use-package 'kubel) ;; alternative to kubernetes-el
 
@@ -488,10 +484,7 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (global-set-key (kbd "C-c t") #'vterm)
 (with-eval-after-load 'vterm
   (setq vterm-max-scrollback 8192)
-  (add-hook 'vterm-mode-hook
-            (lambda ()
-              (setq-local global-hl-line-mode nil)
-              (jt/disable-scroll-margin))))
+  (add-hook 'vterm-mode-hook #'jt/term-mode-hook))
 
 ;; YAML mode
 (straight-use-package 'yaml-mode)
