@@ -170,12 +170,29 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (straight-use-package 'vertico)
 (straight-use-package 'orderless)
 (straight-use-package 'marginalia)
+(straight-use-package 'corfu)
+(straight-use-package 'corfu-doc)
+(straight-use-package 'kind-icon)
 (vertico-mode 1)
 (marginalia-mode 1)
+
 (require 'orderless)
 (setq completion-styles '(orderless basic)
       completion-category-overrides '((file (styles basic partial-completion))))
+
+(require 'corfu)
+(setq corfu-auto t
+      corfu-quit-no-match 'separator
+      kind-icon-default-face 'corfu-default)
+(add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
+(add-hook 'corfu-mode-hook #'corfu-doc-mode)
+(define-key corfu-map (kbd "M-p") #'corfu-doc-scroll-down)
+(define-key corfu-map (kbd "M-n") #'corfu-doc-scroll-up)
+(define-key corfu-map (kbd "M-d") #'corfu-doc-toggle)
+(global-corfu-mode 1)
+
 (define-key minibuffer-local-map (kbd "M-A") #'marginalia-cycle)
+
 (require 'savehist)
 (setq savehist-file (expand-file-name "history" jt/emacs-local-directory))
 (savehist-mode 1)
@@ -340,17 +357,6 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (straight-use-package 'cfml-mode)
 (add-to-list 'auto-mode-alist '("\\.cfml\\'" . cfml-mode))
 
-;; Company
-(straight-use-package 'company)
-(add-hook 'prog-mode-hook #'company-mode)
-(with-eval-after-load 'company
-  (blackout 'company-mode)
-  (define-key company-active-map [tab] #'company-complete-selection)
-  (define-key company-active-map (kbd "TAB") #'company-complete-selection)
-  (define-key company-active-map (kbd "ESC") #'company-abort)
-  (define-key company-active-map [return] nil)
-  (define-key company-active-map (kbd "RET") nil))
-
 ;; Darkroom
 (straight-use-package 'darkroom)
 
@@ -421,6 +427,10 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (setq lsp-keymap-prefix "C-c l"
       lsp-enable-snippet nil)
 (add-hook 'ruby-mode-hook #'lsp)
+(defun jt/lsp-mode-setup-completion ()
+  "Set up `lsp-mode' and corfu completion."
+  (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+        '(orderless)))
 (with-eval-after-load 'lsp-mode
   (require 'lsp-ui)
   (require 'lsp-treemacs)
@@ -428,8 +438,10 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
   (add-hook 'lsp-mode-hook #'lsp-enable-which-key-integration)
   (add-hook 'lsp-mode-hook #'lsp-ui-mode)
   (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
+  (add-hook 'lsp-completion-mode-hook #'jt/lsp-mode-setup-completion)
   (dap-auto-configure-mode)
-  (setq lsp-solargraph-use-bundler nil))
+  (setq lsp-completion-provider :none ;; use corfu
+        lsp-solargraph-use-bundler nil))
 (with-eval-after-load 'cc-mode
   (require 'lsp-java)
   (setq lsp-java-java-path "/home/jtrull/.asdf/installs/java/adoptopenjdk-11.0.9+11/bin/java")
@@ -474,9 +486,7 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 
 ;; Terraform
 (straight-use-package 'terraform-mode)
-(straight-use-package 'company-terraform)
 (with-eval-after-load 'terraform-mode
-  (require 'company-terraform)
   (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
 
 ;; vterm
