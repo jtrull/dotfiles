@@ -142,8 +142,11 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 ;; text-mode hooks
 (defun jt/text-mode-hook ()
   "Set up a `text-mode' buffer."
-  (jt/apply-common-editing-configuration)
-  (visual-line-mode 1))
+  ;; sgml-mode and derived modes are more prog-mode than text-mode.
+  (if (derived-mode-p 'sgml-mode)
+      (run-hooks 'prog-mode-hook)
+    (jt/apply-common-editing-configuration)
+    (visual-line-mode 1)))
 (add-hook 'text-mode-hook #'jt/text-mode-hook)
 
 ;; term-mode hooks
