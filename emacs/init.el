@@ -358,10 +358,6 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (straight-use-package 'flycheck)
 (add-hook 'prog-mode-hook #'flycheck-mode)
 
-;; CFML
-(straight-use-package 'cfml-mode)
-(add-to-list 'auto-mode-alist '("\\.cfml\\'" . cfml-mode))
-
 ;; Darkroom
 (straight-use-package 'darkroom)
 
