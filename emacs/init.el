@@ -427,7 +427,6 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (straight-use-package 'lsp-java)
 (setq lsp-keymap-prefix "C-c l"
       lsp-enable-snippet nil)
-(add-hook 'ruby-mode-hook #'lsp)
 (defun jt/lsp-mode-setup-completion ()
   "Set up `lsp-mode' and corfu completion."
   (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
@@ -467,6 +466,7 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 ;; Ruby
 (with-eval-after-load 'ruby-mode
   (add-hook 'ruby-mode-hook #'abbrev-mode)
+  (add-hook 'ruby-mode-hook #'lsp)
   (setq ruby-align-chained-calls t))
 
 ;; SGML
