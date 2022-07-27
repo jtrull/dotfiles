@@ -439,8 +439,13 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
   (add-hook 'lsp-mode-hook #'lsp-ui-mode)
   (add-hook 'lsp-after-open-hook #'lsp-origami-try-enable)
   (add-hook 'lsp-completion-mode-hook #'jt/lsp-mode-setup-completion)
+  ;; DAP tooltips hijack mouse movement in all LSP buffers causing any
+  ;; mouse movement to interrupt multi-key sequences and minibuffer
+  ;; interactions in exchange for very little benefit.
+  (setq dap-auto-configure-features (delq 'tooltip dap-auto-configure-features))
   (dap-auto-configure-mode)
   (setq lsp-completion-provider :none ;; use corfu
+        lsp-ui-doc-enable nil ;; mouse movement bugs
         lsp-solargraph-use-bundler nil))
 (with-eval-after-load 'cc-mode
   (require 'lsp-java)
