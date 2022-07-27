@@ -306,6 +306,7 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 (global-set-key (kbd "C-j") #'crux-top-join-line)
 (global-set-key (kbd "C-k") #'crux-kill-and-join-forward)
+(global-set-key (kbd "C-o") #'crux-smart-open-line-above)
 
 ;; Ediff
 (with-eval-after-load 'ediff
