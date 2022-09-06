@@ -314,6 +314,13 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 
 ;; crux
 (straight-use-package 'crux)
+(defvar jt/crux-prefix-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map "k" #'crux-delete-file-and-buffer)
+    (define-key map "r" #'crux-rename-file-and-buffer)
+    map)
+  "Prefix keymap for crux commands.")
+(global-set-key (kbd "C-c x") jt/crux-prefix-map)
 (global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
 (global-set-key (kbd "C-j") #'crux-top-join-line)
 (global-set-key (kbd "C-k") #'crux-kill-and-join-forward)
