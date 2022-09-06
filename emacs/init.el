@@ -268,6 +268,10 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 ;; Demand-loaded packages
 ;;
 
+;; Abbrev
+(with-eval-after-load 'abbrev
+  (blackout 'abbrev-mode " 🔤"))
+
 ;; Ace Window
 (straight-use-package 'ace-window)
 (global-set-key (kbd "M-o") #'ace-window)
@@ -338,6 +342,10 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
                 (ejc-set-show-too-many-rows-message t)
                 (ejc-set-column-width-limit 40)
                 (ejc-set-use-unicode t)))))
+
+;; eldoc
+(with-eval-after-load 'eldoc
+  (blackout 'eldoc-mode " 📜"))
 
 ;; term
 (defun jt/term ()
