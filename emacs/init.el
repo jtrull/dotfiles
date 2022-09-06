@@ -515,7 +515,14 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 
 ;; vterm
 (straight-use-package 'vterm)
-(global-set-key (kbd "C-c t") #'vterm)
+(defun jt/project-vterm ()
+  "Call `vterm' with `default-directory' set to the current project root."
+  (interactive)
+  (let* ((prj (project-current))
+         (default-directory
+           (if prj (project-root prj) default-directory)))
+    (call-interactively 'vterm)))
+(global-set-key (kbd "C-c t") #'jt/project-vterm)
 (with-eval-after-load 'vterm
   (setq vterm-max-scrollback 8192)
   (add-hook 'vterm-mode-hook #'jt/term-mode-hook))
