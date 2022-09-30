@@ -477,6 +477,13 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 ;; Docker
 (straight-use-package 'docker)
 (straight-use-package 'dockerfile-mode)
+(with-eval-after-load 'docker
+  (add-to-list 'display-buffer-alist
+               '("^\\*docker-"
+                 (display-buffer-reuse-window display-buffer-same-window)))
+  (add-to-list 'display-buffer-alist
+               '("^\\* docker "
+                 (display-buffer-reuse-window display-buffer-same-window))))
 
 ;; Kubernetes
 (straight-use-package 'kubernetes)
