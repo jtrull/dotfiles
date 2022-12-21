@@ -174,7 +174,6 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (straight-use-package 'orderless)
 (straight-use-package 'marginalia)
 (straight-use-package 'corfu)
-(straight-use-package 'corfu-doc)
 (straight-use-package 'kind-icon)
 (vertico-mode 1)
 (marginalia-mode 1)
@@ -184,19 +183,17 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
       completion-category-overrides '((file (styles basic partial-completion))))
 
 (require 'corfu)
+(require 'corfu-popupinfo "extensions/corfu-popupinfo.el")
 (setq corfu-auto t
       corfu-quit-no-match 'separator
       kind-icon-default-face 'corfu-default)
 (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)
-(add-hook 'corfu-mode-hook #'corfu-doc-mode)
 (define-key corfu-map [escape] #'corfu-quit)
 (define-key corfu-map (kbd "ESC") #'corfu-quit)
 (define-key corfu-map [return] nil)
 (define-key corfu-map (kbd "RET") nil)
-(define-key corfu-map (kbd "C-p") #'corfu-doc-scroll-down)
-(define-key corfu-map (kbd "C-n") #'corfu-doc-scroll-up)
-(define-key corfu-map (kbd "C-o") #'corfu-doc-toggle)
 (global-corfu-mode 1)
+(corfu-popupinfo-mode 1)
 
 (define-key minibuffer-local-map (kbd "M-A") #'marginalia-cycle)
 
