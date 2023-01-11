@@ -487,6 +487,21 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 
 (straight-use-package 'kubel) ;; alternative to kubernetes-el
 
+;; project.el
+(defun jt/project-root-override (dir)
+  "Find DIR's project root by searching for a 'project.el' file.
+
+If this file exists, it marks the project root.  For compatibility with
+Projectile, '.projectile' is also considered a project root marker."
+  (let ((root (or (locate-dominating-file dir ".project.el")
+                  (locate-dominating-file dir ".projectile")))
+        (backend (ignore-errors (vc-responsible-backend dir))))
+    (when root (if (< emacs-major-version 29)
+                   (cons 'vc root)
+                 (list 'vc backend root)))))
+(with-eval-after-load 'project
+  (add-hook 'project-find-functions #'jt/project-root-override))
+
 ;; Restclient
 (straight-use-package 'restclient)
 
