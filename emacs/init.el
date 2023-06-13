@@ -213,6 +213,12 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (global-diff-hl-mode 1)
 (diff-hl-flydiff-mode 1)
 
+;; Edit server
+(straight-use-package 'edit-server)
+(require 'edit-server)
+(setq edit-server-port 19292)
+(add-hook 'after-init-hook #'edit-server-start)
+
 ;; Super-save
 (straight-use-package 'super-save)
 (require 'super-save)
