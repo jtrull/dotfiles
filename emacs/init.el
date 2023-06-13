@@ -281,6 +281,11 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
   (set-face-attribute 'aw-leading-char-face nil
                       :height 4.0 :weight 'bold))
 
+;; Apheleia
+(straight-use-package 'apheleia)
+(with-eval-after-load 'apheleia
+  (setq apheleia-mode-lighter " 🌷"))
+
 ;; Org
 (global-set-key (kbd "C-c a") #'org-agenda)
 (global-set-key (kbd "C-c c") #'org-capture)
@@ -543,7 +548,7 @@ Projectile, '.projectile' is also considered a project root marker."
 ;; Terraform
 (straight-use-package 'terraform-mode)
 (with-eval-after-load 'terraform-mode
-  (add-hook 'terraform-mode-hook #'terraform-format-on-save-mode))
+  (add-hook 'terraform-mode-hook #'apheleia-mode))
 
 ;; vterm
 (straight-use-package 'vterm)
