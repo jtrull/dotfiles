@@ -395,7 +395,20 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
 (straight-use-package 'treemacs-magit)
 (global-set-key (kbd "M-0") #'treemacs-select-window)
 (with-eval-after-load 'treemacs
-  (require 'treemacs-magit))
+  (require 'treemacs-magit)
+  (dolist (face '(treemacs-root-face
+                  treemacs-git-unmodified-face
+                  treemacs-git-modified-face
+                  treemacs-git-renamed-face
+                  treemacs-git-ignored-face
+                  treemacs-git-untracked-face
+                  treemacs-git-added-face
+                  treemacs-git-conflict-face
+                  treemacs-directory-face
+                  treemacs-directory-collapsed-face
+                  treemacs-file-face
+                  treemacs-tags-face))
+    (set-face-attribute face nil :family "Segoe UI" :height 160)))
 
 ;; Origami
 (straight-use-package 'origami)
