@@ -276,8 +276,24 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
                       :height 4.0 :weight 'bold))
 
 ;; Org
+(global-set-key (kbd "C-c a") #'org-agenda)
+(global-set-key (kbd "C-c c") #'org-capture)
 (with-eval-after-load 'org
-  (add-hook 'org-mode-hook #'org-indent-mode))
+  ;; Remove unused keys from org-mode-map.
+  (dolist (key '("C-c [" "C-c ]" "C-c ;"))
+    (define-key org-mode-map (kbd key) nil))
+  ;; General org settings
+  (setq org-agenda-files '("~/org")
+        org-enforce-todo-dependencies t
+        org-startup-indented t
+        org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)"))
+        org-use-speed-commands t)
+  ;; Org-babel
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (restclient . t)
+     (sql . t))))
 
 ;; ANSI color
 (with-eval-after-load 'ansi-color
@@ -494,6 +510,7 @@ Projectile, '.projectile' is also considered a project root marker."
 
 ;; Restclient
 (straight-use-package 'restclient)
+(straight-use-package 'ob-restclient)
 
 ;; Ruby
 (with-eval-after-load 'ruby-mode
