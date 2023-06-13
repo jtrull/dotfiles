@@ -45,11 +45,7 @@
   "List of acceptable font families in priority order.")
 
 (defvar jt/default-font-family
-  (let ((available-fonts
-         (or (font-family-list)
-             (if (executable-find "fc-list")
-                 (delete-dups (process-lines "fc-list" ":mono" "-f" "%{family[0]}\\n"))))))
-    (seq-find (lambda (font) (member font available-fonts)) jt/acceptable-font-families))
+  (seq-find (lambda (font) (find-font (font-spec :name font))) jt/acceptable-font-families)
   "Font family used for new frames.")
 
 (defvar jt/default-font-height-mms 3.0 "Default font height in millimeters.")
