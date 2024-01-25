@@ -1,0 +1,33 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
+vim.opt.autowrite = true
+vim.opt.backup = false
+vim.opt.colorcolumn = "80"
+vim.opt.cursorline = true
+vim.opt.eol = false
+vim.opt.errorbells = false
+vim.opt.expandtab = true
+vim.opt.fixeol = false
+vim.opt.grepformat = "%f:%l:%c:%m"
+vim.opt.grepprg = "rg --vimgrep"
+vim.opt.ignorecase = true
+vim.opt.mouse = "a"
+vim.opt.number = true
+vim.opt.scrolloff = 3
+vim.opt.shiftwidth = 2
+vim.opt.showmode = false
+vim.opt.showmatch = true
+vim.opt.sidescrolloff = 8
+vim.opt.smartcase = true
+vim.opt.smartindent = true
+vim.opt.softtabstop = 2
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.startofline = false
+vim.opt.tabstop = 2
+vim.opt.termguicolors = true
+vim.opt.title = true
+vim.opt.virtualedit = "block"
+vim.opt.wrap = false
+
