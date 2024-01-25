@@ -29,8 +29,9 @@
 
 ;; Window configuration
 (setq default-frame-alist
-      `((width . 120)
-	(height . 65)
+      `((font . "JetBrains Mono 11")
+        (width . 100)
+	(height . 40)
 	(menu-bar-lines . 0)
 	(tool-bar-lines . 0)
         (vertical-scroll-bars . nil)
@@ -39,34 +40,6 @@
       '((:eval (if (buffer-file-name)
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
-
-(defvar jt/acceptable-font-families
-  '("JetBrains Mono" "Consolas" "DejaVu Sans Mono")
-  "List of acceptable font families in priority order.")
-
-(defvar jt/default-font-family
-  (seq-find (lambda (font) (find-font (font-spec :name font))) jt/acceptable-font-families)
-  "Font family used for new frames.")
-
-(defvar jt/default-font-height-mms 3.0 "Default font height in millimeters.")
-
-(defun jt/update-frame-font (&optional frame keep-default)
-  "Set FRAME's font based on display resolution.
-
-If FRAME is not specified, update the currently selected frame.  If optional
-argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
-  (interactive)
-  (let* ((selected-frame (or frame (selected-frame)))
-         (frame-mm-height (nth 1 (frame-monitor-attribute 'mm-size selected-frame)))
-         (frame-pixel-height (nth 3 (frame-monitor-attribute 'geometry selected-frame)))
-         (pixels-per-mm (/ (float frame-pixel-height) (float frame-mm-height)))
-         (font-height (round (* jt/default-font-height-mms pixels-per-mm)))
-         (font (format "%s-%d" jt/default-font-family font-height)))
-    (set-frame-font font nil (list selected-frame) t)
-    (unless keep-default
-      (setf (alist-get 'font default-frame-alist) font))))
-
-(add-hook 'after-make-frame-functions #'jt/update-frame-font)
 
 ;; General settings
 (setq inhibit-startup-screen t
@@ -435,7 +408,7 @@ argument KEEP-DEFAULT is non-nil, then also update `default-frame-alist'."
                   treemacs-directory-collapsed-face
                   treemacs-file-face
                   treemacs-tags-face))
-    (set-face-attribute face nil :family "Segoe UI" :height 160)))
+    (set-face-attribute face nil :family "Segoe UI" :height 110)))
 
 ;; Origami
 (straight-use-package 'origami)
