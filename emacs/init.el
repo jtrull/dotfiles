@@ -85,6 +85,7 @@
 ;; Built-in global modes
 (global-auto-revert-mode 1)
 (global-hl-line-mode 1)
+(pixel-scroll-precision-mode 1)
 (xterm-mouse-mode 1)
 
 ;; Auto-saves
@@ -202,11 +203,10 @@
 (blackout 'super-save-mode)
 
 ;; Tree sitter
-(straight-use-package 'tree-sitter)
-(straight-use-package 'tree-sitter-langs)
-(global-tree-sitter-mode 1)
-(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
-(blackout 'tree-sitter-mode " 🌲")
+(setq treesit-language-source-list
+      '((ruby "https://github.com/tree-sitter/tree-sitter-ruby")))
+(setq major-mode-remap-alist
+      '((ruby-mode . ruby-ts-mode)))
 
 ;; Undo Tree
 (straight-use-package 'undo-tree)
@@ -497,9 +497,9 @@ Projectile, '.projectile' is also considered a project root marker."
 (straight-use-package 'ob-restclient)
 
 ;; Ruby
-(with-eval-after-load 'ruby-mode
-  (add-hook 'ruby-mode-hook #'abbrev-mode)
-  (add-hook 'ruby-mode-hook #'lsp)
+(with-eval-after-load 'ruby-base-mode
+  (add-hook 'ruby-base-mode-hook #'abbrev-mode)
+  (add-hook 'ruby-base-mode-hook #'lsp)
   (setq ruby-align-chained-calls t))
 
 ;; SGML
@@ -546,7 +546,7 @@ Projectile, '.projectile' is also considered a project root marker."
 
 ;; YARD mode
 (straight-use-package 'yard-mode)
-(add-hook 'ruby-mode-hook #'yard-mode)
+(add-hook 'ruby-base-mode-hook #'yard-mode)
 (with-eval-after-load 'yard-mode
   (blackout 'yard-mode))
 
