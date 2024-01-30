@@ -19,7 +19,8 @@ return {
       },
       inactive_sections = {
         lualine_c = csection
-      }
+      },
+      extensions = { 'fugitive', 'man', 'mason', 'nvim-tree', 'quickfix' }
     }
   end
 }
