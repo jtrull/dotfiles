@@ -61,18 +61,12 @@ return {
         }
       })
 
-      local cmp_caps = require("cmp_nvim_lsp").default_capabilities()
-      cmp_caps.textDocument.completion.completionItem.snippetSupport = false
-
       local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup { capabilities = cmp_caps }
-      lspconfig.ruby_ls.setup {
-        capabilities = cmp_caps,
-        on_attach = setup_ruby_diagnostics
-      }
-      lspconfig.tsserver.setup { capabilities = cmp_caps }
-      lspconfig.terraformls.setup { capabilities = cmp_caps }
-      lspconfig.yamlls.setup { capabilities = cmp_caps }
+      lspconfig.lua_ls.setup {}
+      lspconfig.ruby_ls.setup { on_attach = setup_ruby_diagnostics }
+      lspconfig.tsserver.setup {}
+      lspconfig.terraformls.setup {}
+      lspconfig.yamlls.setup {}
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
