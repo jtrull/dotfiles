@@ -62,7 +62,7 @@ return {
       })
 
       local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup {}
+      lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { "vim" } } } } }
       lspconfig.ruby_ls.setup { on_attach = setup_ruby_diagnostics }
       lspconfig.tsserver.setup {}
       lspconfig.terraformls.setup {}
