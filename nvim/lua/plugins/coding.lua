@@ -16,11 +16,13 @@ return {
   {
     "Wansmer/treesj",
     keys = {
-      { "J", "n", "<cmd>TSJToggle<cr>", desc = "Join Toggle" }
+      { "<leader>sj", "n", "<cmd>TSJJoin<cr>", desc = "Smart Join" },
+      { "<leader>ss", "n", "<cmd>TSJSplit<cr>", desc = "Smart Split" },
+      { "<leader>st", "n", "<cmd>TSJToggle<cr>", desc = "Toggle Smart Split/Join" }
     },
     opts = {
       use_default_keymaps = false,
-      max_join_length = 150
+      max_join_length = 120
     }
   },
   {
