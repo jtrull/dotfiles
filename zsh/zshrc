@@ -35,7 +35,6 @@ zplug "plugins/colored-man-pages", from:oh-my-zsh
 zplug "plugins/docker", from:oh-my-zsh
 zplug "plugins/docker-compose", from:oh-my-zsh
 zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 zplug "plugins/vi-mode", from:oh-my-zsh
 
 if ! zplug check --verbose; then
@@ -131,4 +130,6 @@ else
   # WSL 1
   alias x410='DISPLAY=localhost:0.0'
 fi
+
+eval "$(starship init zsh)"
 
