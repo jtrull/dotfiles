@@ -6,7 +6,12 @@ return {
   },
   {
     "tpope/vim-fugitive",
-    event = { "BufRead", "BufWrite" }
+    event = { "BufRead", "BufWrite" },
+    keys = {
+      { "<leader>gg", "<cmd>Git<cr>", desc = "Fugitive git status" },
+      { "<leader>gb", "<cmd>Git blame<cr>", desc = "Fugitive git blame" },
+      { "<leader>gd", "<cmd>Git diff -- %<cr>", desc = "Fugitive git diff current file" }
+    }
   },
   {
     "lewis6991/gitsigns.nvim",

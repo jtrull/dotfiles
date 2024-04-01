@@ -14,8 +14,10 @@ return {
     { "<leader>li", "<cmd>Telescope lsp_implementations<cr>", desc = "Telescope LSP implementations" },
     { "<leader>ld", "<cmd>Telescope lsp_definitions<cr>", desc = "Telescope LSP definitions" },
     { "<leader>lt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Telescope LSP type definitions" },
-    { "<leader>gl", "<cmd>Telescope git_commits<cr>", desc = "Telescope git commits" },
-    { "<leader>gb", "<cmd>Telescope git_bcommits<cr>", desc = "Telescope git commits current file" },
-    { "<leader>gg", "<cmd>Telescope git_status<cr>", desc = "Telescope git status" }
+    { "<leader>gL", "<cmd>Telescope git_commits<cr>", desc = "Telescope git commits" },
+    { "<leader>gl", "<cmd>Telescope git_bcommits<cr>", desc = "Telescope git commits current file" },
+    { "<leader>gc", "<cmd>Telescope git_branches<cr>", desc = "Telescope git branches" },
+    { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "Telescope git status" },
+    { "<leader>gS", "<cmd>Telescope git_stash", desc = "Telescope git stashes" }
   }
 }
