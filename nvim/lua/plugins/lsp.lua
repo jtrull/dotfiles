@@ -51,13 +51,13 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/nvim-cmp"
     },
-    ft = { "lua", "ruby", "javascript", "typescript", "terraform", "yaml" },
+    ft = { "json", "lua", "ruby", "javascript", "typescript", "terraform", "yaml" },
     config = function()
       require("neodev").setup()
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "lua_ls", "ruby_ls", "tsserver", "terraformls", "yamlls"
+          "jsonls", "lua_ls", "ruby_ls", "tsserver", "terraformls", "yamlls"
         }
       })
 
