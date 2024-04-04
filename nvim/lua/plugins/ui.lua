@@ -41,12 +41,19 @@ return {
       vim.g.loaded_netrw = 1
       vim.g.loaded_netrwPlugin = 1
     end,
-    opts = {
-      update_focused_file = {
-        enable = true
+    config = function()
+      require("nvim-tree").setup {
+        update_focused_file = { enable = true },
+        on_attach = function(bufnr)
+          local api = require("nvim-tree.api")
+          -- default mappings
+          api.config.mappings.default_on_attach(bufnr)
+          -- custom mappings
+          vim.keymap.set("n", "+", "<cmd>NvimTreeResize +5<cr>", { desc = "NvimTree size +5", buffer = bufnr, noremap = true, silent = true, nowait = true })
+          vim.keymap.set("n", "_", "<cmd>NvimTreeResize -5<cr>", { desc = "NvimTree size -5", buffer = bufnr, noremap = true, silent = true, nowait = true })
+        end
       }
-    },
-    config = true,
+    end,
     keys = {
       { "<leader>e", "<cmd>NvimTreeFocus<cr>", desc = "Focus file explorer" }
     }
