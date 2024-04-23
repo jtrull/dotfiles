@@ -123,6 +123,12 @@ alias tf='terraform'
 alias on_production='DISABLE_SPRING=1 DB_HOST=10.128.2.5 DB_PORT=1521 DB_NAME=jade.prod.db.mcisemi.cloud'
 alias on_staging='DISABLE_SPRING=1 DB_HOST=10.128.2.5 DB_PORT=1521 DB_NAME=jadestg.stage.db.mcisemi.cloud'
 
+# cd to git root
+function gcd() {
+  local r;
+  r=$(git rev-parse --git-dir) && r=$(cd "$r" && pwd)/ && cd "${r%%/.git/*}/$1"
+}
+
 if [ -c /dev/vsock ]; then
   # WSL 2
   alias x410='DISPLAY=`grep nameserver /etc/resolv.conf | cut -c 12-`:0.0'
