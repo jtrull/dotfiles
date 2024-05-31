@@ -1,10 +1,5 @@
 return {
   {
-    "numToStr/Comment.nvim",
-    config = true,
-    lazy = false
-  },
-  {
     "tpope/vim-fugitive",
     event = { "BufRead", "BufWrite" },
     keys = {
