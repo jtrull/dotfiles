@@ -8,6 +8,11 @@ return {
     end
   },
   {
+    "j-hui/fidget.nvim",
+    lazy = false,
+    config = true
+  },
+  {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false,
