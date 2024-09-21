@@ -98,5 +98,39 @@ return {
     version = "*",
     event = "VeryLazy",
     config = true
+  },
+  {
+    "Vigemus/iron.nvim",
+    keys = {
+      { "<leader>rs", "<cmd>IronRepl<cr>", desc = "Start REPL" },
+      { "<leader>rr", "<cmd>IronRestart<cr>", desc = "Restart REPL" },
+      { "<leader>rf", "<cmd>IronFocus<cr>", desc = "Focus REPL" },
+      { "<leader>rh", "<cmd>IronHide<cr>", desc = "Hide REPL" }
+    },
+    config = function()
+      local iron = require("iron.core")
+      iron.setup({
+        config = {
+          highlight_last = "IronLastSent",
+          scratch_repl = true
+        },
+        keymaps = {
+          send_motion = "<localleader>sc",
+          visual_send = "<localleader>sc",
+          send_file = "<localleader>sf",
+          send_line = "<localleader>sl",
+          send_paragraph = "<localleader>sp",
+          send_until_cursor = "<localleader>su",
+          send_mark = "<localleader>sm",
+          mark_motion = "<localleader>mc",
+          mark_visual = "<localleader>mc",
+          remove_mark = "<localleader>md",
+          cr = "<localleader>s<cr>",
+          interrupt = "<localleader>s<space>",
+          exit = "<localleader>sq",
+          clear = "<localleader>cl"
+        }
+      })
+    end
   }
 }
