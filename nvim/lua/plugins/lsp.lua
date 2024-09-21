@@ -13,14 +13,14 @@ return {
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "jsonls", "lua_ls", "ruby_lsp", "tsserver", "terraformls", "yamlls"
+          "jsonls", "lua_ls", "ruby_lsp", "ts_ls", "terraformls", "yamlls"
         }
       })
 
       local lspconfig = require("lspconfig")
       lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { "vim" } } } } }
       lspconfig.ruby_lsp.setup {}
-      lspconfig.tsserver.setup {}
+      lspconfig.ts_ls.setup {}
       lspconfig.terraformls.setup {}
       lspconfig.yamlls.setup {}
 
