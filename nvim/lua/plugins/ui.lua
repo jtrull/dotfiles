@@ -10,7 +10,12 @@ return {
   {
     "j-hui/fidget.nvim",
     lazy = false,
-    config = true
+    opts = {
+      integration = {
+        ["nvim-tree"] = { enable = false },
+        ["xcodebuild-nvim"] = { enable = false }
+      }
+    }
   },
   {
     'nvim-lualine/lualine.nvim',
