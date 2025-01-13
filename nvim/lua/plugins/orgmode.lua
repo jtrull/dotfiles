@@ -3,6 +3,10 @@ return {
     'nvim-orgmode/orgmode',
     dependencies = { "tpope/vim-repeat" },
     ft = 'org',
+    keys = {
+      { "<leader>oa", "<cmd>lua require('orgmode').action('agenda.prompt')<CR>", desc = "Orgmode agenda" },
+      { "<leader>oc", "<cmd>lua require('orgmode').action('capture.prompt')<CR>", desc = "Orgmode capture" }
+    },
     config = function()
       require('orgmode').setup({
         org_agenda_files = '~/org/**/*.org',
@@ -10,6 +14,10 @@ return {
         org_startup_folded = "content",
         org_startup_indented = true,
         mappings = {
+          global = {
+            org_agenda = "<leader>oa",
+            org_capture = "<leader>oc"
+          },
           prefix = "<localleader>"
         }
       })
