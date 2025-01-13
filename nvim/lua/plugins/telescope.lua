@@ -8,7 +8,16 @@ return {
     },
     config = function()
       local telescope = require("telescope")
-      telescope.setup {}
+      local actions = require("telescope.actions")
+      telescope.setup {
+        defaults = {
+          mappings = {
+            n = {
+              ["dd"] = actions.delete_buffer
+            }
+          }
+        }
+      }
       telescope.load_extension("fzf")
     end,
     keys = {
