@@ -136,13 +136,5 @@ function gcd() {
   r=$(git rev-parse --git-dir) && r=$(cd "$r" && pwd)/ && cd "${r%%/.git/*}/$1"
 }
 
-if [ -c /dev/vsock ]; then
-  # WSL 2
-  alias x410='DISPLAY=`grep nameserver /etc/resolv.conf | cut -c 12-`:0.0'
-else
-  # WSL 1
-  alias x410='DISPLAY=localhost:0.0'
-fi
-
 eval "$(starship init zsh)"
 
