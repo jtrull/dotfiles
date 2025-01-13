@@ -7,18 +7,20 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/nvim-cmp"
     },
-    ft = { "json", "lua", "ruby", "javascript", "typescript", "terraform", "yaml" },
+    ft = { "json", "lua", "ruby", "javascript", "prisma", "typescript", "terraform", "yaml" },
     config = function()
       require("neodev").setup()
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "jsonls", "lua_ls", "ruby_lsp", "ts_ls", "terraformls", "yamlls"
+          "jsonls", "lua_ls", "prismals", "ruby_lsp", "ts_ls", "terraformls",
+          "yamlls"
         }
       })
 
       local lspconfig = require("lspconfig")
       lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { "vim" } } } } }
+      lspconfig.prismals.setup {}
       lspconfig.ruby_lsp.setup {}
       lspconfig.ts_ls.setup {}
       lspconfig.terraformls.setup {}

@@ -12,7 +12,7 @@ return {
           "git_config", "git_rebase", "gitcommit", "gitignore",
           "graphql", "html", "http", "java", "javascript", "jq",
           "json", "json5", "jsonc",
-          "lua", "luadoc", "make", "perl",
+          "lua", "luadoc", "make", "perl", "prisma",
           "ruby", "scss", "sql", "ssh_config", "terraform",
           "toml", "tsv",
           "typescript", "vim", "vimdoc", "xml", "yaml"
