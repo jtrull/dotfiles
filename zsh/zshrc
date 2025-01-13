@@ -33,6 +33,7 @@ elif [ -f $HOME/.zplug/init.zsh ]; then
   source $HOME/.zplug/init.zsh
 end
 
+zplug "dracula/zsh", as:theme
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-history-substring-search"
