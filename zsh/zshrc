@@ -26,7 +26,12 @@ HISTSIZE=3000
 SAVEHIST=3000
 
 # zplug
-source ~/.zplug/init.zsh
+if [ -d /opt/homebrew/opt/zplug ]; then
+  export ZPLUG_HOME=/opt/homebrew/opt/zplug
+  source $ZPLUG_HOME/init.zsh
+elif [ -f $HOME/.zplug/init.zsh ]; then
+  source $HOME/.zplug/init.zsh
+end
 
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
@@ -90,7 +95,9 @@ if _has fzf && _has ag; then
 fi
 
 # ASDF
-if [ -f $HOME/.asdf/asdf.sh ]; then
+if [ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]; then
+  source /opt/homebrew/opt/asdf/libexec/asdf.sh
+elif [ -f $HOME/.asdf/asdf.sh ]; then
   source $HOME/.asdf/asdf.sh
   fpath=($HOME/.asdf/completions $fpath)
 fi
