@@ -6,7 +6,10 @@ return {
     opts = {
       -- disabled in favor of cmp completion
       suggestion = { enabled = false },
-      panel = { enabled = false }
+      panel = { enabled = false },
+      filetypes = {
+        org = false
+      }
     }
   },
   {
