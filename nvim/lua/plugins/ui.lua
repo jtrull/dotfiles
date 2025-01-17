@@ -53,7 +53,12 @@ return {
     end,
     config = function()
       require("nvim-tree").setup {
-        update_focused_file = { enable = true },
+        update_focused_file = {
+          enable = true,
+          exclude = function(bufEnterArgs)
+            return vim.endswith(bufEnterArgs.file, ".git/COMMIT_EDITMSG")
+          end
+        },
         on_attach = function(bufnr)
           local api = require("nvim-tree.api")
           -- default mappings
