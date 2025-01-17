@@ -7,14 +7,17 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "hrsh7th/nvim-cmp"
     },
-    ft = { "json", "lua", "ruby", "javascript", "prisma", "typescript", "terraform", "yaml" },
+    ft = {
+      "json", "lua", "ruby", "javascript", "prisma", "typescript",
+      "terraform", "yaml"
+    },
     config = function()
       require("neodev").setup()
       require("mason").setup()
       require("mason-lspconfig").setup({
         ensure_installed = {
           "jsonls", "lua_ls", "prismals", "ruby_lsp", "ts_ls", "terraformls",
-          "yamlls"
+          "yamlls", "eslint"
         }
       })
 
@@ -25,6 +28,7 @@ return {
       lspconfig.ts_ls.setup {}
       lspconfig.terraformls.setup {}
       lspconfig.yamlls.setup {}
+      lspconfig.eslint.setup {}
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
