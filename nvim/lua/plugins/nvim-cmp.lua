@@ -8,7 +8,8 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-cmdline",
-    "zbirenbaum/copilot-cmp"
+    "zbirenbaum/copilot-cmp",
+    "onsails/lspkind.nvim"
   },
   config = function()
     local cmp = require('cmp')
@@ -23,7 +24,19 @@ return {
       sources = cmp.config.sources({
         { name = "copilot" },
         { name = "nvim_lsp" }
-      })
+      }),
+      formatting = {
+        format = require("lspkind").cmp_format({
+          mode = 'symbol',
+          maxwidth = {
+            menu = 50, -- leading text (labelDetails)
+            abbr = 50, -- actual suggestion item
+          },
+          ellipsis_char = '...',
+          show_labelDetails = true,
+          symbol_map = { Copilot = "" }
+        })
+      }
     })
     cmp.setup.cmdline({ '/', '?' }, {
       mapping = cmp.mapping.preset.cmdline(),
