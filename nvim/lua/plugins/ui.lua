@@ -19,7 +19,10 @@ return {
   },
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+      'AndreM222/copilot-lualine'
+    },
     lazy = false,
     config = function()
       local csection = { { 'filename', path = 1 } }
@@ -31,6 +34,7 @@ return {
         sections = {
           lualine_c = csection,
           lualine_x = {
+            'copilot',
             'encoding',
             { 'fileformat', icons_enabled = false },
             'filetype'
