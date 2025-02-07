@@ -5,7 +5,8 @@ return {
       "folke/neodev.nvim",
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
-      "hrsh7th/nvim-cmp"
+      "hrsh7th/nvim-cmp",
+      "hrsh7th/cmp-nvim-lsp"
     },
     ft = {
       "json", "lua", "ruby", "javascript", "prisma", "typescript",
@@ -22,13 +23,17 @@ return {
       })
 
       local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup { settings = { Lua = { diagnostics = { globals = { "vim" } } } } }
-      lspconfig.prismals.setup {}
-      lspconfig.ruby_lsp.setup {}
-      lspconfig.ts_ls.setup {}
-      lspconfig.terraformls.setup {}
-      lspconfig.yamlls.setup {}
-      lspconfig.eslint.setup {}
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      lspconfig.lua_ls.setup {
+        capabilities = capabilities,
+        settings = { Lua = { diagnostics = { globals = { "vim" } } } }
+      }
+      lspconfig.prismals.setup { capabilities = capabilities }
+      lspconfig.ruby_lsp.setup { capabilities = capabilities }
+      lspconfig.ts_ls.setup { capabilities = capabilities }
+      lspconfig.terraformls.setup { capabilities = capabilities }
+      lspconfig.yamlls.setup { capabilities = capabilities }
+      lspconfig.eslint.setup { capabilities = capabilities }
 
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('UserLspConfig', {}),
