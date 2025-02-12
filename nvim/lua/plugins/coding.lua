@@ -109,10 +109,17 @@ return {
     },
     config = function()
       local iron = require("iron.core")
+      local view = require("iron.view")
       iron.setup({
         config = {
           highlight_last = "IronLastSent",
-          scratch_repl = true
+          scratch_repl = true,
+          repl_definition = {
+            sh = {
+              command = {"zsh"}
+            }
+          },
+          repl_open_cmd = view.split.vertical.rightbelow("50%")
         },
         keymaps = {
           send_motion = "<localleader>sc",
