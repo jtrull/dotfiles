@@ -97,12 +97,8 @@ if _has fzf && _has ag; then
 fi
 
 # ASDF
-if [[ -f /opt/homebrew/opt/asdf/libexec/asdf.sh ]]; then
-  source /opt/homebrew/opt/asdf/libexec/asdf.sh
-elif [[ -f $HOME/.asdf/asdf.sh ]]; then
-  source $HOME/.asdf/asdf.sh
-  fpath=($HOME/.asdf/completions $fpath)
-fi
+export ASDF_DATA_DIR="$HOME/.asdf"
+path=($path $ASDF_DATA_DIR/shims)
 
 autoload -Uz compinit
 compinit
