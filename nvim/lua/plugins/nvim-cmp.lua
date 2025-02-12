@@ -27,7 +27,7 @@ return {
         ['<C-e>'] = cmp.mapping.abort(),
         ["<Tab>"] = vim.schedule_wrap(function(fallback)
           if cmp.visible() and has_words_before() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+            cmp.confirm({ select = true })
           else
             fallback()
           end
