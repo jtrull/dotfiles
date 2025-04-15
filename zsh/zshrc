@@ -102,7 +102,7 @@ fi
 
 # ASDF
 export ASDF_DATA_DIR="$HOME/.asdf"
-path=($path $ASDF_DATA_DIR/shims)
+path=($ASDF_DATA_DIR/shims $path)
 
 autoload -Uz compinit
 compinit
