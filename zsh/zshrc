@@ -25,6 +25,10 @@ HISTFILE=~/.zshhistory
 HISTSIZE=3000
 SAVEHIST=3000
 
+# Pure
+PURE_GIT_DOWN_ARROW='↓'
+PURE_GIT_UP_ARROW='↑'
+
 # zplug
 if [[ -d /opt/homebrew/opt/zplug ]]; then
   export ZPLUG_HOME=/opt/homebrew/opt/zplug
