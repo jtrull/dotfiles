@@ -28,6 +28,8 @@ return {
         ["<Tab>"] = vim.schedule_wrap(function(fallback)
           if cmp.visible() and has_words_before() then
             cmp.confirm({ select = true })
+          elseif cmp.visible() and cmp.get_active_entry() then
+            cmp.confirm()
           else
             fallback()
           end
