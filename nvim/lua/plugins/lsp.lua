@@ -35,6 +35,19 @@ return {
       lspconfig.yamlls.setup { capabilities = capabilities }
       lspconfig.eslint.setup { capabilities = capabilities }
     end
+  },
+  {
+    "kosayoda/nvim-lightbulb",
+    ft = {
+      "json", "lua", "ruby", "javascript", "prisma", "typescript",
+      "terraform", "yaml"
+    },
+    opts = {
+      autocmd = {
+        enabled = true,
+        updatetime = -1 -- don't mess with updatetime
+      }
+    }
   }
 }
 
