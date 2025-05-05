@@ -9,7 +9,11 @@ return {
       panel = { enabled = false },
       filetypes = {
         org = false
-      }
+      },
+      copilot_node_command = (function ()
+        local node_version = vim.trim(vim.fn.system("asdf list nodejs | tr -d ' *' | sort -V | tail -n1"))
+        return vim.fn.expand("$HOME") .. '/.asdf/installs/nodejs/' .. node_version .. '/bin/node'
+      end)()
     }
   },
   {
