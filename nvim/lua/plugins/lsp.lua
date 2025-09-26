@@ -2,39 +2,50 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "folke/neodev.nvim",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp"
+    },
+    config = function()
+      vim.lsp.config('*', {
+        capabilities = require('cmp_nvim_lsp').default_capabilities()
+      })
+      vim.lsp.config('lua_ls', {
+        settings = {
+          Lua = {
+            runtime = {
+              version = 'LuaJIT',
+              path = vim.split(package.path, ';')
+            },
+            diagnostics = {
+              globals = { 'vim' }
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true)
+            },
+            telemetry = {
+              enable = false
+            }
+          }
+        }
+      })
+    end
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig"
     },
     ft = {
       "json", "lua", "ruby", "javascript", "prisma", "typescript",
       "terraform", "yaml"
     },
-    config = function()
-      require("neodev").setup()
-      require("mason").setup()
-      require("mason-lspconfig").setup({
-        ensure_installed = {
-          "jsonls", "lua_ls", "prismals", "ruby_lsp", "ts_ls", "terraformls",
-          "yamlls", "eslint"
-        }
-      })
-
-      local lspconfig = require("lspconfig")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      lspconfig.lua_ls.setup {
-        capabilities = capabilities,
-        settings = { Lua = { diagnostics = { globals = { "vim" } } } }
+    opts = {
+      ensure_installed = {
+        "jsonls", "lua_ls", "prismals", "ruby_lsp", "ts_ls", "terraformls",
+        "yamlls", "eslint"
       }
-      lspconfig.prismals.setup { capabilities = capabilities }
-      lspconfig.ruby_lsp.setup { capabilities = capabilities }
-      lspconfig.ts_ls.setup { capabilities = capabilities }
-      lspconfig.terraformls.setup { capabilities = capabilities }
-      lspconfig.yamlls.setup { capabilities = capabilities }
-      lspconfig.eslint.setup { capabilities = capabilities }
-    end
+    }
   },
   {
     "kosayoda/nvim-lightbulb",
