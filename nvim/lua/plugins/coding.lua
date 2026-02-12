@@ -58,6 +58,10 @@ return {
     }
   },
   {
+    "sindrets/diffview.nvim",
+    event = "VeryLazy"
+  },
+  {
     "Wansmer/treesj",
     keys = {
       { "<leader>sj", "<cmd>TSJJoin<cr>", desc = "Smart Join" },
