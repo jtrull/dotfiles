@@ -9,7 +9,7 @@ return {
   },
   {
     "j-hui/fidget.nvim",
-    lazy = false,
+    event = "LspAttach",
     opts = {
       integration = {
         ["nvim-tree"] = { enable = false },
@@ -79,7 +79,7 @@ return {
   },
   {
     "christoomey/vim-tmux-navigator",
-    lazy = false,
+    event = "VeryLazy",
     config = function()
       vim.g.tmux_navigator_save_on_switch = 2
     end

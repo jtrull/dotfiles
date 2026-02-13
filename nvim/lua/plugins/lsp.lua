@@ -1,14 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp"
-    },
     config = function()
-      vim.lsp.config('*', {
-        capabilities = require('cmp_nvim_lsp').default_capabilities()
-      })
       vim.lsp.config('lua_ls', {
         settings = {
           Lua = {
@@ -36,10 +29,7 @@ return {
       { "mason-org/mason.nvim", opts = {} },
       "neovim/nvim-lspconfig"
     },
-    ft = {
-      "json", "lua", "ruby", "javascript", "prisma", "typescript",
-      "terraform", "yaml"
-    },
+    event = "VeryLazy",
     opts = {
       ensure_installed = {
         "jsonls", "lua_ls", "prismals", "ruby_lsp", "ts_ls", "terraformls",
@@ -49,10 +39,7 @@ return {
   },
   {
     "kosayoda/nvim-lightbulb",
-    ft = {
-      "json", "lua", "ruby", "javascript", "prisma", "typescript",
-      "terraform", "yaml"
-    },
+    event = "LspAttach",
     opts = {
       autocmd = {
         enabled = true,
