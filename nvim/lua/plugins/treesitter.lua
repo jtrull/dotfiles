@@ -13,6 +13,7 @@ return {
           "graphql", "html", "http", "java", "javascript", "jq",
           "json", "json5", "jsonc",
           "lua", "luadoc", "make", "perl", "prisma",
+          "python", "regex", "requirements",
           "ruby", "scss", "sql", "ssh_config", "terraform",
           "toml", "tsv",
           "typescript", "vim", "vimdoc", "xml", "yaml"
