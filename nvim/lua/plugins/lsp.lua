@@ -32,8 +32,8 @@ return {
     event = "VeryLazy",
     opts = {
       ensure_installed = {
-        "jsonls", "lua_ls", "prismals", "ruby_lsp", "ts_ls", "terraformls",
-        "yamlls", "eslint"
+        "jsonls", "lua_ls", "prismals", "pyright", "ruff", "ruby_lsp",
+        "ts_ls", "terraformls", "yamlls", "eslint"
       }
     }
   },
