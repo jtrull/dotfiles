@@ -14,7 +14,8 @@ vim.pack.add({
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/mason-org/mason.nvim",
   "https://github.com/mason-org/mason-lspconfig.nvim",
-  "https://github.com/kosayoda/nvim-lightbulb"
+  "https://github.com/kosayoda/nvim-lightbulb",
+  "https://github.com/moll/vim-bbye"
 })
 
 local treesitter_languages = {

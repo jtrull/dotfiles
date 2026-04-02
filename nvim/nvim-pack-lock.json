@@ -44,6 +44,10 @@
       "rev": "84fbc42bdd11639157f358b65e01338d88c69be3",
       "src": "https://github.com/dracula/vim"
     },
+    "vim-bbye": {
+      "rev": "25ef93ac5a87526111f43e5110675032dbcacf56",
+      "src": "https://github.com/moll/vim-bbye"
+    },
     "vim-tmux-navigator": {
       "rev": "e41c431a0c7b7388ae7ba341f01a0d217eb3a432",
       "src": "https://github.com/christoomey/vim-tmux-navigator"
