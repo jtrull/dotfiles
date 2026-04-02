@@ -6,6 +6,7 @@ vim.o.eol = false
 vim.o.errorbells = false
 vim.o.expandtab = true
 vim.o.fixeol = false
+vim.o.foldlevelstart = 99
 vim.o.grepformat = "%f:%l:%c:%m"
 vim.o.grepprg = "rg --vimgrep"
 vim.o.ignorecase = true
