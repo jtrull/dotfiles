@@ -19,3 +19,6 @@ vim.keymap.set('n', '<leader>\\', '<cmd>nohl<cr>')
 
 -- vim-bbye
 vim.keymap.set('n', '<leader>bd', '<cmd>Bdelete<cr>', { desc = "Delete buffer" })
+
+-- nvim-tree
+vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeFocus<cr>', { desc = "Focus file explorer" })

@@ -10,13 +10,22 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 vim.pack.add({
+  "https://github.com/dracula/vim",
+  "https://github.com/j-hui/fidget.nvim",
+  "https://github.com/nvim-tree/nvim-web-devicons",
+  "https://github.com/nvim-tree/nvim-tree.lua",
+  "https://github.com/AndreM222/copilot-lualine",
+  "https://github.com/nvim-lualine/lualine.nvim",
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/mason-org/mason.nvim",
   "https://github.com/mason-org/mason-lspconfig.nvim",
   "https://github.com/kosayoda/nvim-lightbulb",
+  "https://github.com/christoomey/vim-tmux-navigator",
   "https://github.com/moll/vim-bbye"
 })
+
+vim.cmd([[colorscheme dracula]])
 
 local treesitter_languages = {
   "bash", "css", "csv", "diff", "dockerfile",
@@ -54,4 +63,48 @@ require("nvim-lightbulb").setup {
     enabled = true,
     updatetime = -1 -- don't mess with updatetime
   }
+}
+
+require("fidget").setup {
+  integration = {
+    ["nvim-tree"] = { enable = false },
+    ["xcodebuild-nvim"] = { enable = false }
+  }
+}
+
+require("lualine").setup {
+  options = {
+    section_separators = '',
+    component_separators = ''
+  },
+  sections = {
+    lualine_c = { { 'filename', path = 1 } },
+    lualine_x = {
+      'copilot',
+      'encoding',
+      { 'fileformat', icons_enabled = false },
+      'filetype'
+    }
+  },
+  inactive_sections = {
+    lualine_c = { { 'filename', path = 1 } }
+  },
+  extensions = { 'fugitive', 'man', 'mason', 'nvim-tree', 'quickfix' }
+}
+
+require("nvim-tree").setup {
+  update_focused_file = {
+    enable = true,
+    exclude = function(bufEnterArgs)
+      return vim.endswith(bufEnterArgs.file, ".git/COMMIT_EDITMSG")
+    end
+  },
+  on_attach = function(bufnr)
+    local api = require("nvim-tree.api")
+    -- default mappings
+    api.map.on_attach.default(bufnr)
+    -- custom mappings
+    vim.keymap.set("n", "+", "<cmd>NvimTreeResize +5<cr>", { desc = "NvimTree size +5", buffer = bufnr, noremap = true, silent = true, nowait = true })
+    vim.keymap.set("n", "_", "<cmd>NvimTreeResize -5<cr>", { desc = "NvimTree size -5", buffer = bufnr, noremap = true, silent = true, nowait = true })
+  end
 }

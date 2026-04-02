@@ -29,3 +29,10 @@ vim.o.title = true
 vim.o.virtualedit = "block"
 vim.o.wrap = false
 
+-- Use nvim-tree instead of netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- vim-tmux-navigator
+vim.g.tmux_navigator_save_on_switch = 2
+
