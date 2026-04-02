@@ -20,3 +20,4 @@ require("lazy").setup(
   }
 )
 
+vim.go.loadplugins = true
