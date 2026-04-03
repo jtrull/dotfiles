@@ -175,7 +175,7 @@ return {
       },
       {
         "<leader>xX",
-        "<cmd>Trouble diagnostics toggle",
+        "<cmd>Trouble diagnostics toggle<cr>",
         desc = "Diagnostics (Trouble)",
       },
       {
