@@ -9,13 +9,26 @@ vim.api.nvim_create_autocmd("PackChanged", {
   end
 })
 
+vim.api.nvim_create_autocmd("PackChanged", {
+  pattern = "*",
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if not (name == "telescope-fzf-native.nvim" and kind ~= "delete") then return end
+    if not ev.data.active then vim.cmd.packadd("telescope-fzf-native.nvim") end
+    vim.system({ "make" }, { cwd = ev.data.path })
+  end
+})
+
 vim.pack.add({
+  "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/dracula/vim",
   "https://github.com/j-hui/fidget.nvim",
   "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/nvim-tree/nvim-tree.lua",
   "https://github.com/AndreM222/copilot-lualine",
   "https://github.com/nvim-lualine/lualine.nvim",
+  { src = "https://github.com/nvim-telescope/telescope.nvim", version = "v0.2.2" },
+  "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/mason-org/mason.nvim",
@@ -108,3 +121,19 @@ require("nvim-tree").setup {
     vim.keymap.set("n", "_", "<cmd>NvimTreeResize -5<cr>", { desc = "NvimTree size -5", buffer = bufnr, noremap = true, silent = true, nowait = true })
   end
 }
+
+require("telescope").setup {
+  defaults = {
+    mappings = {
+      n = {
+        ["dd"] = require("telescope.actions").delete_buffer
+      }
+    }
+  }
+}
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    -- must happen after plugin activation
+    require("telescope").load_extension("fzf")
+  end
+})

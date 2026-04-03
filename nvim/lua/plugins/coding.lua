@@ -110,9 +110,7 @@ return {
     ft = "http",
     build = false,
     dependencies = {
-      "j-hui/fidget.nvim",
       "nvim-neotest/nvim-nio",
-      "nvim-treesitter/nvim-treesitter",
       {
         -- Lazy.nvim does not recognize this library's rocksfile, so add it
         -- to package path manually.
