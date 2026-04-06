@@ -1,3 +1,14 @@
+-- Create stub commands that defer plugin setup to first use
+local function defer_setup(cmds, setup_fn)
+  for _, cmd in ipairs(cmds) do
+    vim.api.nvim_create_user_command(cmd, function(opts)
+      for _, c in ipairs(cmds) do vim.api.nvim_del_user_command(c) end
+      setup_fn()
+      vim.cmd(cmd .. " " .. (opts.args or ""))
+    end, { nargs = "?" })
+  end
+end
+
 -- Autocommands to handle plugin updates
 vim.api.nvim_create_autocmd("PackChanged", {
   pattern = "*",
@@ -144,7 +155,7 @@ require("telescope").setup {
   defaults = {
     mappings = {
       n = {
-        ["dd"] = require("telescope.actions").delete_buffer
+        ["dd"] = function(bufnr) require("telescope.actions").delete_buffer(bufnr) end
       }
     }
   }
@@ -202,10 +213,9 @@ require("gitsigns").setup {
   end
 }
 
-require("treesj").setup {
-  use_default_keymaps = false,
-  max_join_length = 120
-}
+defer_setup({ "TSJJoin", "TSJSplit", "TSJToggle" }, function()
+  require("treesj").setup { use_default_keymaps = false, max_join_length = 120 }
+end)
 
 require("nvim-autopairs").setup {
   check_ts = true
@@ -215,34 +225,36 @@ require("nvim-ts-autotag").setup()
 
 require("nvim-surround").setup()
 
-require("iron.core").setup({
-  config = {
-    highlight_last = "IronLastSent",
-    scratch_repl = true,
-    repl_definition = {
-      sh = {
-        command = {"zsh"}
-      }
+defer_setup({ "IronRepl", "IronRestart", "IronFocus", "IronHide" }, function()
+  require("iron.core").setup({
+    config = {
+      highlight_last = "IronLastSent",
+      scratch_repl = true,
+      repl_definition = {
+        sh = {
+          command = {"zsh"}
+        }
+      },
+      repl_open_cmd = require("iron.view").split.vertical.rightbelow("50%")
     },
-    repl_open_cmd = require("iron.view").split.vertical.rightbelow("50%")
-  },
-  keymaps = {
-    send_motion = "<localleader>sc",
-    visual_send = "<localleader>sc",
-    send_file = "<localleader>sf",
-    send_line = "<localleader>sl",
-    send_paragraph = "<localleader>sp",
-    send_until_cursor = "<localleader>su",
-    send_mark = "<localleader>sm",
-    mark_motion = "<localleader>mc",
-    mark_visual = "<localleader>mc",
-    remove_mark = "<localleader>md",
-    cr = "<localleader>s<cr>",
-    interrupt = "<localleader>s<space>",
-    exit = "<localleader>sq",
-    clear = "<localleader>cl"
-  }
-})
+    keymaps = {
+      send_motion = "<localleader>sc",
+      visual_send = "<localleader>sc",
+      send_file = "<localleader>sf",
+      send_line = "<localleader>sl",
+      send_paragraph = "<localleader>sp",
+      send_until_cursor = "<localleader>su",
+      send_mark = "<localleader>sm",
+      mark_motion = "<localleader>mc",
+      mark_visual = "<localleader>mc",
+      remove_mark = "<localleader>md",
+      cr = "<localleader>s<cr>",
+      interrupt = "<localleader>s<space>",
+      exit = "<localleader>sq",
+      clear = "<localleader>cl"
+    }
+  })
+end)
 
 require("trouble").setup()
 
