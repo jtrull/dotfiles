@@ -1,8 +1,3 @@
 {
-  "hererocks": { "branch": "master", "commit": "3db37265c3839cbd4d27fc73f92fa7b58bc3a76f" },
-  "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
-  "lua-mimetypes": { "branch": "main", "commit": "fd2c84d1148e36affb6e9bc39fb4393236959f5a" },
-  "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
-  "rest.nvim": { "branch": "main", "commit": "714d5512aaec5565d55652480c16c26f8d95645d" },
-  "xml2lua": { "branch": "master", "commit": "b0d2b0b156b4e66078da2dc4b31d978daa69b3ef" }
+  "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" }
 }
