@@ -46,7 +46,8 @@ vim.pack.add({
   "https://github.com/Vigemus/iron.nvim",
   "https://github.com/folke/trouble.nvim",
   { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.x") },
-  "https://github.com/fang2hou/blink-copilot"
+  "https://github.com/fang2hou/blink-copilot",
+  "https://github.com/folke/lazydev.nvim"
 })
 
 vim.cmd([[colorscheme dracula]])
@@ -245,6 +246,12 @@ require("iron.core").setup({
 
 require("trouble").setup()
 
+require("lazydev").setup({
+  library = {
+    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+  }
+})
+
 require("blink.cmp").setup({
   keymap = {
     preset = 'none',
@@ -261,8 +268,13 @@ require("blink.cmp").setup({
   appearance = { nerd_font_variant = 'mono' },
   completion = { documentation = { auto_show = true } },
   sources = {
-    default = { 'lsp', 'path', 'buffer', 'copilot' },
+    default = { 'lazydev', 'lsp', 'copilot' },
     providers = {
+      lazydev = {
+        name = "LazyDev",
+        module = "lazydev.integrations.blink",
+        score_offset = 100,
+      },
       copilot = {
         name = "copilot",
         module = "blink-copilot",
