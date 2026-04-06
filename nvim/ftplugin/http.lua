@@ -1,6 +1,9 @@
 -- rest.nvim and its luarocks dependencies, loaded only for http files.
 -- Install deps: `luarocks --lua-version 5.1 install nvim-nio xml2lua mimetypes`
 
+if vim.g._rest_nvim_loaded then return end
+vim.g._rest_nvim_loaded = true
+
 local h = io.popen("luarocks --lua-version 5.1 path 2>/dev/null")
 if h then
   local out = h:read("*a")
