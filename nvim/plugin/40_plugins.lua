@@ -25,7 +25,6 @@ vim.pack.add({
   "https://github.com/j-hui/fidget.nvim",
   "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/nvim-tree/nvim-tree.lua",
-  "https://github.com/AndreM222/copilot-lualine",
   "https://github.com/nvim-lualine/lualine.nvim",
   { src = "https://github.com/nvim-telescope/telescope.nvim", version = "v0.2.2" },
   "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
@@ -45,7 +44,9 @@ vim.pack.add({
   "https://github.com/windwp/nvim-ts-autotag",
   "https://github.com/kylechui/nvim-surround",
   "https://github.com/Vigemus/iron.nvim",
-  "https://github.com/folke/trouble.nvim"
+  "https://github.com/folke/trouble.nvim",
+  { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.x") },
+  "https://github.com/fang2hou/blink-copilot"
 })
 
 vim.cmd([[colorscheme dracula]])
@@ -76,8 +77,8 @@ require("mason").setup()
 
 require("mason-lspconfig").setup {
   ensure_installed = {
-    "jsonls", "lua_ls", "prismals", "pyright", "ruff", "ruby_lsp",
-    "ts_ls", "terraformls", "yamlls", "eslint"
+    "copilot", "jsonls", "lua_ls", "prismals", "pyright", "ruff",
+    "ruby_lsp", "ts_ls", "terraformls", "yamlls", "eslint"
   }
 }
 
@@ -103,7 +104,13 @@ require("lualine").setup {
   sections = {
     lualine_c = { { 'filename', path = 1 } },
     lualine_x = {
-      'copilot',
+      {
+        function()
+          local clients = vim.lsp.get_clients({ name = "copilot" })
+          if #clients > 0 then return " " end
+          return ""
+        end,
+      },
       'encoding',
       { 'fileformat', icons_enabled = false },
       'filetype'
@@ -203,12 +210,6 @@ require("nvim-autopairs").setup {
   check_ts = true
 }
 
-require('nvim-treesitter.configs').setup {
-  endwise = {
-    enable = true
-  }
-}
-
 require("nvim-ts-autotag").setup()
 
 require("nvim-surround").setup()
@@ -243,3 +244,43 @@ require("iron.core").setup({
 })
 
 require("trouble").setup()
+
+require("blink.cmp").setup({
+  keymap = {
+    preset = 'none',
+    ['<C-space>'] = { 'show' },
+    ['<C-e>'] = { 'cancel' },
+    ['<Tab>'] = { 'select_and_accept', 'fallback' },
+    ['<C-n>'] = { 'select_next', 'fallback' },
+    ['<C-p>'] = { 'select_prev', 'fallback' },
+    ['<Down>'] = { 'select_next', 'fallback' },
+    ['<Up>'] = { 'select_prev', 'fallback' },
+    ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
+    ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
+  },
+  appearance = { nerd_font_variant = 'mono' },
+  completion = { documentation = { auto_show = true } },
+  sources = {
+    default = { 'lsp', 'path', 'buffer', 'copilot' },
+    providers = {
+      copilot = {
+        name = "copilot",
+        module = "blink-copilot",
+        async = true,
+      }
+    }
+  },
+  fuzzy = { implementation = "prefer_rust_with_warning" },
+  cmdline = {
+    keymap = {
+      preset = 'inherit',
+      ['<Tab>'] = { 'show', 'select_and_accept', 'fallback' },
+    },
+    completion = {
+      menu = { auto_show = true },
+    },
+    sources = { 'cmdline', 'buffer' },
+  },
+  term = { enabled = false }
+})
+
