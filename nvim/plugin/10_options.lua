@@ -1,3 +1,6 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 vim.o.autowrite = true
 vim.o.backup = false
 vim.o.colorcolumn = "80"
