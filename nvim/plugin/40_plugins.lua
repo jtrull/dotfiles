@@ -35,7 +35,17 @@ vim.pack.add({
   "https://github.com/mason-org/mason-lspconfig.nvim",
   "https://github.com/kosayoda/nvim-lightbulb",
   "https://github.com/christoomey/vim-tmux-navigator",
-  "https://github.com/moll/vim-bbye"
+  "https://github.com/moll/vim-bbye",
+  "https://github.com/tpope/vim-fugitive",
+  "https://github.com/lewis6991/gitsigns.nvim",
+  "https://github.com/sindrets/diffview.nvim",
+  "https://github.com/Wansmer/treesj",
+  "https://github.com/windwp/nvim-autopairs",
+  "https://github.com/RRethy/nvim-treesitter-endwise",
+  "https://github.com/windwp/nvim-ts-autotag",
+  "https://github.com/kylechui/nvim-surround",
+  "https://github.com/Vigemus/iron.nvim",
+  "https://github.com/folke/trouble.nvim"
 })
 
 vim.cmd([[colorscheme dracula]])
@@ -137,3 +147,99 @@ vim.api.nvim_create_autocmd("VimEnter", {
     require("telescope").load_extension("fzf")
   end
 })
+
+require("gitsigns").setup {
+  on_attach = function(bufnr)
+    local gitsigns = require('gitsigns')
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    -- Navigation
+    map('n', ']c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({']c', bang = true})
+      else
+        gitsigns.nav_hunk('next')
+      end
+    end)
+
+    map('n', '[c', function()
+      if vim.wo.diff then
+        vim.cmd.normal({'[c', bang = true})
+      else
+        gitsigns.nav_hunk('prev')
+      end
+    end)
+
+    -- Actions
+    map('n', '<leader>hs', gitsigns.stage_hunk)
+    map('n', '<leader>hr', gitsigns.reset_hunk)
+    map('v', '<leader>hs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('v', '<leader>hr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end)
+    map('n', '<leader>hS', gitsigns.stage_buffer)
+    map('n', '<leader>hR', gitsigns.reset_buffer)
+    map('n', '<leader>hp', gitsigns.preview_hunk)
+    map('n', '<leader>hP', gitsigns.preview_hunk_inline)
+    map('n', '<leader>hb', function() gitsigns.blame_line{full=true} end)
+    map('n', '<leader>hB', gitsigns.toggle_current_line_blame)
+    map('n', '<leader>hd', gitsigns.diffthis)
+    map('n', '<leader>hD', function() gitsigns.diffthis('~') end)
+
+    -- Text object
+    map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+  end
+}
+
+require("treesj").setup {
+  use_default_keymaps = false,
+  max_join_length = 120
+}
+
+require("nvim-autopairs").setup {
+  check_ts = true
+}
+
+require('nvim-treesitter.configs').setup {
+  endwise = {
+    enable = true
+  }
+}
+
+require("nvim-ts-autotag").setup()
+
+require("nvim-surround").setup()
+
+require("iron.core").setup({
+  config = {
+    highlight_last = "IronLastSent",
+    scratch_repl = true,
+    repl_definition = {
+      sh = {
+        command = {"zsh"}
+      }
+    },
+    repl_open_cmd = require("iron.view").split.vertical.rightbelow("50%")
+  },
+  keymaps = {
+    send_motion = "<localleader>sc",
+    visual_send = "<localleader>sc",
+    send_file = "<localleader>sf",
+    send_line = "<localleader>sl",
+    send_paragraph = "<localleader>sp",
+    send_until_cursor = "<localleader>su",
+    send_mark = "<localleader>sm",
+    mark_motion = "<localleader>mc",
+    mark_visual = "<localleader>mc",
+    remove_mark = "<localleader>md",
+    cr = "<localleader>s<cr>",
+    interrupt = "<localleader>s<space>",
+    exit = "<localleader>sq",
+    clear = "<localleader>cl"
+  }
+})
+
+require("trouble").setup()
