@@ -66,7 +66,7 @@ vim.cmd([[colorscheme dracula]])
 local treesitter_languages = {
   "bash", "css", "csv", "diff", "dockerfile",
   "git_config", "git_rebase", "gitcommit", "gitignore",
-  "graphql", "html", "http", "java", "javascript", "jq",
+  "graphql", "hcl", "html", "http", "java", "javascript", "jq",
   "json", "json5",
   "lua", "luadoc", "make", "perl", "prisma",
   "python", "regex", "requirements",
