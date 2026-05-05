@@ -22,7 +22,7 @@
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
-      "rev": "db486b42299b2e3f5831809617af21becf268a39",
+      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "iron.nvim": {
@@ -34,15 +34,15 @@
       "src": "https://github.com/folke/lazydev.nvim"
     },
     "lualine.nvim": {
-      "rev": "8811f3f3f4dc09d740c67e9ce399e7a541e2e5b2",
+      "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "mason-lspconfig.nvim": {
-      "rev": "25f609e7fca78af7cede4f9fa3af8a94b1c4950b",
+      "rev": "0c2823e0418f3d9230ff8b201c976e84de1cb401",
       "src": "https://github.com/mason-org/mason-lspconfig.nvim"
     },
     "mason.nvim": {
-      "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
+      "rev": "cb8445f8ce85d957416c106b780efd51c6298f89",
       "src": "https://github.com/mason-org/mason.nvim"
     },
     "nvim-autopairs": {
@@ -50,19 +50,19 @@
       "src": "https://github.com/windwp/nvim-autopairs"
     },
     "nvim-lightbulb": {
-      "rev": "e974b1a93c917c840545f51b9a66cfd72c520522",
+      "rev": "b8c08c5f3b1586dfcdd9f34d7d54fe6982e01ac9",
       "src": "https://github.com/kosayoda/nvim-lightbulb"
     },
     "nvim-lspconfig": {
-      "rev": "a776085e04f7b15d0b59fae2244df07d98360ab4",
+      "rev": "31026a13eefb20681124706a79fc1df6bf11ab27",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
-      "rev": "9291040de8cd8a4439eb64c441e8d5d2bf884a5a",
+      "rev": "2e93e154de9ff326def6480a4358bfc149d5da2c",
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-tree.lua": {
-      "rev": "31503ad5d869fca61461d82a9126f62480ecb0ab",
+      "rev": "f9bfc0059eca24546b69a7006110463da4808f8f",
       "src": "https://github.com/nvim-tree/nvim-tree.lua"
     },
     "nvim-treesitter": {
@@ -74,15 +74,15 @@
       "src": "https://github.com/RRethy/nvim-treesitter-endwise"
     },
     "nvim-ts-autotag": {
-      "rev": "8e1c0a389f20bf7f5b0dd0e00306c1247bda2595",
+      "rev": "88c1453db4ba7dd24131086fe51fdf74e587d275",
       "src": "https://github.com/windwp/nvim-ts-autotag"
     },
     "nvim-web-devicons": {
-      "rev": "40e9d5a6cc3db11b309e39593fc7ac03bb844e38",
+      "rev": "4fc505ac7bd7692824a142e96e5f529c133862f8",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "plenary.nvim": {
-      "rev": "b9fd5226c2f76c951fc8ed5923d85e4de065e509",
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
     },
     "rest.nvim": {
@@ -99,7 +99,7 @@
       "version": "'v0.2.2'"
     },
     "treesj": {
-      "rev": "26bc2a8432ba3ea79ed6aa346fba780a3d372570",
+      "rev": "5fa4e7ba3517f8fe743bb4488f9e9c7ce83330fc",
       "src": "https://github.com/Wansmer/treesj"
     },
     "trouble.nvim": {
@@ -107,7 +107,7 @@
       "src": "https://github.com/folke/trouble.nvim"
     },
     "vim": {
-      "rev": "84fbc42bdd11639157f358b65e01338d88c69be3",
+      "rev": "e7b91facff94bdf3a248df9b683119b84672256a",
       "src": "https://github.com/dracula/vim"
     },
     "vim-bbye": {
