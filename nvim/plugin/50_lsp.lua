@@ -1,3 +1,15 @@
+-- mason's bin dir must be on PATH so vim.lsp.enable() can find the server
+-- executables, since we no longer call mason.setup() at startup.
+vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
+
+-- Activate LSP servers (configs come from nvim-lspconfig's lsp/*.lua, with
+-- our after/lsp/*.lua overrides merged on top). Add a server here after
+-- installing it via :Mason.
+vim.lsp.enable({
+  "jsonls", "lua_ls", "prismals", "pyright", "ruff",
+  "ruby_lsp", "ts_ls", "terraformls", "yamlls", "eslint", "copilot",
+})
+
 local autoformat_filetypes = { terraform = true }
 
 vim.api.nvim_create_autocmd("LspAttach", {

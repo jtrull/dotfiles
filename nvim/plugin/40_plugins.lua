@@ -42,7 +42,6 @@ vim.pack.add({
   "https://github.com/nvim-treesitter/nvim-treesitter",
   "https://github.com/neovim/nvim-lspconfig",
   "https://github.com/mason-org/mason.nvim",
-  "https://github.com/mason-org/mason-lspconfig.nvim",
   "https://github.com/kosayoda/nvim-lightbulb",
   "https://github.com/christoomey/vim-tmux-navigator",
   "https://github.com/moll/vim-bbye",
@@ -85,14 +84,12 @@ local ts_start = function()
 end
 vim.api.nvim_create_autocmd("FileType", { pattern = treesitter_filetypes, callback = ts_start })
 
-require("mason").setup()
-
-require("mason-lspconfig").setup {
-  ensure_installed = {
-    "copilot", "jsonls", "lua_ls", "prismals", "pyright", "ruff",
-    "ruby_lsp", "ts_ls", "terraformls", "yamlls", "eslint"
-  }
-}
+-- mason is loaded on demand (see 50_lsp.lua for PATH + vim.lsp.enable).
+-- Servers are installed via the :Mason UI; the deferred setup runs on first use.
+defer_setup({ "Mason", "MasonInstall", "MasonInstallAll", "MasonUninstall",
+              "MasonUninstallAll", "MasonLog", "MasonUpdate" }, function()
+  require("mason").setup()
+end)
 
 require("nvim-lightbulb").setup {
   autocmd = {
