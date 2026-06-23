@@ -98,12 +98,7 @@ require("nvim-lightbulb").setup {
   }
 }
 
-require("fidget").setup {
-  integration = {
-    ["nvim-tree"] = { enable = false },
-    ["xcodebuild-nvim"] = { enable = false }
-  }
-}
+require("fidget").setup {}
 
 require("lualine").setup {
   options = {
