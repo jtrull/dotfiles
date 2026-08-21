@@ -45,6 +45,7 @@ vim.pack.add({
   "https://github.com/kosayoda/nvim-lightbulb",
   "https://github.com/christoomey/vim-tmux-navigator",
   "https://github.com/moll/vim-bbye",
+  "https://github.com/tpope/vim-characterize",
   "https://github.com/tpope/vim-fugitive",
   "https://github.com/lewis6991/gitsigns.nvim",
   "https://github.com/sindrets/diffview.nvim",
