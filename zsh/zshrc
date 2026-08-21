@@ -25,38 +25,35 @@ HISTFILE=~/.zshhistory
 HISTSIZE=3000
 SAVEHIST=3000
 
-# Pure
+# Pure prompt settings
 PURE_GIT_DOWN_ARROW='↓'
 PURE_GIT_UP_ARROW='↑'
 
-# zplug
-if [[ -d /opt/homebrew/opt/zplug ]]; then
-  export ZPLUG_HOME=/opt/homebrew/opt/zplug
-  source $ZPLUG_HOME/init.zsh
-elif [[ -f $HOME/.zplug/init.zsh ]]; then
-  source $HOME/.zplug/init.zsh
+# Plugins
+if [[ -d /opt/homebrew/opt/antidote ]]; then
+  source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
 fi
 
-zplug "dracula/zsh", as:theme
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-history-substring-search"
-zplug "plugins/colored-man-pages", from:oh-my-zsh
-zplug "plugins/docker", from:oh-my-zsh
-zplug "plugins/docker-compose", from:oh-my-zsh
-zplug "mafredri/zsh-async", from:github
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-zplug "plugins/vi-mode", from:oh-my-zsh
+antidote load
 
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+autoload -Uz promptinit && promptinit && prompt pure
+
+# FZF
+if _has fzf; then
+  source <(fzf --zsh);
+  if _has rg; then
+    export FZF_DEFAULT_COMMAND='rg --color=never --files'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+  fi
 fi
 
-zplug load
+# ASDF
+export ASDF_DATA_DIR="$HOME/.asdf"
+path=($ASDF_DATA_DIR/shims $path)
 
+# VI mode
+bindkey -v
 # Load additional functions for vi mode line editing
 autoload -U select-bracketed
 zle -N select-bracketed
@@ -80,32 +77,19 @@ bindkey -a cs change-surround
 bindkey -a ds delete-surround
 bindkey -a ys add-surround
 bindkey -M visual S add-surround
-
 # Use space in normal mode to edit command line in vim
 autoload edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd ' ' edit-command-line
 
-# FZF
-if [[ -e /usr/share/fzf/completion.zsh ]]; then
-    source /usr/share/fzf/key-bindings.zsh
-    source /usr/share/fzf/completion.zsh
-else
-    [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
-fi
-
-if _has fzf && _has ag; then
-  export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-fi
-
-# ASDF
-export ASDF_DATA_DIR="$HOME/.asdf"
-path=($ASDF_DATA_DIR/shims $path)
-
+# Initialize completions.
+fpath=($fpath $HOME/.local/share/zsh/completions) # Additional completions
 autoload -Uz compinit
-compinit
+# Only recache once per day.
+if [[ -f ~/.zcompdump(N.mh+24) ]]; then
+  compinit
+fi
+compinit -C
 
 # ls colors
 export CLICOLOR=1
