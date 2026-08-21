@@ -38,6 +38,9 @@ antidote load
 
 autoload -Uz promptinit && promptinit && prompt pure
 
+# Local bin
+path=($HOME/.local/bin $path)
+
 # FZF
 if _has fzf; then
   source <(fzf --zsh);
