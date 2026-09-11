@@ -2,6 +2,8 @@
 vim.opt_local.wrap = true
 vim.opt_local.linebreak = true
 vim.opt_local.breakindent = true -- wrapped lines keep their indent (nested lists)
+vim.opt_local.breakindentopt = "min:20,list:-1"
+vim.opt_local.formatlistpat = [[^\s*\%(\d\+[\]:.)}\t ]\|[-*+]\)\s\+]]
 
 -- Note: j/k are remapped to gj/gk globally in plugin/20_keymaps.lua.
 
