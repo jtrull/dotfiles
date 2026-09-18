@@ -57,7 +57,6 @@ vim.pack.add({
   "https://github.com/Vigemus/iron.nvim",
   "https://github.com/folke/trouble.nvim",
   { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.x") },
-  "https://github.com/fang2hou/blink-copilot",
   "https://github.com/folke/lazydev.nvim"
 })
 
@@ -109,13 +108,6 @@ require("lualine").setup {
   sections = {
     lualine_c = { { 'filename', path = 1 } },
     lualine_x = {
-      {
-        function()
-          local clients = vim.lsp.get_clients({ name = "copilot" })
-          if #clients > 0 then return " " end
-          return ""
-        end,
-      },
       'encoding',
       { 'fileformat', icons_enabled = false },
       'filetype'
@@ -273,17 +265,12 @@ require("blink.cmp").setup({
   appearance = { nerd_font_variant = 'mono' },
   completion = { documentation = { auto_show = true } },
   sources = {
-    default = { 'lazydev', 'lsp', 'copilot' },
+    default = { 'lazydev', 'lsp' },
     providers = {
       lazydev = {
         name = "LazyDev",
         module = "lazydev.integrations.blink",
         score_offset = 100,
-      },
-      copilot = {
-        name = "copilot",
-        module = "blink-copilot",
-        async = true,
       }
     }
   },
