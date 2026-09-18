@@ -4,11 +4,6 @@
       "rev": "7ad8209b2f880a2840c94cdcd80ab4dc511d4f39",
       "src": "https://github.com/fang2hou/blink-copilot"
     },
-    "blink.cmp": {
-      "rev": "78336bc89ee5365633bcf754d93df01678b5c08f",
-      "src": "https://github.com/Saghen/blink.cmp",
-      "version": "1.0.0 - 2.0.0"
-    },
     "copilot-lualine": {
       "rev": "222e90bd8dcdf16ca1efc4e784416afb5f011c31",
       "src": "https://github.com/AndreM222/copilot-lualine"
@@ -16,10 +11,6 @@
     "diffview.nvim": {
       "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
       "src": "https://github.com/sindrets/diffview.nvim"
-    },
-    "fidget.nvim": {
-      "rev": "9e0201673e08e997e7cf52afca5565c70bd117f3",
-      "src": "https://github.com/j-hui/fidget.nvim"
     },
     "gitsigns.nvim": {
       "rev": "8d79f2410c76e62b92e51c28c82e28c1c5a3daeb",
@@ -97,10 +88,6 @@
     "treesj": {
       "rev": "79aedb401bbdc7e4202f7881eab5f6feb2105b0a",
       "src": "https://github.com/Wansmer/treesj"
-    },
-    "trouble.nvim": {
-      "rev": "bd67efe408d4816e25e8491cc5ad4088e708a69a",
-      "src": "https://github.com/folke/trouble.nvim"
     },
     "vim": {
       "rev": "e7817b4baccfb3529f709ac048c621f35cdbc5b3",

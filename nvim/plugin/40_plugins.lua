@@ -33,7 +33,6 @@ vim.api.nvim_create_autocmd("PackChanged", {
 vim.pack.add({
   "https://github.com/nvim-lua/plenary.nvim",
   "https://github.com/dracula/vim",
-  "https://github.com/j-hui/fidget.nvim",
   "https://github.com/nvim-tree/nvim-web-devicons",
   "https://github.com/nvim-tree/nvim-tree.lua",
   "https://github.com/nvim-lualine/lualine.nvim",
@@ -55,8 +54,6 @@ vim.pack.add({
   "https://github.com/windwp/nvim-ts-autotag",
   "https://github.com/kylechui/nvim-surround",
   "https://github.com/Vigemus/iron.nvim",
-  "https://github.com/folke/trouble.nvim",
-  { src = "https://github.com/Saghen/blink.cmp", version = vim.version.range("1.x") },
   "https://github.com/folke/lazydev.nvim"
 })
 
@@ -98,8 +95,6 @@ require("nvim-lightbulb").setup {
   }
 }
 
-require("fidget").setup {}
-
 require("lualine").setup {
   options = {
     section_separators = '',
@@ -108,6 +103,7 @@ require("lualine").setup {
   sections = {
     lualine_c = { { 'filename', path = 1 } },
     lualine_x = {
+      'lsp_status',
       'encoding',
       { 'fileformat', icons_enabled = false },
       'filetype'
@@ -241,50 +237,9 @@ defer_setup({ "IronRepl", "IronRestart", "IronFocus", "IronHide" }, function()
   })
 end)
 
-require("trouble").setup()
-
 require("lazydev").setup({
   library = {
     { path = "${3rd}/luv/library", words = { "vim%.uv" } },
   }
-})
-
-require("blink.cmp").setup({
-  keymap = {
-    preset = 'none',
-    ['<C-space>'] = { 'show' },
-    ['<C-e>'] = { 'cancel' },
-    ['<Tab>'] = { 'select_and_accept', 'fallback' },
-    ['<C-n>'] = { 'select_next', 'fallback' },
-    ['<C-p>'] = { 'select_prev', 'fallback' },
-    ['<Down>'] = { 'select_next', 'fallback' },
-    ['<Up>'] = { 'select_prev', 'fallback' },
-    ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
-    ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-  },
-  appearance = { nerd_font_variant = 'mono' },
-  completion = { documentation = { auto_show = true } },
-  sources = {
-    default = { 'lazydev', 'lsp' },
-    providers = {
-      lazydev = {
-        name = "LazyDev",
-        module = "lazydev.integrations.blink",
-        score_offset = 100,
-      }
-    }
-  },
-  fuzzy = { implementation = "prefer_rust_with_warning" },
-  cmdline = {
-    keymap = {
-      preset = 'inherit',
-      ['<Tab>'] = { 'show', 'select_and_accept', 'fallback' },
-    },
-    completion = {
-      menu = { auto_show = true },
-    },
-    sources = { 'cmdline', 'buffer' },
-  },
-  term = { enabled = false }
 })
 

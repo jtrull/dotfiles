@@ -7,9 +7,15 @@ vim.keymap.set({ 'n', 'i', 'v', 'o' }, '<Right>', '<Nop>')
 vim.keymap.set({ 'n', 'v', 's', 'o' }, 'j', "v:count ? 'j' : 'gj'", { expr = true, silent = true })
 vim.keymap.set({ 'n', 'v', 's', 'o' }, 'k', "v:count ? 'k' : 'gk'", { expr = true, silent = true })
 
+-- Cmdline completion
+vim.keymap.set('c', '<Tab>', function()
+  return vim.fn.wildmenumode() == 1 and "<C-n>" or "<Tab>"
+end, { expr = true })
+
 -- Diagnostics
 vim.keymap.set('n', '<leader>dd', vim.diagnostic.open_float)
 vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist)
+vim.keymap.set('n', '<leader>dQ', vim.diagnostic.setqflist)
 
 -- Additional LSP mappings
 vim.keymap.set('n', 'grD', vim.lsp.buf.declaration)

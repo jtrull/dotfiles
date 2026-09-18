@@ -3,3 +3,7 @@ vim.api.nvim_create_autocmd(
   { command = "silent! wall", nested = true }
 )
 
+vim.api.nvim_create_autocmd("CmdlineChanged", {
+  pattern = { ":", "/", "?" },
+  callback = vim.fn.wildtrigger
+})

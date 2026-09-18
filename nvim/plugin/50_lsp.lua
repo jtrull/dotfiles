@@ -27,6 +27,21 @@ vim.api.nvim_create_autocmd("LspAttach", {
       })
     end
 
+    if client:supports_method("textDocument/completion") then
+      vim.lsp.completion.enable(true, client.id, ev.buf)
+      vim.bo[ev.buf].autocomplete = true
+      vim.bo[ev.buf].complete = "o"
+
+      vim.keymap.set("i", "<C-Space>", vim.lsp.completion.get, {
+        buffer = ev.buf,
+        desc = "LSP completion"
+      })
+
+      vim.keymap.set("i", "<Tab>", function()
+        return vim.fn.pumvisible() == 1 and "<C-n><C-y>" or "<Tab>"
+      end, { buffer = ev.buf, expr = true })
+    end
+
     local map = function(lhs, rhs, desc)
       vim.keymap.set("n", lhs, rhs, { buffer = ev.buf, desc = desc })
     end

@@ -1,9 +1,11 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+vim.o.autocompletedelay = 40
 vim.o.autowrite = true
 vim.o.backup = false
 vim.o.colorcolumn = "80"
+vim.o.completeopt = "menuone,noselect,popup,fuzzy"
 vim.o.cursorline = true
 vim.o.eol = false
 vim.o.errorbells = false
@@ -30,6 +32,8 @@ vim.o.tabstop = 2
 vim.o.termguicolors = true
 vim.o.title = true
 vim.o.virtualedit = "block"
+vim.o.wildmode = "noselect:lastused,full"
+vim.o.wildoptions = "pum"
 vim.o.wrap = false
 
 -- Use nvim-tree instead of netrw
