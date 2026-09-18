@@ -5,5 +5,7 @@ vim.api.nvim_create_autocmd(
 
 vim.api.nvim_create_autocmd("CmdlineChanged", {
   pattern = { ":", "/", "?" },
-  callback = vim.fn.wildtrigger
+  callback = function()
+    vim.fn.wildtrigger()
+  end
 })
