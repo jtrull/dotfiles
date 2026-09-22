@@ -70,16 +70,19 @@ local treesitter_languages = {
   "toml", "tsv",
   "typescript", "vim", "vimdoc", "xml", "yaml"
 }
-require("nvim-treesitter").install(treesitter_languages)
+vim.schedule(function()
+  require("nvim-treesitter").install(treesitter_languages)
+end)
 
-local treesitter_filetypes = vim.iter(treesitter_languages):map(vim.treesitter.language.get_filetypes):flatten():totable()
-local ts_start = function()
-  vim.treesitter.start()
-  vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
-  vim.wo[0][0].foldmethod = "expr"
-  vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-end
-vim.api.nvim_create_autocmd("FileType", { pattern = treesitter_filetypes, callback = ts_start })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    if not pcall(vim.treesitter.start) then return end
+    vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.wo[0][0].foldmethod = "expr"
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
+})
 
 -- mason is loaded on demand (see 50_lsp.lua for PATH + vim.lsp.enable).
 -- Servers are installed via the :Mason UI; the deferred setup runs on first use.
