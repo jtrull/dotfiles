@@ -43,7 +43,7 @@ vim.keymap.set('n', '<leader>gL', '<cmd>Telescope git_commits<cr>', { desc = "Te
 vim.keymap.set('n', '<leader>gl', '<cmd>Telescope git_bcommits<cr>', { desc = "Telescope git commits current file" })
 vim.keymap.set('n', '<leader>gc', '<cmd>Telescope git_branches<cr>', { desc = "Telescope git branches" })
 vim.keymap.set('n', '<leader>gs', '<cmd>Telescope git_status<cr>', { desc = "Telescope git status" })
-vim.keymap.set('n', '<leader>gS', '<cmd>Telescope git_stash', { desc = "Telescope git stashes" })
+vim.keymap.set('n', '<leader>gS', '<cmd>Telescope git_stash<cr>', { desc = "Telescope git stashes" })
 
 -- vim-fugitive
 vim.keymap.set('n', '<leader>gg', '<cmd>Git<cr>', { desc = "Fugitive git status" })
