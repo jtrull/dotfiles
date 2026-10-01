@@ -60,12 +60,3 @@ vim.keymap.set('n', '<leader>rs', '<cmd>IronRepl<cr>', { desc = "Start REPL" })
 vim.keymap.set('n', '<leader>rr', '<cmd>IronRestart<cr>', { desc = "Restart REPL" })
 vim.keymap.set('n', '<leader>rf', '<cmd>IronFocus<cr>', { desc = "Focus REPL" })
 vim.keymap.set('n', '<leader>rh', '<cmd>IronHide<cr>', { desc = "Hide REPL" })
-
--- trouble.nvim
-vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = "Buffer Diagnostics (Trouble)" })
-vim.keymap.set('n', '<leader>xX', '<cmd>Trouble diagnostics toggle<cr>', { desc = "Diagnostics (Trouble)" })
-vim.keymap.set('n', '<leader>xS', '<cmd>Trouble symbols toggle focus=false<cr>', { desc = "Symbols (Trouble)" })
-vim.keymap.set('n', '<leader>xL', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', { desc = "LSP Definitions / references / ... (Trouble)" })
-vim.keymap.set('n', '<leader>xl', '<cmd>Trouble loclist toggle<cr>', { desc = "Location List (Trouble)" })
-vim.keymap.set('n', '<leader>xq', '<cmd>Trouble qflist toggle<cr>', { desc = "Quickfix List (Trouble)" })
-
