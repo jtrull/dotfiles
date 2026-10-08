@@ -1,18 +1,41 @@
--- Autocommands to handle package updates
+-- Autocommands to handle package updates. The callback is responsible for
+-- running packadd if it needs the plugin loaded.
 local function on_pack_update(package, fn)
   vim.api.nvim_create_autocmd("PackChanged", {
     pattern = package,
     callback = function (ev)
       if ev.data.kind == "delete" then return end
-      if not ev.data.active then vim.cmd.packadd(package) end
       fn(ev)
     end
   })
 end
 
-on_pack_update("nvim-treesitter", function () vim.cmd("TSUpdate") end)
+on_pack_update("nvim-treesitter", function ()
+  vim.cmd.packadd("nvim-treesitter")
+  vim.cmd("TSUpdate")
+end)
 on_pack_update("telescope-fzf-native.nvim", function (ev)
   vim.system({ "make" }, { cwd = ev.data.path })
+end)
+
+-- vim.pack doesn't manage luarocks, so refresh rest.nvim's rock dependencies
+-- whenever the plugin is installed or updated.
+on_pack_update("rest.nvim", function (ev)
+  local rockspecs = vim.fn.glob(ev.data.path .. "/*.rockspec", false, true)
+  local cmd = { "luarocks", "--lua-version", "5.1", "install" }
+  if #rockspecs > 0 then
+    vim.list_extend(cmd, { "--deps-only", rockspecs[1] })
+  else
+    vim.list_extend(cmd, { "nvim-nio", "xml2lua", "mimetypes" })
+  end
+  vim.notify("rest.nvim: installing luarocks dependencies...", vim.log.levels.INFO)
+  vim.system(cmd, { text = true }, vim.schedule_wrap(function (r)
+    if r.code ~= 0 then
+      vim.notify("rest.nvim rocks failed:\n" .. r.stderr, vim.log.levels.ERROR)
+    else
+      vim.notify("rest.nvim: luarocks dependencies installed", vim.log.levels.INFO)
+    end
+  end))
 end)
 
 -- Eager loads
@@ -44,7 +67,8 @@ vim.pack.add({
   "https://github.com/windwp/nvim-ts-autotag",
   "https://github.com/Vigemus/iron.nvim",
   "https://github.com/sindrets/diffview.nvim",
-  "https://github.com/folke/lazydev.nvim"
+  "https://github.com/folke/lazydev.nvim",
+  "https://github.com/rest-nvim/rest.nvim"
 }, { load = function () end })
 
 -- Eager setup

@@ -1,5 +1,6 @@
--- rest.nvim and its luarocks dependencies, loaded only for http files.
--- Install deps: `luarocks --lua-version 5.1 install nvim-nio xml2lua mimetypes`
+-- Lazy-loads rest.nvim for http files. The plugin is registered in
+-- plugin/40_plugins.lua, which also refreshes its luarocks dependencies on
+-- install/update.
 
 if vim.g._rest_nvim_loaded then return end
 vim.g._rest_nvim_loaded = true
@@ -20,7 +21,8 @@ if h then
   end
 end
 
-vim.pack.add({"https://github.com/rest-nvim/rest.nvim"})
+-- Installed and updated via vim.pack.add in plugin/40_plugins.lua.
+vim.cmd.packadd("rest.nvim")
 
 -- rest.nvim's own ftplugin/http.lua won't run automatically since the pack
 -- was added after filetype detection. Source it manually.
