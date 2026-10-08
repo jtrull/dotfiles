@@ -6,7 +6,7 @@ vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 -- our after/lsp/*.lua overrides merged on top). Add a server here after
 -- installing it via :Mason.
 vim.lsp.enable({
-  "jsonls", "lua_ls", "prismals", "pyright", "ruff",
+  "bashls", "cssls", "html", "jsonls", "lua_ls", "prismals", "pyright", "ruff",
   "ruby_lsp", "ts_ls", "terraformls", "yamlls", "eslint",
 })
 
