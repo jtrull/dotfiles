@@ -105,10 +105,25 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Lualine status line
+local dracula = vim.g["dracula#palette"]
 require("lualine").setup {
   options = {
     section_separators = '',
-    component_separators = ''
+    component_separators = '',
+    always_show_tabline = false -- only when there are multiple tabs
+  },
+  tabline = {
+    lualine_a = {
+      {
+        'tabs',
+        mode = 2, -- tab number and name
+        max_length = function () return vim.o.columns end,
+        tabs_color = {
+          active = { fg = dracula.bg[1], bg = dracula.purple[1], gui = 'bold' },
+          inactive = { fg = dracula.fg[1], bg = dracula.comment[1] }
+        }
+      }
+    }
   },
   sections = {
     lualine_c = { { 'filename', path = 1 } },
