@@ -123,8 +123,56 @@ alias tf='terraform'
 alias on_production='DISABLE_SPRING=1 DB_HOST=10.128.2.5 DB_PORT=1521 DB_NAME=jade.prod.db.mcisemi.cloud'
 alias on_staging='DISABLE_SPRING=1 DB_HOST=10.128.2.5 DB_PORT=1521 DB_NAME=jadestg.stage.db.mcisemi.cloud'
 
+alias jade-mongo-test='op read "op://Employee/jtrull - jade-test - Atlas/connection_string"'
+alias jade-mongo-prod='op read "op://Employee/jtrull - jade-prod - Atlas/connection_string"'
+
 # cd to git root
 function gcd() {
   local r;
   r=$(git rev-parse --git-dir) && r=$(cd "$r" && pwd)/ && cd "${r%%/.git/*}/$1"
+}
+
+# make glow dwim
+function glow() {
+  local width=$(( COLUMNS < 120 ? COLUMNS : 120 ))
+  local -a args=("$@")
+  if (( $# == 0 )); then
+    local file
+    file=$(fd -IL0 -E node_modules '\.md$' | fzf --read0) || return
+    args=("$file")
+  fi
+  PAGER='less -R' command glow -p -w "$width" "${args[@]}"
+}
+
+# for remote ssh work; See also ~/.ssh/config
+use-forwarded-agent() {
+  local auth connection
+
+  auth=$(tmux show-environment SSH_AUTH_SOCK 2>/dev/null) ||
+    { print -u2 'No forwarded SSH agent found for this tmux session.'; return 1; }
+  connection=$(tmux show-environment SSH_CONNECTION 2>/dev/null) ||
+    { print -u2 'No SSH connection context found for this tmux session.'; return 1; }
+
+  export SSH_AUTH_SOCK="${auth#SSH_AUTH_SOCK=}"
+  export SSH_CONNECTION="${connection#SSH_CONNECTION=}"
+}
+
+use-local-agent() {
+  unset SSH_AUTH_SOCK SSH_CONNECTION
+}
+
+codex() {
+  local daemon_info
+  local -x GITHUB_PAT
+
+  if [[ " ${*} " == *" --no-daemon "* ]] ||
+    ! daemon_info="$(command codex app-server daemon version 2>/dev/null)" ||
+    ! jq -e '.status == "running"' <<< "$daemon_info" >/dev/null 2>&1
+  then
+    GITHUB_PAT="$(op read 'op://Employee/GitHub - Codex MCP/credential')" ||
+      return $?
+    [[ -n "$GITHUB_PAT" ]] || return 1
+  fi
+
+  command codex "$@"
 }
